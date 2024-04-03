@@ -1,10 +1,10 @@
-# RepositorioTemplate
+# My_Ecommerce
 
-Repositório que deve ser utilizado como template inicial pelos grupos da matéria de Arquitetura e Desenho de Software.
+Repositório do grupo 1 da matéria de Arquitetura e Desenho de Software do semestre 2024.1 de Engenharia de Software na Faculdade do Gama - UnB.
 
 ## Introdução
 
-Este repositório traz um template de repo de documentação a ser seguido pelos grupos de arquitetura e desenho de software.
+Este repositório traz a documentação do projeto desenvolvido pelo grupo
 
 ## Tecnologia
 
