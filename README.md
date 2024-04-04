@@ -2,10 +2,12 @@
 
 <p align="center"><img src="docs/assets/logo.svg" width = 35%></p>
 
+
 Repositório do Grupo 1 da turma de Arquitetura e Desenho de Software ministrada pela Profª Drª Milene Serrano na Universidade de Brasília (UnB-FGA) durante o primeiro semestre letivo de 2024.
 ## 🎮 Introdução
 
 Este repositório traz a documentação e os resultados alcançados do projeto sobre um *e-commerce* de jogos virtuais.
+
 
 ## ⚙ Tecnologia
 
