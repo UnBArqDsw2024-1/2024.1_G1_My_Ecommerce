@@ -4,7 +4,8 @@ Repositório do grupo 1 da matéria de Arquitetura e Desenho de Software do seme
 
 ## Introdução
 
-Este repositório traz a documentação do projeto desenvolvido pelo grupo
+Este repositório traz a documentação do projeto desenvolvido pelo grupo.
+
 
 ## Tecnologia
 
