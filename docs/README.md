@@ -4,6 +4,23 @@
 **Número do Grupo**: G1<br>
 
 ## Alunos
+
+<p align="center">
+<a href="https://github.com/alexianaa"><img src="./assets/PerfilAlexia.png" /></a>
+<a href="https://github.com/JoaoSchmitz"><img src="./assets/PerfilJoao.png"/></a>
+<a href="https://github.com/uMorbeck"><img src="./assets/PerfilMorbeck.png"/></a>
+<a href="https://github.com/luanduartee"><img src="./assets/PerfilLuan.png"/></a>
+<a href="https://github.com/Luanmq"><img src="./assets/PerfilLuanMelo.png"/></a>
+<a href="https://github.com/luciano-freitas-melo"><img src="./assets/PerfilLuciano.png"/></a>
+<a href="https://github.com/l-ricardo"><img src="./assets/PerfilRicardo.png"/></a>
+<a href="https://github.com/marcusmartinss"><img src="./assets/PerfilMarcus.png"/></a>
+<a href="https://github.com/pedrobarbosaocb"><img src="./assets/PerfilPedro.png"/></a>
+<a href="https://github.com/pkbceira03"><img src="./assets/PerfilCabeceira.png"/></a>
+<a href="https://github.com/phmelosilva"><img src="./assets/PerfilPH.png"/></a>
+<a href="https://github.com/raqueleucaria"><img src="./assets/PerfilRaquel.png"/></a>
+<a href="https://github.com/sabrinaberno"><img src="./assets/PerfilSabrina.png"/></a>
+</p>
+
 | Matrícula  | Aluno                                   |
 |------------|-----------------------------------------|
 | 20/2045007 | Alexia Naara da Silva Cardoso           |
