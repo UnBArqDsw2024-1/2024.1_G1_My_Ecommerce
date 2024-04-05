@@ -10,6 +10,7 @@
     - [1.3. Participações - Base](/Base/1.3.ParticipacoesBase.md)
     - [1.4. Design Sprint](/Base/1.4.DesignSprint.md)
       - [1.4.1 Etapa Mapear](/Base/1.4.1.Mapear.md)
+      - [1.4.2 Etapa Idealizar](/Base/1.4.2.Idealizar.md)
       - [1.4.3 Etapa Decidir](/Base/1.4.3.Decidir.md)
 
 - **Modelagem**
