@@ -1,0 +1,34 @@
+
+  /* Base
+  ============================================================================= */
+  :root {
+    --theme-color   : rgb(168, 168, 168);
+    --base-line-height     : 1.7; 
+
+    /* Strong */
+    --strong-color         : #40af77;
+    --strong-font-weight   : 600;
+
+
+    /* Links */
+    --link-color                        : #a8a500;
+    --link-color--hover                 : #40af77;
+    --link-text-decoration--hover       : underline;
+    --content-max-width                 :95em;
+
+  
+    
+}
+
+/* Summary */
+
+summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--strong-color);
+}
+
+summary:hover {
+    text-decoration: var(--link-text-decoration--hover);
+    text-decoration-color: var(--link-text-decoration-color--hover);
+}
