@@ -21,21 +21,22 @@
 <a href="https://github.com/sabrinaberno"><img src="./assets/PerfilSabrina.png"/></a>
 </p>
 
-| Matrícula  | Aluno                                   |
-|------------|-----------------------------------------|
-| 20/2045007 | Alexia Naara da Silva Cardoso           |
-| 20/2063300 | João Pedro Rodrigues Morbeck            |
-| 20/0058525 | João Schimitz de Oliveira Schmitz       |
-| 21/1041221 | Luan Mateus Cesar Duarte                |
-| 20/2023860 | Luan Melo Queiroz                       |
-| 20/2016847 | Luciano de Freitas Melo                 |
-| 22/1007653 | Luciano Ricardo da Silva Junior         |
-| 21/1043683 | Marcus Vinícius Paiva Martins           |
-| 21/1043727 | Pedro Cabeceira de Freitas              |
-| 20/0026046 | Pedro de Oliveira Campos Barbosa        |
-| 21/1039662 | Pedro Henrique da Silva Melo            |
-| 20/2045268 | Raquel Temóteo Eucaria Pereira da Costa |
-| 21/1029586 | Sabrina Caldas Berno                    |
+<details><summary>Matrículas</summary>
+<table><tbody>
+    <tr><td>20/2045007</td><td>Alexia Naara da Silva Cardoso</td></tr>
+    <tr><td>20/2063300</td><td>João Pedro Rodrigues Morbeck</td></tr>
+    <tr><td>20/0058525</td><td>João Schimitz de Oliveira Schmitz</td></tr>
+    <tr><td>21/1041221</td><td>Luan Mateus Cesar Duarte</td></tr>
+    <tr><td>20/2023860</td><td>Luan Melo Queiroz</td></tr>
+    <tr><td>20/2016847</td><td>Luciano de Freitas Melo</td></tr>
+    <tr><td>22/1007653</td><td>Luciano Ricardo da Silva Junior</td></tr>
+    <tr><td>21/1043683</td><td>Marcus Vinícius Paiva Martins</td></tr>
+    <tr><td>21/1043727</td><td>Pedro Cabeceira de Freitas</td></tr>
+    <tr><td>20/0026046</td><td>Pedro de Oliveira Campos Barbosa</td></tr>
+    <tr><td>21/1039662</td><td>Pedro Henrique da Silva Melo</td></tr>
+    <tr><td>20/2045268</td><td>Raquel Temóteo Eucaria Pereira da Costa</td></tr>
+    <tr><td>21/1029586</td><td>Sabrina Caldas Berno</td></tr>
+</tbody></table></details>
 
 ## Sobre 
 
