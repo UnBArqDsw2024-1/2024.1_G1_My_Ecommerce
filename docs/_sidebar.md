@@ -12,6 +12,7 @@
       - [1.4.1 Etapa Mapear](/Base/1.4.1.Mapear.md)
       - [1.4.2 Etapa Idealizar](/Base/1.4.2.Idealizar.md)
       - [1.4.3 Etapa Decidir](/Base/1.4.3.Decidir.md)
+    - [1.5. Glossário](/Base/1.5.Glossario.md)
 
 - **Modelagem**
   - [2. Desenho de Software (Modelagem)](/Modelagem/2.Modelagem.md)
