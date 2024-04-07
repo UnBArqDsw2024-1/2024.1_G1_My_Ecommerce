@@ -8,7 +8,7 @@
 |------------|-----------------------------------------|
 | 20/2045007 | Alexia Naara da Silva Cardoso           |
 | 20/2063300 | João Pedro Rodrigues Morbeck            |
-| 20/0058525 | João Schimitz de Oliveira Schmitz       |
+| 20/0058525 | João Matheus  Schimitz de Oliveira      |
 | 21/1041221 | Luan Mateus Cesar Duarte                |
 | 20/2023860 | Luan Melo Queiroz                       |
 | 20/2016847 | Luciano de Freitas Melo                 |
@@ -45,7 +45,7 @@ Adicione 2 ou mais screenshots em termos de artefatos da Terceira Entrega.
 Adicione 2 ou mais screenshots em termos de artefatos da Quarta Entrega.
 
 ## Descritivo dos Principais Aspectos Técnicos 
-**Principal(is) Metodologia(s) Adotada(s)**: Kanban<br>
+**Principal(is) Metodologia(s) Adotada(s)**: Kanban e Scrum<br>
 **Principais Linguagens Utilizadas e/ou Pretendidas**: xxxxxx<br>
 **Principais Tecnologias Utilizadas e/ou Pretendidas**: xxxxxx<br>
 **Principal(is) Estilo(s) Arquitetural(is) Adotado(s)**: xxxxxx<br>
@@ -58,3 +58,9 @@ Adicione 2 ou mais screenshots em termos de artefatos da Quarta Entrega.
 
 
 ## Informações Complementares 
+
+## Histórico de versão
+
+| Data | Versão | Atividade | Responsável |
+| ---- | ------ | --------- | ----------- |
+| 03/04/2024 | 1.0 | Adiciona informações | Alexia |
