@@ -6,18 +6,41 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"> -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-defaults.css"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css" title="light">
+
+  <link rel="shortcut icon" type="imagex/png" href='assets/logo2.svg'>
+
 </head>
 <body>
   <div id="app"></div>
   <script>
     window.$docsify = {
       loadSidebar: true,
-      name: 'Repositorio Template',
-      repo: 'https://github.com/UnBArqDsw2022-1/RepositorioTemplate'
+      sidebar: {open: true},
+      name: 'G1 - My_Ecommerce',
+      repo: 'https://github.com/UnBArqDsw2024-1/2024.1_G1_My_Ecommerce',
+      logo: 'assets/logo2.svg',
+      search: {
+                depth      : 3,
+                noData     : 'Sem resultados',
+                placeholder: 'Buscar'
+            } 
     }
   </script>
+  
   <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+
+  <!-- plugins -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css" title="light">
+  <link rel="stylesheet" href="assets/css/stylesheet.css"/>
+  
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
+  <script src="//polyfill.io/v3/polyfill.min.js?features=String.prototype.normalize"></script>
+
 </body>
 </html>
