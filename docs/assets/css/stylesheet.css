@@ -1,0 +1,34 @@
+
+  /* Base
+  ============================================================================= */
+  :root {
+    --theme-color   : #000000;
+    --base-line-height     : 1.7; 
+
+    /* Strong */
+    --strong-color         : #6a00c0;
+    --strong-font-weight   : 600;
+
+
+    /* Links */
+    --link-color                        : #D74DD7;
+    --link-color--hover                 : #6a00c0;
+    --link-text-decoration--hover       : underline;
+    --content-max-width                 :95em;
+
+  
+    
+}
+
+/* Summary */
+
+summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--strong-color);
+}
+
+summary:hover {
+    text-decoration: var(--link-text-decoration--hover);
+    text-decoration-color: var(--link-text-decoration-color--hover);
+}

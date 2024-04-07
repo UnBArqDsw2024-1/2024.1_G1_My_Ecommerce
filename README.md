@@ -1,6 +1,6 @@
 # G1 - My Ecommerce
 
-<p align="center"><img src="docs/assets/logo.svg" width = 35%></p>
+<p align="center"><img src="docs/assets/logo.svg" width = 30%></p>
 
 
 Repositório do Grupo 1 da turma de Arquitetura e Desenho de Software ministrada pela Profª Drª Milene Serrano na Universidade de Brasília (UnB-FGA) durante o primeiro semestre letivo de 2024.
@@ -55,8 +55,18 @@ docsify serve ./docs
 
 ## 👨‍💻 Equipe
 
-
-| [<img src="https://avatars.githubusercontent.com/u/61877198?s=200" width=50><br>**Alexia Naara**](https://github.com/alexianaa) | [<img src="https://avatars.githubusercontent.com/u/79875786?s=200" width=50><br>**João Matheus**](https://github.com/JoaoSchmitz) | [<img src="https://avatars.githubusercontent.com/u/97908795?v=4" width=50><br> João Morbeck](https://github.com/uMorbeck)| [<img src="https://avatars.githubusercontent.com/u/89037018?v=4" width=50><br>**Luan Mateus**](https://github.com/luanduartee) | [<img src="https://avatars.githubusercontent.com/u/88345670?v=4" width=50><br>**Luan Melo**](https://github.com/Luanmq) | [<img src="https://avatars.githubusercontent.com/u/88516249?v=4" width=50><br>**Luciano Freitas**](https://github.com/luciano-freitas-melo) | [<img src="https://avatars.githubusercontent.com/u/88405145?v=4" width=50><br>**Luciano Ricardo**](https://github.com/l-ricardo) |
-| :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| [<img src="https://avatars.githubusercontent.com/u/89209017?v=4" width=50><br>**Marcus Martins**](https://github.com/marcusmartinss) | [<img src="https://avatars.githubusercontent.com/u/78980796?v=4" width=50><br>**Pedro Barbosa**](https://github.com/pedrobarbosaocb) | [<img src="https://avatars.githubusercontent.com/u/109092210?v=4" width=50><br>**Pedro Cabeceira**](https://github.com/pkbceira03) | [<img src="https://avatars.githubusercontent.com/u/88786258?v=4" width=50><br>**Pedro Henrique**](https://github.com/phmelosilva) | [<img src="https://avatars.githubusercontent.com/u/81540491?v=4" width=50><br>**Raquel Eucaria**](https://github.com/raqueleucaria) | [<img src="https://avatars.githubusercontent.com/u/86732411?v=4" width=50><br>**Sabrina Caldas**](https://github.com/sabrinaberno) |
-
+<p align="center">
+<a href="https://github.com/alexianaa"><img src="./docs/assets/PerfilAlexia.png" style="width: 7%; height: auto;"/></a>
+<a href="https://github.com/JoaoSchmitz"><img src="./docs/assets/PerfilJoao.png" style="width: 7%; height: auto;"/></a>
+<a href="https://github.com/uMorbeck"><img src="./docs/assets/PerfilMorbeck.png" style="width: 7%; height: auto;"/></a>
+<a href="https://github.com/luanduartee"><img src="./docs/assets/PerfilLuan.png" style="width: 7%; height: auto;"/></a>
+<a href="https://github.com/Luanmq"><img src="./docs/assets/PerfilLuanMelo.png" style="width: 7%; height: auto;"/></a>
+<a href="https://github.com/luciano-freitas-melo"><img src="./docs/assets/PerfilLuciano.png" style="width: 7%; height: auto;"/></a>
+<a href="https://github.com/l-ricardo"><img src="./docs/assets/PerfilRicardo.png" style="width: 7%; height: auto;"/></a>
+<a href="https://github.com/marcusmartinss"><img src="./docs/assets/PerfilMarcus.png" style="width: 7%; height: auto;"/></a>
+<a href="https://github.com/pedrobarbosaocb"><img src="./docs/assets/PerfilPedro.png" style="width: 7%; height: auto;"/></a>
+<a href="https://github.com/pkbceira03"><img src="./docs/assets/PerfilCabeceira.png" style="width: 7%; height: auto;"/></a>
+<a href="https://github.com/phmelosilva"><img src="./docs/assets/PerfilPH.png" style="width: 7%; height: auto;"/></a>
+<a href="https://github.com/raqueleucaria"><img src="./docs/assets/PerfilRaquel.png" style="width: 7%; height: auto;"/></a>
+<a href="https://github.com/sabrinaberno"><img src="./docs/assets/PerfilSabrina.png" style="width: 7%; height: auto;"/></a>
+</p>
