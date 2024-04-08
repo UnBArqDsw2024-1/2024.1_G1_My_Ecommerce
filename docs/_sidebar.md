@@ -13,6 +13,7 @@
       - [1.4.2 Etapa Idealizar](/Base/1.4.2.Idealizar.md)
       - [1.4.3 Etapa Decidir](/Base/1.4.3.Decidir.md)
       - [1.4.4 Etapa Prototipar](/Base/1.4.4.Prototipar.md)
+      - [1.4.5 Etapa Testar](/Base/1.4.5.Testar.md)
     - [1.5. Glossário](/Base/1.5.Glossario.md)
 
 - **Modelagem**
