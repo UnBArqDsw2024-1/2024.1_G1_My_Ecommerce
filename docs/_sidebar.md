@@ -33,7 +33,9 @@
   - [4.3. Participações - Arquitetura & Reutilização de Software](/ArquiteturaReutilizacao/4.3.ParticipacoesArqReutilizacao.md)
 
 - **Reuniões**
-  - [Reunião XX/XX](/Reunioes/ataXX_XX.md)
-  - [Reunião XX/XX](/Reunioes/ataXX_XX.md)
-  - [Reunião XX/XX](/Reunioes/ataXX_XX.md)
+  - [Reunião 11/07](/Reunioes/Ata11_07.md)
+  - [Reunião 15/07](/Reunioes/Ata15_07_pt1.md)
+  - [Reunião 15/07](/Reunioes/Ata15_07_pt2.md)
+  - [Reunião 17/07](/Reunioes/Ata17_07.md)
+  - [Reunião 18/07](/Reunioes/Ata18_07.md)
 
