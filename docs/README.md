@@ -72,13 +72,13 @@ Adicione 2 ou mais screenshots em termos de artefatos da Quarta Entrega.
 
 ( ) SIM
 
-( X ) NÃO
+(X) NÃO
 
 
 ## Informações Complementares 
 
 ## Histórico de versão
 
-| Data | Versão | Atividade | Responsável |
-| ---- | ------ | --------- | ----------- |
-| 03/04/2024 | 1.0 | Adiciona informações | Alexia |
+| Data       | Versão | Atividade            | Responsável |
+| ---------- | ------ | -------------------- | ----------- |
+| 03/04/2024 | 1.0    | Adiciona informações | Alexia      |
