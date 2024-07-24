@@ -20,8 +20,6 @@ class Jogo {
         this._requisitosSistema = requisitosSistema;
     }
     
-
-
     clone() {
         return new Jogo(
             this._nome,
