@@ -1,3 +1,9 @@
+class Prototype {
+    clone() {
+        throw new Error("O método clone() precisa ser implementado");
+    }
+}
+
 class Jogo {
     constructor(nome, desenvolvedor, editora, preco, descricao, dataLancamento, plataforma, generos, recursos, tipos, quantidadeVendido, requisitosSistema) {
         this._nome = nome;
@@ -13,6 +19,8 @@ class Jogo {
         this._quantidadeVendido = quantidadeVendido;
         this._requisitosSistema = requisitosSistema;
     }
+    
+
 
     clone() {
         return new Jogo(
@@ -30,10 +38,6 @@ class Jogo {
             { ...this._requisitosSistema }
         );
     }
-
-    // addJogoAoCarrinho(carrinho) {}
-
-    // getNota() {}
 
     // Getters para acessar os atributos
     get nome() { return this._nome; }
@@ -54,6 +58,7 @@ class Jogo {
         this._preco = valor;
     }
 }
+
 
 class Biblioteca {
     constructor() {
@@ -137,3 +142,4 @@ try {
 } catch (error) {
     console.error(error.message);
 }
+
