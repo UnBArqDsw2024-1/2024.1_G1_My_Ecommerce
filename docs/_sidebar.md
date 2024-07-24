@@ -22,13 +22,12 @@
   - [2.2. Participações - Modelagem](/Modelagem/2.2.ParticipacoesModelagem.md)
 
 - **Padrões de Projeto**
-  - [3. Desenho de Software (Padrões de Projeto)](/PadroesDeProjeto/3.PadroesDeProjeto.md)
-    - [3.1. GoFs Criacional](/PadroesDeProjeto/3.1.GoFsCriacional.md)
-    - [3.2. GoFs Estrutural](/PadroesDeProjeto/3.2.GoFsEstrutural.md)
-    - [3.3. GoFs Comportamental](/PadroesDeProjeto/3.3.GoFsComportamental.md)
-    - [3.4. GRASPs](/PadroesDeProjeto/3.4.GRASPs.md)
-    - [3.5. Participações - Padrões de Projeto](/PadroesDeProjeto/3.5.ParticipacoesPadroes.md)
-
+  - [3.1. GoFs Criacional](/PadroesDeProjeto/3.1.GoFsCriacional.md)
+  - [3.2. GoFs Estrutural](/PadroesDeProjeto/3.2.GoFsEstrutural.md)
+  - [3.3. GoFs Comportamental](/PadroesDeProjeto/3.3.GoFsComportamental.md)
+  - [3.4. GRASPs](/PadroesDeProjeto/3.4.GRASPs.md)
+  - [3.5. Participações - Padrões de Projeto](/PadroesDeProjeto/3.5.ParticipacoesPadroes.md)
+  
 - **Arquitetura de Software & Reutilização**
   - [4.1. Módulo Estilos e Padrões Arquiteturais](/ArquiteturaReutilizacao/4.1.PadroesArquiteturais.md)
   - [4.2. Módulo Reutilização de Software](/ArquiteturaReutilizacao/4.2.ReutilizacaoDeSoftware.md)
