@@ -186,7 +186,7 @@ class Cliente {
     }
 }
 
-// Exemplo de teste - Criando um novo LojaFacade
+// Exemplo de uso - Criando um novo LojaFacade
 const loja = new LojaFacade();
 const jogo1 = new Jogo('Jogo 1', 'Desenvolvedor 1', 'Editora 1', [], 'Descrição 1', new Date(), new Date(), 50, 10, 'PC', ['Ação'], ['Online'], ['Singleplayer'], 100, {});
 const jogo2 = new Jogo('Jogo 2', 'Desenvolvedor 2', 'Editora 2', [], 'Descrição 2', new Date(), new Date(), 60, 5, 'Console', ['RPG'], ['Multiplayer'], ['Multiplayer'], 200, {});
@@ -194,7 +194,11 @@ const jogo2 = new Jogo('Jogo 2', 'Desenvolvedor 2', 'Editora 2', [], 'Descriçã
 loja.adicionarJogoAoCatalogo(jogo1);
 loja.adicionarJogoAoCatalogo(jogo2);
 
+console.log("Loja antes: ", JSON.stringify(loja))
+
 loja.addJogoAoCarrinho('Jogo 1');
+
+console.log("Loja depois: ",JSON.stringify(loja))
 console.log(loja.confirmarPedido());
 
 // Testando o Cliente
