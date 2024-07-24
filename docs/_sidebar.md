@@ -39,4 +39,6 @@
   - [Reunião 15/07](/Reunioes/Ata15_07_pt2.md)
   - [Reunião 17/07](/Reunioes/Ata17_07.md)
   - [Reunião 18/07](/Reunioes/Ata18_07.md)
+  - [Reunião 22/07 - Estrutural](/Reunioes/Ata22_07_Estrutural.md)
+  - [Reunião 22/07 - Comportamental](/Reunioes/Ata22_07_Comportamental.md)
 
