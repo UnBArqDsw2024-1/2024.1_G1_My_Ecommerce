@@ -26,7 +26,7 @@ class Jogo {
 }
 
 // Componente concreto representando um Jogo Basico
-class JogoBasico extends Jogo {
+class JogoConcreto extends Jogo {
     constructor(nome, desenvolvedor, editora, avaliacoes, descricao, dataLancamento, preco, plataforma, generos, recursos, tipos, quantidadeVendido, requisitosSistema) {
       super(nome, desenvolvedor, editora, avaliacoes, descricao, dataLancamento, preco, plataforma, generos, recursos, tipos, quantidadeVendido, requisitosSistema);
     }
@@ -85,7 +85,7 @@ class JogoDescontoFixo extends JogoDecorator {
   
   
 // Exemplo de uso
-const jogoBase = new JogoBasico();
+const jogoBase = new JogoConcreto();
 
 jogoBase.nome="The Witcher 3"
 jogoBase.preco=50.00
