@@ -30,7 +30,11 @@ Em ambientes **MacOS**, utilize:
 brew install node
 ```
 
-No caso de ambiente **Windows**, baixe o instalador pelo [*site oficial*](https://nodejs.org/en).
+No caso de ambiente **Windows**, baixe o instalador pelo [*site oficial*](https://nodejs.org/en). Ou usando o winget:
+
+```bash
+winget install -e --id OpenJS.NodeJS
+```
 
 **Por fim, instale o Docsify:**
 

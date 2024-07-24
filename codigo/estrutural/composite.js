@@ -104,19 +104,24 @@ class JuncaoFormaPagamento extends FormaPagamento {
     }
 }
 
+
+// Exemplo de uso
 // Criando formas de pagamento
 const cartaoCredito = new Credito('1234 5678 9101 1121', 'João Silva', '123', '12/25');
 const boletoBancario = new Boleto('34191.75503 00000.104628 01605.093000 7 81180000025400');
 
-console.log(cartaoCredito.solicitarCartao());
+console.log('Foi cadastrado um cartão:', JSON.stringify(cartaoCredito));
+console.log('Foi cadastrado um boleto:', JSON.stringify(boletoBancario));
 
 // Criando o composite
 const juncaoPagamento = new JuncaoFormaPagamento();
 juncaoPagamento.adicionaPagamento(cartaoCredito);
 juncaoPagamento.adicionaPagamento(boletoBancario);
 
+console.log('O metodo de pagamento composto é:', JSON.stringify(juncaoPagamento));
+
 // Confirmando pagamentos
 console.log(juncaoPagamento.confirmarPagamento()); // Saída: Todos os pagamentos foram confirmados.
 
 // Cancelando pagamentos
-console.log(juncaoPagamento.cancelarPagamento()); // Saída: Todos os pagamentos foram cancelados.
+console.log(juncaoPagamento.cancelarPagamento()); // Saída: Todos os pagamentos foram cancelados.""
