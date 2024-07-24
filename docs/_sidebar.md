@@ -41,4 +41,5 @@
   - [Reunião 18/07](/Reunioes/Ata18_07.md)
   - [Reunião 22/07 - Estrutural](/Reunioes/Ata22_07_Estrutural.md)
   - [Reunião 22/07 - Comportamental](/Reunioes/Ata22_07_Comportamental.md)
+  - [Reunião 24/07 - Observer](/Reunioes/Ata27_07_ObserverDoc.md)
 
