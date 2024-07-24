@@ -43,4 +43,6 @@
   - [Reunião 22/07 - Comportamental](/Reunioes/Ata22_07_Comportamental.md)
   - [Reunião 23/07 - Criacional](/Reunioes/Ata23_07_Criacional.md)
   - [Reunião 24/07 - GoF Observer](/Reunioes/Ata24_07_Observer.md)
+  - [Reunião 24/07 - Observer](/Reunioes/Ata27_07_ObserverDoc.md)
+
 
