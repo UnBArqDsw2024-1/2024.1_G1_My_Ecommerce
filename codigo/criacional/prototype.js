@@ -4,7 +4,7 @@ class Prototype {
     }
 }
 
-class Jogo {
+class Jogo extends Prototype {
     constructor(nome, desenvolvedor, editora, preco, descricao, dataLancamento, plataforma, generos, recursos, tipos, quantidadeVendido, requisitosSistema) {
         this._nome = nome;
         this._desenvolvedor = desenvolvedor;
