@@ -7,7 +7,7 @@
 **Participantes presentes:**
 
 1. João Pedro Rodrigues Morbeck
-2. Luciano Ricardo da Silva Junior
+2. Luciano de Freitas Melo
 3. Raquel Temóteo Eucaria Pereira da Costa
     
     ---
@@ -15,13 +15,13 @@
 
 ### **Resumo**
 
-Durante a reunião, os membros discutiram a aplicação de padrões de projeto comportamentais. Morbeck propôs usar o padrão Observer para acompanhar a avaliação de jogos favoritos e observar uma lista de desejos. Raquel complementou a ideia da lista de desejos de Morbeck e sugeriu o uso do padrão Strategy para métodos de pagamento, associando-o ao diagrama de estados desenvolvido na entrega anterior. Luciano trouxe à discussão dos padrões Command e Mediator.
+Durante a reunião, os membros discutiram a aplicação de padrões de projeto comportamentais. Morbeck propôs usar o padrão Observer para acompanhar a avaliação de jogos favoritos e observar uma lista de desejos. Raquel complementou a ideia da lista de desejos de Morbeck e sugeriu o uso do padrão Strategy para métodos de pagamento, associando-o ao diagrama de estados desenvolvido na entrega anterior. Luciano trouxe à discussão dos padrões Command e Mediator para auxiliar na implementação do front-end, principalmente o último para a reutilização de componentes.
 
 ### **Escolha**
 
 - **Strategy** - Método de pagamento: Desenvolver estratégias de pagamento.
 - **Observer** - Lista de jogos favoritos: Implementar notificações para mudanças de status dos jogos favoritos (como descontos).
-- **Mediator**: Para as telas do front
+- **Mediator**: Para reutulização de componentes no front-end.
 
 ### **Prioridade**
 
