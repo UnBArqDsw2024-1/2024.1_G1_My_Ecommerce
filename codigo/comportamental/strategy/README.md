@@ -33,3 +33,9 @@
 Número do cartão: 5399876624540001
 Pagamento gerado com sucesso!
 ```
+
+## Histórico de versão
+
+| Data | Versão | Atividade | Responsável |
+| ---- | ------ | --------- | ----------- |
+| 24/07/2024 | 1.0 | Adiciona README de instruções de formas de pagamento | [Luan Mateus](https://github.com/luanduartee), [Pedro Barbosa](https://github.com/pedrobarbosaocb), [Raquel Eucaria](https://github.com/raqueleucaria) |
