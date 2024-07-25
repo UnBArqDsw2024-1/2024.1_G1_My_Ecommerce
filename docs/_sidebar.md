@@ -44,5 +44,5 @@
   - [Reunião 23/07 - Criacional](/Reunioes/Ata23_07_Criacional.md)
   - [Reunião 24/07 - GoF Observer](/Reunioes/Ata24_07_Observer.md)
   - [Reunião 24/07 - Observer](/Reunioes/Ata27_07_ObserverDoc.md)
-
+  - [Ata de Reunião 24/07 - Strategy](/Reunioes/Ata24_07_Strategy.md)
 
