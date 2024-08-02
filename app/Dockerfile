@@ -2,7 +2,8 @@
 FROM node:20
 
 # Definição do diretório de trabalho dentro do container
-WORKDIR /my-app
+# Alterar no Dockerfile o "my-app" para o nome da pasta do projeto
+WORKDIR /my-app 
 
 # Copiando os arquivos package.json e package-lock.json para o container
 COPY /my-app/package*.json ./
