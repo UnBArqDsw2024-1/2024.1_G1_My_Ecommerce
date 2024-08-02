@@ -40,6 +40,7 @@ Certifique-se de ter o Docker e o Docker Compose instalados no seu sistema.
 Na primeira vez que for rodar o projeto, utilize o comando abaixo para construir e iniciar os contêineres:
 
 ```sh
+git clone https://github.com/UnBArqDsw2024-1/2024.1_G1_My_Ecommerce.git
 cd app/my-app
 docker-compose up --build
 ```
