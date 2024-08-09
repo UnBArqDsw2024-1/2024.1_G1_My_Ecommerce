@@ -26,6 +26,8 @@ export class Pedido {
         this.numPedido = num.toString();
     }
 
+
+    // Métodos
     public addBiblioteca(): void {
 
     }
@@ -47,7 +49,62 @@ export class Pedido {
         this.enviarRecibo();
     }
 
+    /* 
+    Como podemos deletar um pedido? se for para deletar a instância é necessário mudar a classe
+    Uma instância não consegue deletar ela mesma, para deletar uma instância é preciso remover as referências dessa instância e deixar o GC limpar
+    */
     public cancelarPedido(): void {
 
     }
+
+    // Getters
+    public get getJogos(): Jogo[] {
+        return this.jogos;
+    }
+
+    public get getNumPedido(): string {
+        return this.numPedido;
+    }
+
+    public get getStatus(): boolean {
+        return this.status;
+    }
+
+    public get getDescontoTotal(): number {
+        return this.descontoTotal;
+    }
+
+    public get getPrecoTotal(): number {
+        return this.precoTotal;
+    }
+
+    public get getFormaDePagamento(): FormaPagamento {
+        return this.formaPagamento;
+    }
+
+    // Setters
+    public set setJogos(jogos: Jogo[]) {
+        this.jogos = jogos;
+    }
+
+    public set setNumPedido(numPedido: string) {
+        this.numPedido = numPedido;
+    }
+
+    public set setStatus(status: boolean) {
+        this.status = status;
+    }
+
+    public set setDescontoTotal(desconto: number) {
+        this.descontoTotal = desconto;
+    }
+
+    public set setPrecoTotal(preco: number) {
+        this.precoTotal = preco;
+    }
+
+    public set setFormaDePagamento(formaPagamento: FormaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+
 }

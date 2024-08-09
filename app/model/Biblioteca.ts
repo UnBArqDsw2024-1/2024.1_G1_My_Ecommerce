@@ -1,10 +1,10 @@
+import { Evento } from "./Evento";
+import { Genero } from "./Genero";
 import { Jogo } from "./Jogo.ts";
 import { Plataforma } from "./Plataforma";
-import { Genero } from "./Genero";
+import { PrecoCategoria } from "./PrecoCategoria";
 import { Recurso } from "./Recurso";
 import { Tipo } from "./Tipo";
-import { Evento } from "./Evento";
-import { PrecoCategoria } from "./PrecoCategoria";
 
 export class Biblioteca {
     private jogosPossuidos: Jogo[];
@@ -23,13 +23,13 @@ export class Biblioteca {
     // Metodos
     public listarIntalados(): Jogo[] {
         console.log("Listando os jogos Instalados");
-        const resultados = this.jogosPossuidos;
+        const resultados = this.jogosPossuidos.filter(jogo => this.instalados.includes(jogo.getId));
         return resultados;
     }
 
     public listarFavoritos(): Jogo[] {
         console.log("Listando os jogos Favoritos");
-        const resultados = this.jogosPossuidos.filter(jogo => this.favoritos.includes(jogo.getNome));
+        const resultados = this.jogosPossuidos.filter(jogo => this.favoritos.includes(jogo.getId));
         return resultados;
     }
 
@@ -62,5 +62,26 @@ export class Biblioteca {
     // Getters
     public get getJogosPossuidos(): Jogo[] {
         return this.jogosPossuidos;
+    }
+
+    public get getJogosInstalados(): string[] {
+        return this.instalados;
+    }
+
+    public get getFavoritos(): string[] {
+        return this.favoritos;
+    }
+
+    // Setters
+    public set setJogosPossuidos(jogosPossuidos: Jogo[]) {
+        this.jogosPossuidos = jogosPossuidos;
+    }
+
+    public set setJogosInstalados(instalados: string[]) {
+        this.instalados = instalados;
+    }
+
+    public set setFavoritos(favoritos: string[]) {
+        this.favoritos = favoritos;
     }
 }
