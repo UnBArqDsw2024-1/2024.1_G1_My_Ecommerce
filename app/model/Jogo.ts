@@ -1,10 +1,5 @@
 import { Avaliacao } from "./Avaliacao";
-import { Plataforma } from "./Plataforma";
-import { Genero } from "./Genero";
-import { Recurso } from "./Recurso";
-import { Tipo } from "./Tipo";
-import { Evento } from "./Evento";
-import { PrecoCategoria } from "./PrecoCategoria";
+import { Evento, Genero, Plataforma, PrecoCategoria, Recurso, Tipo } from "./Enum.ts";
 
 export class Jogo {
     private nome: string;

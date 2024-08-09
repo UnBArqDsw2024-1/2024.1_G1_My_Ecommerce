@@ -1,11 +1,5 @@
+import { Evento, Genero, Plataforma, PrecoCategoria, Recurso, Tipo } from "./Enum.ts";
 import { Jogo } from './Jogo';
-import { Plataforma } from "./Plataforma";
-import { Genero } from "./Genero";
-import { Recurso } from "./Recurso";
-import { Tipo } from "./Tipo";
-import { Evento } from "./Evento";
-import { PrecoCategoria } from "./PrecoCategoria";
-
 
 export class Catalogo {
     private static instance: Catalogo | null = null;

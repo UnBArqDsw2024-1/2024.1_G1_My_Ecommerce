@@ -1,10 +1,5 @@
-import { Evento } from "./Evento";
-import { Genero } from "./Genero";
+import { Evento, Genero, Plataforma, PrecoCategoria, Recurso, Tipo } from "./Enum.ts";
 import { Jogo } from "./Jogo.ts";
-import { Plataforma } from "./Plataforma";
-import { PrecoCategoria } from "./PrecoCategoria";
-import { Recurso } from "./Recurso";
-import { Tipo } from "./Tipo";
 
 export class Biblioteca {
     private jogosPossuidos: Jogo[];
