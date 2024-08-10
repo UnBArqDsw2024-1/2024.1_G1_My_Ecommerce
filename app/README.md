@@ -35,6 +35,24 @@ Certifique-se de ter o Docker e o Docker Compose instalados no seu sistema.
    docker-compose --version
    ```
 
+### Arquivo .env
+
+Crie o arquivo `.env` com base no  `.env.example`.
+
+1. Execute o comando no terminal do Linux:
+
+   ```sh
+   cd app/
+   cp .env.example .env
+   ```
+
+2. Execute o comando no terminal do Windows:
+
+   ```sh
+   cd app/
+   copy .env.example .env
+   ```
+
 ### Primeira Execução
 
 Na primeira vez que for rodar o projeto, utilize o comando abaixo para construir e iniciar os contêineres:
