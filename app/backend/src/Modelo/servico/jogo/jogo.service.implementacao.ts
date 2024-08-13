@@ -1,8 +1,7 @@
 // metodos do Jogo
 
-import { Jogo } from "../../entidade/jogo";
 import { JogoRepositorio } from "../../repositorio/jogo/jogo.repositorio";
-import { CriaSaidaDto, JogoServico, ListaSaidaDto, PesquisaSaidaDto } from "./jogo.service";
+import { JogoServico, ListaSaidaDto, PesquisaSaidaDto } from "./jogo.service";
 
 export class JogoServicoImplementacao implements JogoServico {
 
@@ -10,38 +9,6 @@ export class JogoServicoImplementacao implements JogoServico {
 
     public static build(repositorio: JogoRepositorio){
         return new JogoServicoImplementacao(repositorio);
-    }
-
-    public async cria(
-        nomeJogo: string,
-        precoJogo: number,
-        descricao: string,
-        dataLancamento: Date,
-        dataLancamentoInicial: Date,
-        desconto: number,
-        quantidadeVendido: number,
-        editora: string,
-        desenvolvedora: string,
-    ): Promise<CriaSaidaDto> {
-
-        const aJogo = Jogo.cria(
-            nomeJogo,
-            precoJogo,
-            descricao,
-            dataLancamento,
-            dataLancamentoInicial,
-            desconto,
-            quantidadeVendido,
-            desenvolvedora,
-            editora
-        );
-        await this.repositorio.cria(aJogo);
-
-        const saida: CriaSaidaDto = {
-            idJogo: aJogo.idJogo
-        };
-
-        return saida;
     }
 
     public async lista(): Promise<ListaSaidaDto> {
@@ -93,7 +60,5 @@ export class JogoServicoImplementacao implements JogoServico {
 
         return saida;
     }
-
-    
 
 }

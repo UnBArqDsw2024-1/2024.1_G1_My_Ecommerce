@@ -1,4 +1,3 @@
-import crypto from 'crypto';
 
 export type ClienteProps = {
     idCliente: string;
@@ -15,23 +14,6 @@ export type ClienteProps = {
 
 export class Cliente {
     private constructor(readonly props: ClienteProps){}
-
-    public static cria(
-        nomeExibicao: string,
-        dataNascimento: Date,
-        nome: string,
-        email: string,
-        senha: string
-    ){
-        return new Cliente({
-            idCliente: crypto.randomUUID().toString(),
-            nomeExibicao,
-            dataNascimento,
-            nome,
-            email,
-            senha
-        });
-    }
     
     public static with(
         idCliente: string,
