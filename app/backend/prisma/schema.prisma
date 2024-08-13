@@ -50,3 +50,18 @@ model Desenvolvedora {
   // Relação inversa com Jogo
   jogos Jogo[]
 }
+
+
+model Cliente {
+  @@map("clientes")
+  idCliente String @id
+  nomeExibicao String
+  // pais: string
+  // biblioteca: Biblioteca
+  // carrinho: Carrinho
+  // pedido: Pedido | null
+  dataNascimento DateTime
+  nome String
+  email String
+  senha String
+}

@@ -1,6 +1,6 @@
 // interface
 import { PrismaClient } from "@prisma/client";
-import { DesenvolvedoraRepositorio } from "../desenvolvedora.repositorio";
+import { DesenvolvedoraRepositorio } from "./desenvolvedora.repositorio";
 
 export class DesenvolvedoraRepositorioPrisma implements DesenvolvedoraRepositorio {
 
