@@ -1,0 +1,11 @@
+###
+GET http://localhost:8000/jogos
+
+###
+POST http://localhost:8000/jogos/cria
+Content-Type: application/json
+
+{
+    "nomeJogo":"Jogo 1",
+    "precoJogo":20.2
+}
