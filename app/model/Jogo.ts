@@ -173,7 +173,7 @@ export class Jogo {
         return this.requisitosSistema;
     }
 
-    public get detPrecoComDesconto(): number {
+    public get getPrecoComDesconto(): number {
         return this.desconto ? this.preco * this.desconto : this.preco;
     }
 

@@ -22,37 +22,58 @@ export class Credito extends FormaPagamento {
     }
 
     // Métodos Sobrescritos de FormaPagamento
-    public cancelarPagamento(): void {
+    public cancelarPagamento(): string {
         // Simulando o processo
         const podeCancelarPagamento = Math.random() > 0.5; // Condição de exemplo
 
         if (podeCancelarPagamento) {
-            console.log("Pagamento confirmado com sucesso.");
+            return "Pagamento com crédito cancelado.";
         } else {
-            console.log("Não foi possível confirmar o pagamento.");
+            return "Não foi possível cancelar o pagamento com crédito.";
         }
     }
 
-    public confirmarPagamento(): void {
+    public confirmarPagamento(): string {
         // Simulando o processo
         const pagamentoConfirmado = Math.random() > 0.5; // Condição de exemplo
 
         if (pagamentoConfirmado) {
-            console.log("Pagamento confirmado com sucesso.");
+            return "Pagamento confirmado com sucesso.";
         } else {
-            console.log("Não foi possível confirmar o pagamento.");
+            return "Não foi possível confirmar o pagamento";
         }
     }
 
     // Métodos próprios de Crédito
-    public solicitarCartao(): void {
+    public solicitarCartao(): string {
         // Simulando o processo
         const solicitacaoCartaoSucedida = Math.random() > 0.5; // Condição de exemplo
 
         if (solicitacaoCartaoSucedida) {
-            console.log("Cartão solicitado com sucesso.");
+            return "Cartão solicitado com sucesso.";
         } else {
-            console.log("Não foi possível solicitar o cartão.");
+            return "Não foi possível solicitar o cartão.";
         }
+    }
+
+    // Getters
+    public get getNumeroCartao(): number {
+        return this.numeroCartao;
+    }
+    
+    public get getTitular(): string {
+        return this.titular;
+    }
+
+    public get getCvc(): number {
+        return this.cvc;
+    }
+
+    public get getValidade(): Date {
+        return this.validade;
+    }
+
+    public get getDataVencimento(): Date {
+        return this.dataVencimento;
     }
 }

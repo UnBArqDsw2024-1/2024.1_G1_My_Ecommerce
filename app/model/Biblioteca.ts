@@ -8,7 +8,6 @@ export class Biblioteca {
 
     // TODO: Talvez checar a possibilidade de fazer um GET no banco pra cada jogo??
 
-
     constructor() {
         this.jogosPossuidos = [];
         this.instalados = [];
@@ -16,7 +15,7 @@ export class Biblioteca {
     }
 
     // Metodos
-    public listarIntalados(): Jogo[] {
+    public listarInstalados(): Jogo[] {
         console.log("Listando os jogos Instalados");
         const resultados = this.jogosPossuidos.filter(jogo => this.instalados.includes(jogo.getId));
         return resultados;

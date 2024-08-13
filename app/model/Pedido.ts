@@ -1,5 +1,8 @@
+import { Boleto } from "./Boleto.ts";
+import { Credito } from "./Credito.ts";
 import { FormaPagamento } from "./FormaPagamento.ts";
 import { Jogo } from "./Jogo.ts";
+import { Pix } from "./Pix.ts";
 
 export class Pedido {
     private jogos: Jogo[];
@@ -13,12 +16,10 @@ export class Pedido {
         jogos: Jogo[],
         descontoTotal: number,
         precoTotal: number,
-        formaPagamento: FormaPagamento
     ) {
         this.jogos = jogos;
         this.precoTotal = precoTotal;
         this.descontoTotal = descontoTotal;
-        this.formaPagamento = formaPagamento;
         this.status = false;
 
         // Usar uma biblioteca para geração de UUID ou criar uma função usando Timestamp + Random
@@ -28,10 +29,6 @@ export class Pedido {
 
 
     // Métodos
-    public addBiblioteca(): void {
-
-    }
-
     public addQuantidadeVendido(): void {
         this.jogos.forEach((jogo) => {
             jogo.setQuantidadeVendido = 1;
@@ -44,17 +41,56 @@ export class Pedido {
 
     public confirmarPedido(): void {
         console.log("Confirmando Pedido...")
-        // if(<Inserir método de pagamento>)
+        
+        if (this.formaPagamento instanceof Pix){
+            const pixPagamento = this.formaPagamento as Pix;
+            console.log("Espere um pouco...");
+            const pixGerado = pixPagamento.gerarPixCopiaECola(); 
+            console.log("PIX gerado: " + pixGerado);
+            console.log(pixPagamento.confirmarPagamento());
+        }else if (this.formaPagamento instanceof Credito) {
+            const creditoPagamento = this.formaPagamento as Credito;
+            console.log("Solicitando cartão...");
+            const cartaoSolicitado = creditoPagamento.solicitarCartao(); 
+            console.log(cartaoSolicitado);
+            console.log(creditoPagamento.confirmarPagamento()); 
+        } else if (this.formaPagamento instanceof Boleto) {
+            const boletoPagamento = this.formaPagamento as Boleto;
+            console.log("Gerando código de barras...");
+            const codigoBarras = boletoPagamento.gerarCodigoBarras(); 
+            console.log("Código de barras gerado: " + codigoBarras);
+            console.log(boletoPagamento.confirmarPagamento()); 
+        } else {
+            console.log("Forma de pagamento não reconhecida.");
+            return;
+        }
         this.status = true;
         this.enviarRecibo();
     }
+    
+    // Setters
+    public set setJogos(jogos: Jogo[]) {
+        this.jogos = jogos;
+    }
 
-    /* 
-    Como podemos deletar um pedido? se for para deletar a instância é necessário mudar a classe
-    Uma instância não consegue deletar ela mesma, para deletar uma instância é preciso remover as referências dessa instância e deixar o GC limpar
-    */
-    public cancelarPedido(): void {
+    public set setNumPedido(numPedido: string) {
+        this.numPedido = numPedido;
+    }
 
+    public set setStatus(status: boolean) {
+        this.status = status;
+    }
+
+    public set setDescontoTotal(desconto: number) {
+        this.descontoTotal = desconto;
+    }
+
+    public set setPrecoTotal(preco: number) {
+        this.precoTotal = preco;
+    }
+
+    public set setFormaDePagamento(formaPagamento: FormaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
 
     // Getters
@@ -81,30 +117,4 @@ export class Pedido {
     public get getFormaDePagamento(): FormaPagamento {
         return this.formaPagamento;
     }
-
-    // Setters
-    public set setJogos(jogos: Jogo[]) {
-        this.jogos = jogos;
-    }
-
-    public set setNumPedido(numPedido: string) {
-        this.numPedido = numPedido;
-    }
-
-    public set setStatus(status: boolean) {
-        this.status = status;
-    }
-
-    public set setDescontoTotal(desconto: number) {
-        this.descontoTotal = desconto;
-    }
-
-    public set setPrecoTotal(preco: number) {
-        this.precoTotal = preco;
-    }
-
-    public set setFormaDePagamento(formaPagamento: FormaPagamento) {
-        this.formaPagamento = formaPagamento;
-    }
-
 }
