@@ -15,30 +15,6 @@ export type JogoProps = {
 export class Jogo {
     private constructor(readonly props: JogoProps){}
 
-    public static cria(
-        nomeJogo: string,
-        precoJogo: number,
-        descricao: string,
-        dataLancamento: Date,
-        dataLancamentoInicial: Date,
-        desconto: number,
-        quantidadeVendido: number,
-        editora: string,
-        desenvolvedora: string,
-    ){
-        return new Jogo({
-            idJogo: crypto.randomUUID().toString(),
-            nomeJogo,
-            precoJogo,
-            descricao,
-            dataLancamento,
-            dataLancamentoInicial,
-            desconto,
-            quantidadeVendido,
-            desenvolvedora,
-            editora
-        })
-    }
 
     public static with(
         idJogo: string,

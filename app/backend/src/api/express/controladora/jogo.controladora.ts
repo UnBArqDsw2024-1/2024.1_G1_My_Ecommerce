@@ -16,52 +16,6 @@ export class JogoControladora {
         return new JogoControladora;
     }
 
-    public async cria(request: Request, response: Response){
-        const {
-            nomeJogo, 
-            precoJogo,
-            descricao, 
-            dataLancamento, 
-            dataLancamentoInicial, 
-            desconto, 
-            quantidadeVendido,
-            desenvolvedora,
-            editora
-        } = request.body;
-
-        const aEditora = editora;
-        const aDesenvolvedora = desenvolvedora;
-        const aRepositorio = JogoRepositorioPrisma.build(prisma,aEditora,aDesenvolvedora);
-        const aServico = JogoServicoImplementacao.build(aRepositorio);
-
-        const saida = await aServico.cria(
-            nomeJogo, 
-            precoJogo,
-            descricao, 
-            dataLancamento, 
-            dataLancamentoInicial, 
-            desconto, 
-            quantidadeVendido,
-            desenvolvedora,
-            editora
-        );
-
-        const data = {
-            idJogo: saida.idJogo,
-            nomeJogo,
-            precoJogo,
-            descricao, 
-            dataLancamento, 
-            dataLancamentoInicial, 
-            desconto, 
-            quantidadeVendido,
-            desenvolvedora,
-            editora
-        }
-
-        response.status(201).json(data).send();
-    }
-
     public async lista(request: Request, response: Response) {
         const editoraRepositorio = EditoraRepositorioPrisma.build(prisma);
         const desenvolvedoraRepositorio = DesenvolvedoraRepositorioPrisma.build(prisma);

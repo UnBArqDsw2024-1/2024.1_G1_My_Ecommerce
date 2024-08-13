@@ -24,24 +24,6 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
         return new JogoRepositorioPrisma(prisma, editoraRepositorio, desenvolvedoraRepositorio);
     }
 
-
-    public async cria(jogo: Jogo): Promise<void> {
-        const data = {
-            idJogo: jogo.idJogo,
-            nomeJogo: jogo.nomeJogo,
-            precoJogo: jogo.precoJogo,
-            descricao: jogo.descricao,
-            dataLancamento: jogo.dataLancamento,
-            dataLancamentoInicial: jogo.dataLancamentoInicial,
-            desconto: jogo.desconto,
-            quantidadeVendido: jogo.quantidadeVendido
-        };
-
-        await this.prisma.jogo.create({
-            data,
-        });
-    }
-
     public async lista(): Promise<Jogo[]> {
         const aJogos = await this.prisma.jogo.findMany();
 

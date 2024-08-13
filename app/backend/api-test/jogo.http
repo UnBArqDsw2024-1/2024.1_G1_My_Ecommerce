@@ -1,21 +1,21 @@
 ###
 GET http://localhost:8000/jogos
 
-###
-POST http://localhost:8000/jogos/cria
-Content-Type: application/json
+# ###
+# POST http://localhost:8000/jogos/cria
+# Content-Type: application/json
 
-{
-    "nomeJogo":"Jogo 2",
-    "precoJogo":20.2,
-    "descricao": "Descrição do Jogo 2",
-    "dataLancamento": "2024-08-01T00:00:00.000Z",
-    "dataLancamentoInicial": "2024-07-01T00:00:00.000Z",
-    "desconto": 10,
-    "quantidadeVendido": 100,
-    "editora": "",
-    "desenvolvedora": ""
-}
+# {
+#     "nomeJogo":"Jogo 2",
+#     "precoJogo":20.2,
+#     "descricao": "Descrição do Jogo 2",
+#     "dataLancamento": "2024-08-01T00:00:00.000Z",
+#     "dataLancamentoInicial": "2024-07-01T00:00:00.000Z",
+#     "desconto": 10,
+#     "quantidadeVendido": 100,
+#     "editora": "",
+#     "desenvolvedora": ""
+# }
 
 ###
 POST http://localhost:8000/jogos/pesquisa
