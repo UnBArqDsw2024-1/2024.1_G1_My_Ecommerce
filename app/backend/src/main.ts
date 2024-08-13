@@ -8,6 +8,7 @@ function main() {
 
     api.addGetRoute("/jogos", controller.lista);
     api.addPostRoute("/jogos/cria", controller.cria);
+    api.addPostRoute("/jogos/pesquisa", controller.pesquisa);
 
     api.start(8000);
 }

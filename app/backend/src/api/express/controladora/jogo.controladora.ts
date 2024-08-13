@@ -77,4 +77,30 @@ export class JogoControladora {
         response.status(200).json(data).send();
     }
 
+    public async pesquisa(request: Request, response: Response) {
+        const { nomeJogo } = request.body; // Use request.body para POST
+
+        if (typeof nomeJogo !== 'string') {
+            response.status(400).json({ error: 'Nome do jogo deve ser uma string' }).send();
+            return;
+        }
+
+        const editoraRepositorio = EditoraRepositorioPrisma.build(prisma);
+        const desenvolvedoraRepositorio = DesenvolvedoraRepositorioPrisma.build(prisma);
+        const aRepositorio = JogoRepositorioPrisma.build(prisma, editoraRepositorio, desenvolvedoraRepositorio);
+        const aServico = JogoServicoImplementacao.build(aRepositorio);
+
+        try {
+            const saida = await aServico.pesquisa(nomeJogo);
+
+            const data = {
+                jogos: saida.jogos,
+            };
+
+            response.status(200).json(data).send();
+        } catch (error) {
+            response.status(500).json({ error: 'Erro ao pesquisar o jogo' }).send();
+        }
+    }
+
 }
