@@ -9,11 +9,24 @@ export type ListaSaidaDto = {
         idJogo: string;
         nomeJogo: string;
         precoJogo: number;
+        descricao: string;
+        dataLancamento: Date;
+        dataLancamentoInicial: Date;
+        desconto: number;
+        quantidadeVendido: number;
     }[];
 };
 
 
 export interface JogoServico {
     lista(): Promise<ListaSaidaDto>;
-    cria(nomeJogo: string, precoJogo: number): Promise<CriaSaidaDto>;
+    cria(
+        nomeJogo: string,
+        precoJogo: number,
+        descricao: string,
+        dataLancamento: Date,
+        dataLancamentoInicial: Date,
+        desconto: number,
+        quantidadeVendido: number
+    ): Promise<CriaSaidaDto>;
 }

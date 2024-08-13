@@ -14,17 +14,38 @@ export class JogoControladora {
     }
 
     public async cria(request: Request, response: Response){
-        const {nomeJogo, precoJogo} = request.body;
+        const {
+            nomeJogo, 
+            precoJogo,
+            descricao, 
+            dataLancamento, 
+            dataLancamentoInicial, 
+            desconto, 
+            quantidadeVendido
+        } = request.body;
 
         const aRepositorio = JogoRepositorioPrisma.build(prisma);
         const aServico = JogoServicoImplementacao.build(aRepositorio);
 
-        const saida = await aServico.cria(nomeJogo, precoJogo);
+        const saida = await aServico.cria(
+            nomeJogo, 
+            precoJogo,
+            descricao, 
+            dataLancamento, 
+            dataLancamentoInicial, 
+            desconto, 
+            quantidadeVendido
+        );
 
         const data = {
             idJogo: saida.idJogo,
             nomeJogo,
             precoJogo,
+            descricao, 
+            dataLancamento, 
+            dataLancamentoInicial, 
+            desconto, 
+            quantidadeVendido
         }
 
         response.status(201).json(data).send();

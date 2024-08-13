@@ -18,4 +18,9 @@ model Jogo {
   idJogo String @id
   nomeJogo String 
   precoJogo Float
+  descricao String
+  dataLancamento DateTime
+  dataLancamentoInicial DateTime
+  desconto Float
+  quantidadeVendido Int
 }
