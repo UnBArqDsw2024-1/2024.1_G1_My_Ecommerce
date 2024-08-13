@@ -2,7 +2,9 @@
 import { Jogo } from "../../entidade/jogo";
 
 export interface JogoRepositorio {
-    cria(jogo: Jogo): Promise<void>;
     lista(): Promise<Jogo[]>;
-    atualiza(jogo: Jogo): Promise<void>;
+    // cria(jogo: Jogo): Promise<void>;
+    // nomeEditora(idEditora: number): Promise<string | null>;
+    // nomeDesenvolvedora(idDesenvolvedora: number): Promise<string | null>;
+    // atualiza(jogo: Jogo): Promise<void>;
 }

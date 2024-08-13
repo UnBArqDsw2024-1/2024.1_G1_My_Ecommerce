@@ -1,77 +1,42 @@
 import { PrismaClient } from "@prisma/client";
 import { Jogo } from "../../../entidade/jogo";
+import { DesenvolvedoraRepositorio } from "../../desenvolvedora/desenvolvedora.repositorio";
+import { EditoraRepositorio } from "../../editora/editora.repositorio";
 import { JogoRepositorio } from "../jogo.repositorio";
 
+
 export class JogoRepositorioPrisma implements JogoRepositorio {
+    private editoraRepositorio: EditoraRepositorio;
+    private desenvolvedoraRepositorio: DesenvolvedoraRepositorio;
 
-    private constructor(readonly prisma: PrismaClient){}
-
-    public static build(prisma: PrismaClient){
-        return new JogoRepositorioPrisma(prisma);
+    private constructor(readonly prisma: PrismaClient, 
+                        editoraRepositorio: EditoraRepositorio,
+                        desenvolvedoraRepositorio: DesenvolvedoraRepositorio) {
+        this.editoraRepositorio = editoraRepositorio;
+        this.desenvolvedoraRepositorio = desenvolvedoraRepositorio;
     }
 
-    public async cria(jogo: Jogo): Promise<void> {
-        const data = {
-            idJogo: jogo.idJogo,
-            nomeJogo: jogo.nomeJogo,
-            precoJogo: jogo.precoJogo,
-            descricao: jogo.descricao,
-            dataLancamento: jogo.dataLancamento,
-            dataLancamentoInicial: jogo.dataLancamentoInicial,
-            desconto: jogo.desconto,
-            quantidadeVendido: jogo.quantidadeVendido
-        };
-
-        await this.prisma.jogo.create({
-            data,
-        });
+    public static build(prisma: PrismaClient, 
+                         editoraRepositorio: EditoraRepositorio, 
+                         desenvolvedoraRepositorio: DesenvolvedoraRepositorio) {
+        return new JogoRepositorioPrisma(prisma, editoraRepositorio, desenvolvedoraRepositorio);
     }
 
     public async lista(): Promise<Jogo[]> {
         const aJogos = await this.prisma.jogo.findMany();
 
-        const jogos: Jogo[] = aJogos.map((j) => {
-            const { idJogo, nomeJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido} = j;
-            return Jogo.with(idJogo, nomeJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido);
-        });
+        const jogos: Jogo[] = await Promise.all(aJogos.map(async (j) => {
+            const { idJogo, nomeJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido, editoraId, desenvolvedoraId } = j;
+            
+            // Buscar o nome da editora usando a interface EditoraRepositorio
+            const nomeEditora = editoraId ? await this.editoraRepositorio.busca(editoraId) : null;
+            
+            // Buscar o nome da desenvolvedora usando a interface DesenvolvedoraRepositorio
+            const nomeDesenvolvedora = desenvolvedoraId ? await this.desenvolvedoraRepositorio.busca(desenvolvedoraId) : null;
+            
+            return Jogo.with(idJogo, nomeJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido, nomeEditora ?? "", nomeDesenvolvedora ?? ""); 
+        }));
 
         return jogos;
     }
-
-    public async atualiza(jogo: Jogo): Promise<void> {
-        const data = {
-            idJogo: jogo.idJogo,
-            nomeJogo: jogo.nomeJogo,
-            precoJogo: Number(jogo.precoJogo),
-            descricao: jogo.descricao,
-            dataLancamento: jogo.dataLancamento,
-            dataLancamentoInicial: jogo.dataLancamentoInicial,
-            desconto: jogo.desconto,
-            quantidadeVendido: jogo.quantidadeVendido
-            
-        };
-
-        await this.prisma.jogo.update({  // acessa o banco do prisma
-            where: {
-                idJogo: jogo.idJogo,
-            },
-            data,
-        });
-    }
-    // public async find(id: string): Promise<Product | null> {
-    //     const aProduct = await this.prisma.product.findUnique({
-    //         where: { id },
-    //     });
-
-    //     if (!aProduct) {
-    //         return null;
-    //     }
-
-    //     const { name, price, quantity } = aProduct;
-
-    //     const product = Product.with(id, name, price, quantity);
-
-    //     return product;
-    // }
-
 }

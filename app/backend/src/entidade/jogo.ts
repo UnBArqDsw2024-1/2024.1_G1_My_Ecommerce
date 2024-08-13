@@ -8,6 +8,8 @@ export type JogoProps = {
     dataLancamentoInicial: Date;
     desconto: number;
     quantidadeVendido: number;
+    editora: string;
+    desenvolvedora: string;
 }
 
 export class Jogo {
@@ -20,7 +22,9 @@ export class Jogo {
         dataLancamento: Date,
         dataLancamentoInicial: Date,
         desconto: number,
-        quantidadeVendido: number
+        quantidadeVendido: number,
+        editora: string,
+        desenvolvedora: string,
     ){
         return new Jogo({
             idJogo: crypto.randomUUID().toString(),
@@ -30,7 +34,9 @@ export class Jogo {
             dataLancamento,
             dataLancamentoInicial,
             desconto,
-            quantidadeVendido
+            quantidadeVendido,
+            desenvolvedora,
+            editora
         })
     }
 
@@ -42,7 +48,9 @@ export class Jogo {
         dataLancamento: Date,
         dataLancamentoInicial: Date,
         desconto: number,
-        quantidadeVendido: number
+        quantidadeVendido: number,
+        editora: string,
+        desenvolvedora: string,
     ) {
         return new Jogo({
             idJogo,
@@ -52,7 +60,9 @@ export class Jogo {
             dataLancamento,
             dataLancamentoInicial,
             desconto,
-            quantidadeVendido
+            quantidadeVendido,
+            desenvolvedora,
+            editora
         });
     }
 
@@ -88,4 +98,11 @@ export class Jogo {
         return this.props.quantidadeVendido;
     }
 
+    public get desenvolvedora() {
+        return this.props.desenvolvedora;
+    }
+
+    public get editora() {
+        return this.props.editora;
+    }
 }
