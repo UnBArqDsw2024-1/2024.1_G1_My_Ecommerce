@@ -19,6 +19,21 @@ export type ListaSaidaDto = {
     }[];
 };
 
+export type PesquisaSaidaDto = {
+    jogos: {
+        idJogo: string;
+        nomeJogo: string;
+        precoJogo: number;
+        descricao: string;
+        dataLancamento: Date;
+        dataLancamentoInicial: Date;
+        desconto: number;
+        quantidadeVendido: number;
+        editora: string;
+        desenvolvedora: string;
+    }[];
+};
+
 
 export interface JogoServico {
     lista(): Promise<ListaSaidaDto>;
@@ -33,4 +48,5 @@ export interface JogoServico {
         editora: string,
         desenvolvedora: string,
     ): Promise<CriaSaidaDto>;
+    pesquisa(nomeJogo: string): Promise<PesquisaSaidaDto>;
 }

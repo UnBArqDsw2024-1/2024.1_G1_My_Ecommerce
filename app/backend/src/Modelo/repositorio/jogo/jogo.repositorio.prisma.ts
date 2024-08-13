@@ -1,3 +1,5 @@
+// repository ---> persistencia
+
 import { PrismaClient } from "@prisma/client";
 import { Jogo } from "../../entidade/jogo";
 import { DesenvolvedoraRepositorio } from "../desenvolvedora/desenvolvedora.repositorio";
@@ -55,6 +57,36 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
             return Jogo.with(idJogo, nomeJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido, nomeEditora ?? "", nomeDesenvolvedora ?? ""); 
         }));
 
+        return jogos;
+    }
+
+    public async pesquisa(nomeJogo: string): Promise<Jogo[]> {
+        // Buscar todos os jogos que correspondem ao nome fornecido, insensível a maiúsculas e minúsculas
+        const aJogos = await this.prisma.jogo.findMany({
+            where: {
+                nomeJogo: {
+                    contains: nomeJogo, // Busca por partes do nome
+                    // Prisma geralmente realiza busca insensível a maiúsculas e minúsculas por padrão
+                }
+            }
+        });
+    
+        // Se não encontrar nenhum jogo, retorna uma lista vazia
+        if (aJogos.length === 0) return [];
+    
+        // Mapeia os resultados para o formato de Jogo
+        const jogos = await Promise.all(aJogos.map(async (jogoDb) => {
+            const { idJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido, editoraId, desenvolvedoraId, nomeJogo } = jogoDb;
+            
+            // Buscar o nome da editora usando a interface EditoraRepositorio
+            const nomeEditora = editoraId ? await this.editoraRepositorio.busca(editoraId) : "";
+            
+            // Buscar o nome da desenvolvedora usando a interface DesenvolvedoraRepositorio
+            const nomeDesenvolvedora = desenvolvedoraId ? await this.desenvolvedoraRepositorio.busca(desenvolvedoraId) : "";
+    
+            return Jogo.with(idJogo, nomeJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido, nomeEditora ?? "", nomeDesenvolvedora ?? "");
+        }));
+    
         return jogos;
     }
 }
