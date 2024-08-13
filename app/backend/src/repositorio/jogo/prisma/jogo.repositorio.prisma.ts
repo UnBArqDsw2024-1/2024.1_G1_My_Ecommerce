@@ -15,6 +15,11 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
             idJogo: jogo.idJogo,
             nomeJogo: jogo.nomeJogo,
             precoJogo: jogo.precoJogo,
+            descricao: jogo.descricao,
+            dataLancamento: jogo.dataLancamento,
+            dataLancamentoInicial: jogo.dataLancamentoInicial,
+            desconto: jogo.desconto,
+            quantidadeVendido: jogo.quantidadeVendido
         };
 
         await this.prisma.jogo.create({
@@ -26,8 +31,8 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
         const aJogos = await this.prisma.jogo.findMany();
 
         const jogos: Jogo[] = aJogos.map((j) => {
-            const { idJogo, nomeJogo, precoJogo} = j;
-            return Jogo.with(idJogo, nomeJogo, precoJogo);
+            const { idJogo, nomeJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido} = j;
+            return Jogo.with(idJogo, nomeJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido);
         });
 
         return jogos;
@@ -38,6 +43,11 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
             idJogo: jogo.idJogo,
             nomeJogo: jogo.nomeJogo,
             precoJogo: Number(jogo.precoJogo),
+            descricao: jogo.descricao,
+            dataLancamento: jogo.dataLancamento,
+            dataLancamentoInicial: jogo.dataLancamentoInicial,
+            desconto: jogo.desconto,
+            quantidadeVendido: jogo.quantidadeVendido
             
         };
 

@@ -12,10 +12,24 @@ export class JogoServicoImplementacao implements JogoServico {
         return new JogoServicoImplementacao(repositorio);
     }
 
-    public async cria(nomeJogo: string, precoJogo: number): Promise<CriaSaidaDto> {
+    public async cria(
+        nomeJogo: string,
+        precoJogo: number,
+        descricao: string,
+        dataLancamento: Date,
+        dataLancamentoInicial: Date,
+        desconto: number,
+        quantidadeVendido: number
+    ): Promise<CriaSaidaDto> {
 
-        const aJogo = Jogo.cria(nomeJogo, precoJogo);
-
+        const aJogo = Jogo.cria(
+            nomeJogo, 
+            precoJogo, descricao, 
+            dataLancamento, 
+            dataLancamentoInicial, 
+            desconto, 
+            quantidadeVendido
+        );
         await this.repositorio.cria(aJogo);
 
         const saida: CriaSaidaDto = {
@@ -32,7 +46,12 @@ export class JogoServicoImplementacao implements JogoServico {
             return {
                 idJogo: j.idJogo,
                 nomeJogo: j.nomeJogo,
-                precoJogo: Number(j.precoJogo),
+                precoJogo: j.precoJogo,
+                descricao: j.descricao,
+                dataLancamento: j.dataLancamento,
+                dataLancamentoInicial: j.dataLancamentoInicial,
+                desconto: j.desconto,
+                quantidadeVendido: j.quantidadeVendido
             };
         });
 

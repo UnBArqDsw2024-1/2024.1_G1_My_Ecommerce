@@ -7,5 +7,10 @@ Content-Type: application/json
 
 {
     "nomeJogo":"Jogo 1",
-    "precoJogo":20.2
+    "precoJogo":20.2,
+    "descricao": "Descrição do Jogo 1",
+    "dataLancamento": "2024-08-01T00:00:00.000Z",
+    "dataLancamentoInicial": "2024-07-01T00:00:00.000Z",
+    "desconto": 10,
+    "quantidadeVendido": 100
 }
