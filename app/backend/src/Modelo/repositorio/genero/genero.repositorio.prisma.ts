@@ -1,6 +1,6 @@
 // interface
 import { PrismaClient } from "@prisma/client";
-import { GeneroRepositorio } from "../genero.repositorio";
+import { GeneroRepositorio } from "./genero.repositorio";
 
 export class GeneroRepositorioPrisma implements GeneroRepositorio {
 

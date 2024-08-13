@@ -1,6 +1,6 @@
 // interface
 import { PrismaClient } from "@prisma/client";
-import { EditoraRepositorio } from "../editora.repositorio";
+import { EditoraRepositorio } from "./editora.repositorio";
 
 export class EditoraRepositorioPrisma implements EditoraRepositorio {
 

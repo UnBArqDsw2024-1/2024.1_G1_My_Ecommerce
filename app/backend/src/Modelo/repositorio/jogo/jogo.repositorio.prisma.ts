@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { Jogo } from "../../../entidade/jogo";
-import { DesenvolvedoraRepositorio } from "../../desenvolvedora/desenvolvedora.repositorio";
-import { EditoraRepositorio } from "../../editora/editora.repositorio";
-import { JogoRepositorio } from "../jogo.repositorio";
+import { Jogo } from "../../entidade/jogo";
+import { DesenvolvedoraRepositorio } from "../desenvolvedora/desenvolvedora.repositorio";
+import { EditoraRepositorio } from "../editora/editora.repositorio";
+import { JogoRepositorio } from "./jogo.repositorio";
 
 
 export class JogoRepositorioPrisma implements JogoRepositorio {
@@ -20,6 +20,24 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
                          editoraRepositorio: EditoraRepositorio, 
                          desenvolvedoraRepositorio: DesenvolvedoraRepositorio) {
         return new JogoRepositorioPrisma(prisma, editoraRepositorio, desenvolvedoraRepositorio);
+    }
+
+
+    public async cria(jogo: Jogo): Promise<void> {
+        const data = {
+            idJogo: jogo.idJogo,
+            nomeJogo: jogo.nomeJogo,
+            precoJogo: jogo.precoJogo,
+            descricao: jogo.descricao,
+            dataLancamento: jogo.dataLancamento,
+            dataLancamentoInicial: jogo.dataLancamentoInicial,
+            desconto: jogo.desconto,
+            quantidadeVendido: jogo.quantidadeVendido
+        };
+
+        await this.prisma.jogo.create({
+            data,
+        });
     }
 
     public async lista(): Promise<Jogo[]> {
