@@ -7,7 +7,7 @@ function main() {
     const controller = JogoControladora.build();
 
     api.addGetRoute("/jogos", controller.lista);
-    api.addPostRoute("/jogos/pesquisa", controller.pesquisa);
+    api.addPostRoute("/jogos/pesquisa", controller.pesquisarPorNome);
 
     api.start(8000);
 }

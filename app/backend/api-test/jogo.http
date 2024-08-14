@@ -22,5 +22,5 @@ POST http://localhost:8000/jogos/pesquisa
 Content-Type: application/json
 
 {
-    "nomeJogo": "2"
+    "nomeJogo": "ação"
 }
