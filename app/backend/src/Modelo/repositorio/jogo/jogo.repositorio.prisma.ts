@@ -1,54 +1,101 @@
-// repository ---> persistencia
-
 import { PrismaClient } from "@prisma/client";
 import { Jogo } from "../../entidade/jogo";
-import { DesenvolvedoraRepositorio } from "../desenvolvedora/desenvolvedora.repositorio";
-import { EditoraRepositorio } from "../editora/editora.repositorio";
 import { JogoRepositorio } from "./jogo.repositorio";
 
-
 export class JogoRepositorioPrisma implements JogoRepositorio {
-    private editoraRepositorio: EditoraRepositorio;
-    private desenvolvedoraRepositorio: DesenvolvedoraRepositorio;
-
-    private constructor(readonly prisma: PrismaClient, 
-                        editoraRepositorio: EditoraRepositorio,
-                        desenvolvedoraRepositorio: DesenvolvedoraRepositorio) {
-        this.editoraRepositorio = editoraRepositorio;
-        this.desenvolvedoraRepositorio = desenvolvedoraRepositorio;
+    private constructor(readonly prisma: PrismaClient) {}
+    
+    public static build(prisma: PrismaClient) {
+        return new JogoRepositorioPrisma(prisma);
     }
-
-    public static build(prisma: PrismaClient, 
-                         editoraRepositorio: EditoraRepositorio, 
-                         desenvolvedoraRepositorio: DesenvolvedoraRepositorio) {
-        return new JogoRepositorioPrisma(prisma, editoraRepositorio, desenvolvedoraRepositorio);
-    }
-
+    
     public async lista(): Promise<Jogo[]> {
-        const aJogos = await this.prisma.jogo.findMany();
-
-        const jogos: Jogo[] = await Promise.all(aJogos.map(async (j) => {
-            const { idJogo, nomeJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido, editoraId, desenvolvedoraId } = j;
-            
-            // Buscar o nome da editora usando a interface EditoraRepositorio
-            const nomeEditora = editoraId ? await this.editoraRepositorio.busca(editoraId) : null;
-            
-            // Buscar o nome da desenvolvedora usando a interface DesenvolvedoraRepositorio
-            const nomeDesenvolvedora = desenvolvedoraId ? await this.desenvolvedoraRepositorio.busca(desenvolvedoraId) : null;
-            
-            return Jogo.with(idJogo, nomeJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido, nomeEditora ?? "", nomeDesenvolvedora ?? ""); 
-        }));
-
+        // Buscar todos os jogos com suas relações
+        const aJogos = await this.prisma.jogo.findMany({
+            include: {
+                editora: { select: { nomeEditora: true } },
+                desenvolvedora: { select: { nomeDesenvolvedora: true } },
+                RecursoJogo: {
+                    include: {
+                        recurso: { select: { nomeRecurso: true } }
+                    }
+                },
+                GeneroJogo: {
+                    include: {
+                        genero: { select: { nomeGenero: true } }
+                    }
+                },
+                TipoJogo: {
+                    include: {
+                        tipo: { select: { nomeTipo: true } }
+                    }
+                }
+            }
+        });
+    
+        // Mapear os jogos para a estrutura esperada na classe Jogo
+        const jogos: Jogo[] = aJogos.map((j) => {
+            const {
+                idJogo,
+                nomeJogo,
+                precoJogo,
+                descricao,
+                dataLancamento,
+                dataLancamentoInicial,
+                desconto,
+                quantidadeVendido,
+                plataforma,
+                imagemCaminho,
+                editora,
+                desenvolvedora,
+                RecursoJogo,
+                GeneroJogo,
+                TipoJogo
+            } = j;
+    
+            return Jogo.with(
+                idJogo,
+                nomeJogo,
+                precoJogo,
+                descricao,
+                dataLancamento,
+                dataLancamentoInicial,
+                desconto,
+                quantidadeVendido,
+                plataforma,
+                imagemCaminho,
+                editora?.nomeEditora, 
+                desenvolvedora?.nomeDesenvolvedora,
+                GeneroJogo.map(gj => gj.genero.nomeGenero),
+                RecursoJogo.map(rj => rj.recurso.nomeRecurso),
+                TipoJogo.map(tj => tj.tipo.nomeTipo)
+            );
+        });
+    
         return jogos;
     }
 
-    public async pesquisa(nomeJogo: string): Promise<Jogo[]> {
+    public async pesquisarPorNome(nomeJogo: string): Promise<Jogo[]> {
         // Buscar todos os jogos que correspondem ao nome fornecido, insensível a maiúsculas e minúsculas
         const aJogos = await this.prisma.jogo.findMany({
-            where: {
-                nomeJogo: {
-                    contains: nomeJogo, // Busca por partes do nome
-                    // Prisma geralmente realiza busca insensível a maiúsculas e minúsculas por padrão
+            where: { nomeJogo: { contains: nomeJogo }},
+            include: {
+                editora: { select: { nomeEditora: true } },
+                desenvolvedora: { select: { nomeDesenvolvedora: true } },
+                RecursoJogo: {
+                    include: {
+                        recurso: { select: { nomeRecurso: true } }
+                    }
+                },
+                GeneroJogo: {
+                    include: {
+                        genero: { select: { nomeGenero: true } }
+                    }
+                },
+                TipoJogo: {
+                    include: {
+                        tipo: { select: { nomeTipo: true } }
+                    }
                 }
             }
         });
@@ -57,18 +104,45 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
         if (aJogos.length === 0) return [];
     
         // Mapeia os resultados para o formato de Jogo
-        const jogos = await Promise.all(aJogos.map(async (jogoDb) => {
-            const { idJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido, editoraId, desenvolvedoraId, nomeJogo } = jogoDb;
-            
-            // Buscar o nome da editora usando a interface EditoraRepositorio
-            const nomeEditora = editoraId ? await this.editoraRepositorio.busca(editoraId) : "";
-            
-            // Buscar o nome da desenvolvedora usando a interface DesenvolvedoraRepositorio
-            const nomeDesenvolvedora = desenvolvedoraId ? await this.desenvolvedoraRepositorio.busca(desenvolvedoraId) : "";
+        const jogos = aJogos.map((j) => {
+            const {
+                idJogo,
+                nomeJogo,
+                precoJogo,
+                descricao,
+                dataLancamento,
+                dataLancamentoInicial,
+                desconto,
+                quantidadeVendido,
+                plataforma,
+                imagemCaminho,
+                editora,
+                desenvolvedora,
+                RecursoJogo,
+                GeneroJogo,
+                TipoJogo
+            } = j;
     
-            return Jogo.with(idJogo, nomeJogo, precoJogo, descricao, dataLancamento, dataLancamentoInicial, desconto, quantidadeVendido, nomeEditora ?? "", nomeDesenvolvedora ?? "");
-        }));
+            return Jogo.with(
+                idJogo,
+                nomeJogo,
+                precoJogo,
+                descricao,
+                dataLancamento,
+                dataLancamentoInicial,
+                desconto,
+                quantidadeVendido,
+                plataforma,
+                imagemCaminho,
+                editora?.nomeEditora ?? "",
+                desenvolvedora?.nomeDesenvolvedora ?? "",
+                GeneroJogo.map(gj => gj.genero.nomeGenero),
+                RecursoJogo.map(rj => rj.recurso.nomeRecurso),
+                TipoJogo.map(tj => tj.tipo.nomeTipo)
+            );
+        });
     
         return jogos;
     }
+    
 }

@@ -1,7 +1,5 @@
-// metodos do Jogo
-
 import { JogoRepositorio } from "../../repositorio/jogo/jogo.repositorio";
-import { JogoServico, ListaSaidaDto, PesquisaSaidaDto } from "./jogo.service";
+import { JogoServico, ListaSaidaDto } from "./jogo.service";
 
 export class JogoServicoImplementacao implements JogoServico {
 
@@ -14,7 +12,7 @@ export class JogoServicoImplementacao implements JogoServico {
     public async lista(): Promise<ListaSaidaDto> {
         const aJogos = await this.repositorio.lista();
         // lista de produtos
-        const jogos = aJogos.map((j)=>{
+        const jogos = aJogos.map((j) => {
             return {
                 idJogo: j.idJogo,
                 nomeJogo: j.nomeJogo,
@@ -24,8 +22,11 @@ export class JogoServicoImplementacao implements JogoServico {
                 dataLancamentoInicial: j.dataLancamentoInicial,
                 desconto: j.desconto,
                 quantidadeVendido: j.quantidadeVendido,
-                editora: j.editora,
-                desenvolvedora: j.desenvolvedora,
+                editora: j.editora ?? '',
+                desenvolvedora: j.desenvolvedora ?? '',
+                generos: j.generos,
+                recursos: j.recursos,
+                tipos: j.tipos
             };
         });
 
@@ -36,10 +37,10 @@ export class JogoServicoImplementacao implements JogoServico {
         return saida;
     }
 
-    public async pesquisa(nomeJogo: string): Promise<PesquisaSaidaDto> {
-        const aJogos = await this.repositorio.pesquisa(nomeJogo);
-        // lista de produtos
-        const jogos = aJogos.map((j)=>{
+    public async pesquisarPorNome(nomeJogo: string): Promise<ListaSaidaDto> {
+        const aJogos = await this.repositorio.pesquisarPorNome(nomeJogo);
+        // Lista de produtos
+        const jogos = aJogos.map((j) => {
             return {
                 idJogo: j.idJogo,
                 nomeJogo: j.nomeJogo,
@@ -49,16 +50,18 @@ export class JogoServicoImplementacao implements JogoServico {
                 dataLancamentoInicial: j.dataLancamentoInicial,
                 desconto: j.desconto,
                 quantidadeVendido: j.quantidadeVendido,
-                editora: j.editora,
-                desenvolvedora: j.desenvolvedora,
+                editora: j.editora ?? '',
+                desenvolvedora: j.desenvolvedora ?? '',
+                generos: j.generos,
+                recursos: j.recursos,
+                tipos: j.tipos
             };
         });
 
         const saida: ListaSaidaDto = {
-            jogos, 
+            jogos,
         };
 
         return saida;
     }
-
 }
