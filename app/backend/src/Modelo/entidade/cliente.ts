@@ -1,18 +1,19 @@
+import { Pais } from "@prisma/client";
 
 export type ClienteProps = {
-    idCliente: string;
-    nomeExibicao: string;
-    // pais: string;
-    // biblioteca: Biblioteca;
-    // carrinho: Carrinho;
-    // pedido: Pedido | null;
-    dataNascimento: Date;
-    nome: string;
-    email: string;
-    senha: string;
+    idCliente: string,
+    nomeExibicao: string,
+    dataNascimento: Date,
+    nome: string,
+    email: string,
+    senha: string,
+    pais?: Pais,
+    // pedido?: string[],
+    // carrinho?: string[],
 }
 
 export class Cliente {
+    
     private constructor(readonly props: ClienteProps){}
     
     public static with(
@@ -21,7 +22,10 @@ export class Cliente {
         dataNascimento: Date,
         nome: string,
         email: string,
-        senha: string
+        senha: string,
+        pais?: Pais,
+        // pedido?: string[],
+        // carrinho?: string[]
     ): Cliente {
         return new Cliente({
             idCliente,
@@ -29,10 +33,12 @@ export class Cliente {
             dataNascimento,
             nome,
             email,
-            senha
+            senha,
+            pais,
+            // pedido,
+            // carrinho
         });
     }
-
 
     public get idCliente() {
         return this.props.idCliente;
@@ -41,23 +47,6 @@ export class Cliente {
     public get nomeExibicao() {
         return this.props.nomeExibicao;
     }
-
-    // Adicione getters conforme necessário, como:
-    // public get pais() {
-    //     return this.props.pais;
-    // }
-
-    // public get biblioteca() {
-    //     return this.props.biblioteca;
-    // }
-
-    // public get carrinho() {
-    //     return this.props.carrinho;
-    // }
-
-    // public get pedido() {
-    //     return this.props.pedido;
-    // }
 
     public get dataNascimento() {
         return this.props.dataNascimento;
@@ -74,4 +63,16 @@ export class Cliente {
     public get senha() {
         return this.props.senha;
     }
+
+    public get pais() {
+        return this.props.pais;
+    }
+
+    // public get pedido() {
+    //     return this.props.pedido;
+    // }
+
+    // public get carrinho() {
+    //     return this.props.carrinho;
+    // }
 }

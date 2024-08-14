@@ -1,0 +1,33 @@
+
+GET http://localhost:8000/clientes
+###
+POST http://localhost:8000/clientes/cadastrar
+Content-Type: application/json
+
+{
+    "idCliente": "string",
+    "nomeExibicao": "string",
+    "dataNascimento": "2024-08-14T00:00:00.000Z", // Data no formato ISO 8601
+    "nome": "string",
+    "email": "string@example.com",
+    "senha": "string",
+    "paisId": 1 
+}
+
+###
+POST http://localhost:8000/clientes/logar
+Content-Type: application/json
+
+{
+    "email": "usuario@example.com",
+    "senha": "senha123" 
+}
+
+###
+POST http://localhost:8000/clientes/logar
+Content-Type: application/json
+
+{
+    "email": "email@email.com",
+    "senha": "senha" 
+}
