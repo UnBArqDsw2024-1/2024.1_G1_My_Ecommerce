@@ -24,7 +24,7 @@ export default function JogoDetalhe({ params }: Props) {
     return (
         <div>
             {/* Nome do JOgo */}
-            <h1 className="font-bold text-6xl p-10 w-screen flex items-center"> {jogo.nome} </h1>
+            <h1 className="font-bold text-6xl p-3 w-screen flex items-center"> {jogo.nome} </h1>
             <div className="px-10 w-screen flex items-center">
                 {/* <ReactStars count={5} size={24} color2={'#ffd700'} /> */}
                 <span className="font-bold p-2 rounded bg-neutral-900"> {jogo.nota}</span>
@@ -35,20 +35,28 @@ export default function JogoDetalhe({ params }: Props) {
                 {/* col-principal */}
                 <div className="w-3/4 p-4">
                     {/* <Image src={jogo.imagemCaminho} alt="capa jogo" width={35} height={35} /> */}
-                    <img src="https://thecatapi.com/api/images/get?format=src&type=gif" />
-                    <p>{jogo.descricao}</p>
+                    <img className="w-full h-[610px] rounded-[5px]" src="https://thecatapi.com/api/images/get?format=src&type=gif" />
+                    
+                    <p className="py-4">{jogo.descricao}</p>
 
                     <div className="flex">
                         <div className="w-1/2 p-4">
-                            <h1>Generos</h1>
+                            <h1 className="text-stone-500">Generos</h1>
+                            {/* <a className="underline" href="#">{jogo.genero[0]}</a> */}
+                            <a className="underline" href="#">jogo.genero[0]</a>
                         </div>
                         <div className="w-1/2 p-4">
-                            <h1>Recursos</h1>
+                            <h1 className="text-stone-500">Recursos</h1>
+                            {/* <a className="underline" href="#">{jogo.recurso[0]}</a> */}
+                            <a className="underline" href="#">jogo.recurso[0]</a>
                         </div>
                     </div>
+
+                    <h1 className="text-3xl py-4">Classificações dos jogadores da Epic</h1>
+                    <h2 className="text-stone-400">Fornecidas por jogadores no ecossistema da Epic Games.</h2>
                 </div>
                 {/* col-lateral */}
-                <div className="w-1/4 p-4 place-content-evenly" >
+                <div className="w-1/4 p-4 place-content-start" >
                     <div className="">
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
                             OBTER
@@ -64,19 +72,19 @@ export default function JogoDetalhe({ params }: Props) {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className="text-left">Desenvolvedor</td>
+                                    <td className="py-[12px] text-left text-stone-500">Desenvolvedor</td>
                                     <td className="text-right">{jogo.desenvolvedor}</td>
                                 </tr>
                                 <tr>
-                                    <td className="text-left">Editora</td>
+                                    <td className="py-[12px] text-left text-stone-500">Editora</td>
                                     <td className="text-right">{jogo.editora}</td>
                                 </tr>
                                 <tr>
-                                    <td className="text-left">Data de lançameto</td>
+                                    <td className="py-[12px] text-left text-stone-500">Data de lançameto</td>
                                     <td className="text-right">{jogo.dataLancamento}</td>
                                 </tr>
                                 <tr>
-                                    <td className="text-left">Lançameto inicial</td>
+                                    <td className="py-[12px] text-left text-stone-500">Lançameto inicial</td>
                                     <td className="text-right">{jogo.dataLancamentoInicial}</td>
                                 </tr>
                             </tbody>

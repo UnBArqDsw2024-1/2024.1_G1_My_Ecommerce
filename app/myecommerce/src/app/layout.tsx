@@ -20,8 +20,10 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={inter.className}>
         <TopBar />
+        <div className="px-20 bg-[#121212]">
         <BarraBusca />
         {children}
+        </div>
       </body>
     </html>
   );
