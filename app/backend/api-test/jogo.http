@@ -18,7 +18,7 @@ GET http://localhost:8000/jogos
 # }
 
 ###
-POST http://localhost:8000/jogos/pesquisa
+POST http://localhost:8000/clientes/pesquisa
 Content-Type: application/json
 
 {
