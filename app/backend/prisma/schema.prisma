@@ -44,7 +44,7 @@ model Tipo {
 
 model Jogo {
   @@map("jogos")
-  idJogo String @id
+  idJogo String @id @default(uuid())
   nomeJogo String 
   precoJogo Float
   descricao String
@@ -99,7 +99,7 @@ model Pais {
 
 model Cliente {
   @@map("clientes")
-  idCliente String @id
+  idCliente String @id @default(uuid())
   nomeExibicao String @unique
   dataNascimento DateTime
   nome String
@@ -110,29 +110,29 @@ model Cliente {
   Pedidos Pedido[]
 }
 
-model Pagamento {
-  idPagamento Int @id @default(autoincrement())
-  nomePagamento String @unique
-  Pedido Pedido[]
-}
-
 model Pedido {
   idPedido Int @id @default(autoincrement())
   status String
+  dataPedido DateTime
+  notaFiscal     String?
   Cliente Cliente @relation(fields: [clienteId], references: [idCliente])
   clienteId String
   Jogo Jogo @relation(fields: [jogoId], references: [idJogo])
   jogoId String 
-  dataPedido DateTime
-  Pagamento Pagamento? @relation(fields: [pagamentoId], references: [idPagamento])
-  pagamentoId Int?
-  Nota NotaFiscal[]
+  FormaPagamento FormaPagamento? @relation(fields: [formaPagamentoId], references: [idFormaPagamento])
+  formaPagamentoId String? // Adiciona o campo de chave estrangeira
 }
 
-model NotaFiscal {
-  idNota String @id
-  Pedido Pedido @relation(fields: [pedidoId], references: [idPedido])
-  pedidoId Int @unique
-  ehFavorito Boolean?
-
+model FormaPagamento {
+    idFormaPagamento  String   @id @default(uuid())
+    dataVencimento DateTime
+    pagamentoConfirmado Boolean
+    tipo           String?
+    numeroCartao   String?  
+    titular        String?  
+    cvc            String?  
+    validade       String?  
+    codigoBoleto   String?  
+    chavePix       String? 
+    Pedido         Pedido[] 
 }
