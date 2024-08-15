@@ -59,7 +59,7 @@ Na primeira vez que for rodar o projeto, utilize o comando abaixo para construir
 
 ```sh
 git clone https://github.com/UnBArqDsw2024-1/2024.1_G1_My_Ecommerce.git
-cd app/my-app
+cd app/myecommerce
 docker-compose up --build
 ```
 
@@ -68,6 +68,6 @@ docker-compose up --build
 Para iniciar o projeto nas próximas vezes, apenas utilize o comando:
 
 ```sh
-cd app/my-app
+cd app/myecommerce
 docker-compose up
 ```

@@ -20,5 +20,7 @@ RUN npm run build
 # Expondo a porta 3000 para acesso externo
 EXPOSE 3000
 
+ENV CHOKIDAR_USEPOLLING=true
+
 # Comando para iniciar a aplicação
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]
