@@ -54,7 +54,8 @@ export default function JogoDetalhe({ params }: Props) {
             setLoading(true);
             try {
                 const response = await axios.post<Jogo>('http://localhost:8000/jogos/buscarPorId', { idJogo: params.id });
-                console.log(response.data);
+                setJogo(response.data);
+                console.log(response.data)
             }
             catch (error) {
                 console.error(error);
@@ -130,7 +131,7 @@ export default function JogoDetalhe({ params }: Props) {
                         </div>
                     </div>
                     <p className="py-4 text-white">{jogo.descricao}</p>
-
+                    {/* 
                     <div className="flex">
                         <div className="w-1/2 p-4">
                             <h1 className="text-stone-500">Gêneros</h1>
@@ -144,7 +145,7 @@ export default function JogoDetalhe({ params }: Props) {
                                 <a key={index} className="underline text-white mr-2" href="#">{recurso}</a>
                             ))}
                         </div>
-                    </div>
+                    </div> */}
 
                     <h1 className="text-3xl py-4 text-white">Classificações dos jogadores da Epic</h1>
                     <h2 className="text-stone-400">Fornecidas por jogadores no ecossistema da Epic Games.</h2>

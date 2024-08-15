@@ -1,11 +1,20 @@
+import cors from 'cors';
 import express, { Express, Request, Response } from "express";
 import { Api } from "../api";
 
 export class ApiExpress implements Api {
-    private constructor(readonly app: Express) {}
+    private constructor(readonly app: Express) { }
 
     public static build() {
         const app = express();
+
+        // Habilita CORS para todas as rotas
+        app.use(cors({
+            origin: 'http://localhost:3000', // Permite o acesso do frontend
+            methods: ['GET', 'POST'], // Métodos permitidos
+            allowedHeaders: ['Content-Type'], // Headers permitidos
+        }));
+
         app.use(express.json());
         return new ApiExpress(app);
     }
@@ -26,7 +35,7 @@ export class ApiExpress implements Api {
 
     public start(port: number) {
         this.app.listen(port, () => {
-            console.log("Server runing on port " + port);
+            console.log("Server running on port " + port);
             this.printRoutes();
         });
     }
