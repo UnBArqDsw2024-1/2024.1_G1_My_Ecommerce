@@ -38,7 +38,7 @@ export class Jogo {
         tipos?: string[]
     ){
         return new Jogo({
-            idJogo: crypto.randomUUID().toString(),
+            idJogo,
             nomeJogo,
             precoJogo,
             descricao,
