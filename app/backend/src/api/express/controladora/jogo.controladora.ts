@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { JogoRepositorioPrisma } from "../../../Modelo/repositorio/jogo/jogo.repositorio.prisma";
-import { JogoServicoImplementacao } from "../../../Modelo/servico/jogo/jogo.service.implementacao";
+import { JogoRepositorioPrisma } from "../../../Modelo/repositorio/jogo.repositorio";
+import { JogoServicoImplementacao } from "../../../Modelo/servico/jogo.service.implementacao";
 import { prisma } from "../../../util/prisma.util";
 
 export class JogoControladora {
@@ -54,4 +54,25 @@ export class JogoControladora {
             response.status(500).json({ error: 'Erro ao pesquisar o jogo' });
         }
     }
+    public async buscarPorId(request: Request, response: Response): Promise<void> {
+        const { idJogo } = request.body; // Alterado para request.body
+    
+        if (typeof idJogo !== 'string') {
+            response.status(400).json({ error: 'ID do jogo deve ser uma string' });
+            return;
+        }
+    
+        try {
+            const jogoRepositorio = JogoRepositorioPrisma.build(prisma);
+            const jogoServico = JogoServicoImplementacao.build(jogoRepositorio);
+    
+            const saida = await jogoServico.buscarPorId(idJogo);
+    
+            response.status(200).json(saida);
+        } catch (error) {
+            console.error("Erro ao buscar jogo por ID:", error);
+            response.status(500).json({ error: 'Erro ao buscar o jogo por ID' });
+        }
+    }
+
 }

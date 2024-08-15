@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { ClienteRepositorioPrisma } from "../../../Modelo/repositorio/cliente/cliente.repositorio.prisma";
-import { ClienteServicoImplementacao } from "../../../Modelo/servico/cliente/cliente.service.implentacao";
+import { ClienteRepositorioPrisma } from "../../../Modelo/repositorio/cliente.repositorio";
+import { ClienteServicoImplementacao } from "../../../Modelo/servico/cliente.service.implentacao";
 
 import { prisma } from "../../../util/prisma.util"; // Ajuste o caminho conforme necessário
 
