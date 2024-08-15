@@ -1,6 +1,6 @@
 # Backend
 
-### Como rodar?
+## Como rodar?
 
 1. Abra a pasta do backend
 
@@ -8,14 +8,20 @@
    cd app/backend
    ```
 
-2. Configure o prisma
+2. Copie o conteúdo da pasta .env.example e crie .env
+
+   ```sh
+   cp .env.example .env
+   ```
+
+3. Configure o prisma
 
       ```sh
    npx prisma db push
-   npx generate
+   npx prisma generate
    ```
 
-3. Para verificar se o banco foi populado pode abrir a studo do prisma:
+4. Para verificar se o banco foi populado pode abrir a studo do prisma:
 
       ```sh
    npx prisma studio
@@ -23,19 +29,21 @@
 
    ![alt text](./img/prisma-studio.png)
 
-4. Rode o projeto pelo terminal
+5. Rode o projeto pelo terminal
 
-```sh
-   npm run dev
-   ```
+   ```sh
+      npm run dev
+      ```
 
 ### Teste das requisições
 
-1. instalar a extensão REST Client
+1. Instalar a extensão REST Client no vscode
+
    ![alt text](./img/rest-client.png)
+
 2. Abra algum dos arquivos .http ()
 
-```sh
+   ```sh
    cd api-test
    code jogo.http # code abre no vscode
    ```
