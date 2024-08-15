@@ -1,5 +1,5 @@
 ###
-GET http://localhost:8000/jogos
+GET http://localhost:8000/
 
 # ###
 # POST http://localhost:8000/jogos/cria
@@ -18,9 +18,17 @@ GET http://localhost:8000/jogos
 # }
 
 ###
-POST http://localhost:8000/clientes/pesquisa
+POST http://localhost:8000/jogos/pesquisa
 Content-Type: application/json
 
 {
     "nomeJogo": "ação"
 }
+###
+POST http://localhost:8000/jogos/buscarPorId
+Content-Type: application/json
+
+{
+    "idJogo": "jogo1"
+}
+

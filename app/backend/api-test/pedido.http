@@ -1,0 +1,16 @@
+
+POST http://localhost:8000/pedido/comprar
+Content-Type: application/json
+
+{
+    "idPedido": "string",
+}
+
+###
+POST http://localhost:8000/clientes/biblioteca
+Content-Type: application/json
+
+{
+    "idPedido": "string",
+}
+

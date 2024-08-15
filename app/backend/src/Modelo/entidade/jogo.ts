@@ -20,6 +20,42 @@ export type JogoProps = {
 export class Jogo {
     private constructor(private readonly props: JogoProps) {}
 
+    public static criar(
+        idJogo: string,
+        nomeJogo: string,
+        precoJogo: number,
+        descricao: string,
+        dataLancamento: Date,
+        dataLancamentoInicial: Date,
+        desconto: number,
+        quantidadeVendido: number,
+        plataforma: string,
+        imagemCaminho: string,
+        editora?: string,
+        desenvolvedora?: string,
+        generos?: string[],
+        recursos?: string[],
+        tipos?: string[]
+    ){
+        return new Jogo({
+            idJogo: crypto.randomUUID().toString(),
+            nomeJogo,
+            precoJogo,
+            descricao,
+            dataLancamento ,
+            dataLancamentoInicial,
+            desconto,
+            quantidadeVendido,
+            editora,
+            desenvolvedora,
+            plataforma,
+            imagemCaminho,
+            generos,
+            recursos,
+            tipos
+        });
+    };
+    
     public static with(
         idJogo: string,
         nomeJogo: string,
@@ -114,5 +150,9 @@ export class Jogo {
 
     public get tipos() {
         return this.props.tipos ?? [];
+    }
+
+    public calcularValor(){
+        return this.precoJogo - this.desconto;
     }
 }

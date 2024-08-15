@@ -1,9 +1,21 @@
 import { PrismaClient } from "@prisma/client";
-import { Jogo } from "../../entidade/jogo";
-import { JogoRepositorio } from "./jogo.repositorio";
+import { Jogo } from "../entidade/jogo";
+import { Pedido } from "../entidade/pedido";
+
+// interface
+export interface JogoRepositorio {
+    lista(): Promise<Jogo[]>;
+    pesquisarPorNome(nomeJogo: string): Promise<Jogo[]>;
+    buscarPorId(idJogo:string): Promise<Jogo>;
+    // comprarJogo(idJogo:string, idCLiente:string): Promise<Pedido>;
+    // filtrar(genero: string,recurso:string, tipo:string, plataforma:string): Promise<Jogo[]>
+}
 
 export class JogoRepositorioPrisma implements JogoRepositorio {
     private constructor(readonly prisma: PrismaClient) {}
+    comprarJogo(idJogo: string, idCLiente: string): Promise<Pedido> {
+        throw new Error("Method not implemented.");
+    }
     
     public static build(prisma: PrismaClient) {
         return new JogoRepositorioPrisma(prisma);
@@ -143,6 +155,72 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
         });
     
         return jogos;
+    }
+    
+    public async buscarPorId(idJogo: string): Promise<Jogo> {
+        const aJogo = await this.prisma.jogo.findUnique({
+            where: { idJogo },
+            include: {
+                editora: { select: { nomeEditora: true } },
+                desenvolvedora: { select: { nomeDesenvolvedora: true } },
+                RecursoJogo: {
+                    include: {
+                        recurso: { select: { nomeRecurso: true } }
+                    }
+                },
+                GeneroJogo: {
+                    include: {
+                        genero: { select: { nomeGenero: true } }
+                    }
+                },
+                TipoJogo: {
+                    include: {
+                        tipo: { select: { nomeTipo: true } }
+                    }
+                }
+            }
+        });
+
+        if (!aJogo) {
+            throw new Error("Não existe");
+        }
+
+        const { 
+            nomeJogo,
+            precoJogo,
+            descricao,
+            dataLancamento,
+            dataLancamentoInicial,
+            desconto,
+            quantidadeVendido,
+            plataforma,
+            imagemCaminho,
+            editora,
+            desenvolvedora,
+            RecursoJogo,
+            GeneroJogo,
+            TipoJogo
+        } = aJogo;
+
+        const jogo = Jogo.with(
+            idJogo,
+            nomeJogo,
+            precoJogo,
+            descricao,
+            dataLancamento,
+            dataLancamentoInicial,
+            desconto,
+            quantidadeVendido,
+            plataforma,
+            imagemCaminho,
+            editora?.nomeEditora ?? "",
+            desenvolvedora?.nomeDesenvolvedora ?? "",
+            GeneroJogo.map(gj => gj.genero.nomeGenero),
+            RecursoJogo.map(rj => rj.recurso.nomeRecurso),
+            TipoJogo.map(tj => tj.tipo.nomeTipo)
+        );
+
+        return jogo;
     }
     
 }

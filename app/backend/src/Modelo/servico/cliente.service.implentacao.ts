@@ -1,5 +1,32 @@
-import { ClienteRepositorio } from "../../repositorio/cliente/cliente.repositorio";
-import { ClienteServico, ListarSaidaDto, LogarSaidaDTO } from "./cliente.service";
+import { ClienteRepositorio } from "../repositorio/cliente.repositorio";
+
+import { Pais } from "@prisma/client";
+
+export type CadastrarSaidaDTO = {
+    idCliente: string;
+}
+
+export type LogarSaidaDTO = {
+    sucesso: boolean;
+    mensagem?: string;
+}
+
+export type ListarSaidaDto = {
+    clientes: {
+        idCliente: string;
+        nomeExibicao: string;
+        dataNascimento: Date;
+        nome: string;
+        email: string;
+        senha: string;
+        pais?: Pais;
+    }[];
+}
+
+export interface ClienteServico {
+    listar(): Promise<ListarSaidaDto>;
+    logar(email: string, senha: string): Promise<LogarSaidaDTO>
+};
 
 export class ClienteServicoImplementacao implements ClienteServico {
     

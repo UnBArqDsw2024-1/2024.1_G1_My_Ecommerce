@@ -16,6 +16,18 @@ export class Cliente {
     
     private constructor(readonly props: ClienteProps){}
     
+    public static criarCliente(
+        idCliente: string,
+        nomeExibicao: string,
+        dataNascimento: Date,
+        nome: string,
+        email: string,
+        senha: string,
+        pais?: Pais
+    ): Cliente {
+        return Cliente.with(idCliente, nomeExibicao, dataNascimento, nome, email, senha, pais);
+    }
+    
     public static with(
         idCliente: string,
         nomeExibicao: string,
@@ -68,11 +80,11 @@ export class Cliente {
         return this.props.pais;
     }
 
-    // public get pedido() {
-    //     return this.props.pedido;
-    // }
-
-    // public get carrinho() {
-    //     return this.props.carrinho;
+    // public validarSenha(email:string, senha:string){
+    //     if (this.email !== email && this.senha !== senha ){
+    //         throw new Error(
+    //             "Login incorreta"
+    //         );
+    //     } else {return "Sucesso"}
     // }
 }

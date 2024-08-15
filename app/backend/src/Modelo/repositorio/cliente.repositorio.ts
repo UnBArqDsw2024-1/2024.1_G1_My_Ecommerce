@@ -1,6 +1,18 @@
 import { PrismaClient } from "@prisma/client";
-import { Cliente } from "../../entidade/cliente";
-import { ClienteRepositorio, ResultadoLogin } from "./cliente.repositorio";
+import { Cliente } from "../entidade/cliente";
+
+
+// interface
+export type ResultadoLogin = {
+    sucesso: boolean;
+    mensagem?: string;
+};
+
+export interface ClienteRepositorio {
+    // cadastrar(cliente: Cliente): Promise<void>;
+    logar(email: string, senha: string): Promise<ResultadoLogin>;
+    listar(): Promise<Cliente[]>;
+}
 
 export class ClienteRepositorioPrisma implements ClienteRepositorio {
     private constructor(readonly prisma: PrismaClient) {}
