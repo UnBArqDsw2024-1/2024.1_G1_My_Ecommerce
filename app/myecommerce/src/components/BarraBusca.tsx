@@ -9,7 +9,7 @@ export default function Login() {
             </div>
 
             <div className="w-40 flex justify-between">
-                <span>Descubra</span>
+                <span className="text-white">Descubra</span>
                 <span className="text-neutral-500">Busque</span>
             </div>
         </div>
