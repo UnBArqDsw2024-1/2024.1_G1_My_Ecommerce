@@ -7,10 +7,48 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8000/clientes/biblioteca
+# POST http://localhost:8000/clientes/biblioteca
+# Content-Type: application/json
+
+# {
+#     "idPedido": "string",
+# }
+
+
+### 
+Post http://localhost:8000/pedido/carrinho
 Content-Type: application/json
 
 {
-    "idPedido": "string",
+    "clienteId": "c6313f33-5001-48fa-8df9-f12bb1a2feb2",
+    "jogoId": "jogo1"
 }
 
+// cliente ja possui jogo
+### 
+Post http://localhost:8000/pedido/carrinho
+Content-Type: application/json
+
+{
+    "clienteId": "cliente1",
+    "jogoId": "jogo2"
+}
+
+
+###
+Post http://localhost:8000/pedido/status
+Content-Type: application/json
+
+{
+    "idPedido": 1,
+    "status": "Pedido confirmado, aguardando pagamento"
+}
+
+###
+Post http://localhost:8000/pedido/status
+Content-Type: application/json
+
+{
+    "idPedido": 3,
+    "status": "Pagamento aprovado"
+}

@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { StatusPedido } from "../../../Modelo/entidade/pedido";
 import { PedidoRepositorioPrisma } from "../../../Modelo/repositorio/pedido.repositorio";
 import { PedidoServicoImplementacao } from "../../../Modelo/servico/pedido.service.implentacao";
 import { prisma } from "../../../util/prisma.util";
@@ -10,6 +11,86 @@ export class PedidoControladora {
     public static build() {
         return new PedidoControladora();
     }
+
+    public async alterarStatusPedido(request: Request, response: Response): Promise<void> {
+        const { idPedido, status } = request.body;
+
+        if (typeof idPedido !== 'number') {
+            response.status(400).json({ error: 'ID do pedido deve ser um número' });
+            return;
+        }
+
+        if (!Object.values(StatusPedido).includes(status)) {
+            response.status(400).json({ error: 'Status inválido' });
+            return;
+        }
+
+        try {
+            const pedidoRepositorio = PedidoRepositorioPrisma.build(prisma);
+            const pedidoServico = PedidoServicoImplementacao.build(pedidoRepositorio);
+
+            await pedidoServico.alterarStatusPedido(idPedido, status);
+
+            response.status(200).json({ message: 'Status do pedido alterado com sucesso' });
+        } catch (error) {
+            console.error("Erro ao alterar status do pedido:", error);
+            response.status(500).json({ error: 'Erro ao alterar status do pedido' });
+        }
+    }
+
+    public async addCarrinho(request: Request, response: Response): Promise<void> {
+        const { clienteId, jogoId } = request.body;
+    
+        if (typeof clienteId !== 'string' || typeof jogoId !== 'string') {
+            response.status(400).json({ error: 'clienteId e jogoId devem ser strings' });
+            return;
+        }
+    
+        try {
+            const possuiJogo = await prisma.pedido.findFirst({
+                where: {
+                    clienteId: clienteId,
+                    jogoId: jogoId,
+                    status: StatusPedido.Pago,
+                },
+            });
+    
+            if (possuiJogo) {
+                console.log('Cliente já possui o jogo')
+                response.status(400).json({ error: 'Cliente já possui o jogo' });
+                return;
+            }
+    
+            const pedidoRepositorio = PedidoRepositorioPrisma.build(prisma);
+            const pedidoServico = PedidoServicoImplementacao.build(pedidoRepositorio);
+    
+            const clienteExiste = await prisma.cliente.findUnique({
+                where: { idCliente: clienteId },
+            });
+    
+            if (!clienteExiste) {
+                response.status(404).json({ error: 'Cliente não encontrado' });
+                return;
+            }
+    
+            const jogoExiste = await prisma.jogo.findUnique({
+                where: { idJogo: jogoId },
+            });
+    
+            if (!jogoExiste) {
+                response.status(404).json({ error: 'Jogo não encontrado' });
+                return;
+            }
+    
+            await pedidoServico.addCarrinho(clienteId, jogoId);
+    
+            response.status(200).json({ message: `Jogo: ${jogoId} - Adicionado ao carrinho do ${clienteId}` });
+        } catch (error) {
+            console.error("Erro ao adicionar jogo no carrinho:", error);
+            response.status(500).json({ error: 'Erro ao adicionar jogo no carrinho' });
+        }
+    }
+    
 
     // public async listarPorStatus(request: Request, response: Response): Promise<void> {
     //     const { status } = request.query;
@@ -36,6 +117,7 @@ export class PedidoControladora {
     //     const { idPedido } = request.body;
 
     //     if (typeof idPedido !== 'number') {
+        
     //         response.status(400).json({ error: 'ID do pedido deve ser um número' });
     //         return;
     //     }
@@ -52,47 +134,27 @@ export class PedidoControladora {
     //         response.status(500).json({ error: 'Erro ao adicionar biblioteca' });
     //     }
     // }
-    public async confirmarPedido(request: Request, response: Response): Promise<void> {
-        const { idPedido } = request.body;
 
-        if (typeof idPedido !== 'number') {
-            response.status(400).json({ error: 'ID do pedido deve ser um número' });
-            return;
-        }
+    // public async confirmarPagamento(request: Request, response: Response): Promise<void> {
+    //     const { idPedido } = request.body;
 
-        try {
-            const pedidoRepositorio = PedidoRepositorioPrisma.build(prisma);
-            const pedidoServico = PedidoServicoImplementacao.build(pedidoRepositorio);
+    //     if (typeof idPedido !== 'number') {
+    //         response.status(400).json({ error: 'ID do pedido deve ser um número' });
+    //         return;
+    //     }
 
-            await pedidoServico.confirmarPedido(idPedido);
+    //     try {
+    //         const pedidoRepositorio = PedidoRepositorioPrisma.build(prisma);
+    //         const pedidoServico = PedidoServicoImplementacao.build(pedidoRepositorio);
 
-            response.status(200).json({ message: 'Pedido confirmado com sucesso' });
-        } catch (error) {
-            console.error("Erro ao confirmar pedido:", error);
-            response.status(500).json({ error: 'Erro ao confirmar pedido' });
-        }
-    }
+    //         await pedidoServico.confirmarPagamento(idPedido);
 
-    public async confirmarPagamento(request: Request, response: Response): Promise<void> {
-        const { idPedido } = request.body;
-
-        if (typeof idPedido !== 'number') {
-            response.status(400).json({ error: 'ID do pedido deve ser um número' });
-            return;
-        }
-
-        try {
-            const pedidoRepositorio = PedidoRepositorioPrisma.build(prisma);
-            const pedidoServico = PedidoServicoImplementacao.build(pedidoRepositorio);
-
-            await pedidoServico.confirmarPagamento(idPedido);
-
-            response.status(200).json({ message: 'Pagamento confirmado com sucesso' });
-        } catch (error) {
-            console.error("Erro ao confirmar pagamento:", error);
-            response.status(500).json({ error: 'Erro ao confirmar pagamento' });
-        }
-    }
+    //         response.status(200).json({ message: 'Pagamento confirmado com sucesso' });
+    //     } catch (error) {
+    //         console.error("Erro ao confirmar pagamento:", error);
+    //         response.status(500).json({ error: 'Erro ao confirmar pagamento' });
+    //     }
+    // }
 
     // public async gerarRecibo(request: Request, response: Response): Promise<void> {
     //     const { idPedido } = request.body;

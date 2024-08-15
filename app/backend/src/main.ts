@@ -16,8 +16,10 @@ function main() {
     api.addGetRoute("/clientes", controllerCliente.listar);
     api.addPostRoute("/clientes/logar", controllerCliente.logar);
     // api.addPostRoute("/pedido/carrinho", controllerPedido.confirmarPedido);
-    api.addPostRoute("/pedido/comprar", controllerPedido.confirmarPedido);
-    api.addPostRoute("/pedido/biblioteca", controllerPedido.confirmarPagamento);
+    // api.addPostRoute("/pedido/comprar", controllerPedido.confirmarPedido);
+    // api.addPostRoute("/pedido/biblioteca", controllerPedido.confirmarPagamento);
+    api.addPostRoute("/pedido/status", controllerPedido.alterarStatusPedido);
+    api.addPostRoute("/pedido/carrinho", controllerPedido.addCarrinho);
 
 
     api.start(8000);
