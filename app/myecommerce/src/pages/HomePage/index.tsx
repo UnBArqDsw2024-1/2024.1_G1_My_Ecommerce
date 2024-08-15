@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import ValorantLogo from '../../assets/game-logo.svg';
-import Search from '../../assets/Icon.svg';
 import SetaDireita from '../../assets/seta-direita.svg';
 import SetaEsquerda from '../../assets/seta-esquerda.svg';
 import Small from '../../assets/valorant-small.jpg';
@@ -8,18 +7,6 @@ import Small from '../../assets/valorant-small.jpg';
 export default function HomePage() {
     return (
         <div className="px-60 w-screen ">
-            <div className="py-10 flex items-center"> {/* barra de busca */}
-                <div className="flex 
-                        <Image alt='seta-esquerda' src={SetaEsquerda} width={100} height={100} className='w-10 h-10'/> w-72 p-3 rounded-full mr-5 hover:bg-neutral-700 ease-in-out duration-300">
-                    <Image src={Search} alt='imagem'/>
-                    <input type="text" placeholder="Busque na loja" className="bg-transparent outline-none ml-5 placeholder-neutral-500"/>
-                </div>
-
-                <div className="w-40 flex justify-between">
-                    <span>Descubra</span>
-                    <span className="text-neutral-500 cursor-pointer">Busque</span>
-                </div>
-            </div>
 
             <div className="grid grid-cols-4 w-full gap-10"> {/* Jogos */}
                 <div className="bg-[url('../assets/valorant.jpeg')] h-[600px] bg-cover bg-center bg-no-repeat col-span-3 rounded-lg p-10 ">
