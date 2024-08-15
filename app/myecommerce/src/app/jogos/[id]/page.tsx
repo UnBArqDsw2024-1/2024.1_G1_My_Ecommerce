@@ -10,19 +10,21 @@ interface Props {
 };
 
 interface Jogo {
-    nome: string;
-    id: string;
-    desenvolvedor: string;
+    nomeJogo: string;
+    idJogo: string;
+    desenvolvedora: string;
     editora: string;
-    avaliacoes: any[];
     descricao: string;
     dataLancamento: string;
     dataLancamentoInicial: string;
-    preco: string;
+    precoJogo: number;
     desconto: number;
     nota: number;
     recursos: string[];
     generos: string[];
+    imagemCaminho: string;
+    plataforma: string;
+    quantidadeVendido: number;
 }
 // const imagens = [
 //     '../../../assets/valorant.jpeg',
@@ -54,7 +56,7 @@ export default function JogoDetalhe({ params }: Props) {
             setLoading(true);
             try {
                 const response = await axios.post<Jogo>('http://localhost:8000/jogos/buscarPorId', { idJogo: params.id });
-                setJogo(response.data);
+                setJogo(response.data.props);
                 console.log(response.data)
             }
             catch (error) {
@@ -62,16 +64,6 @@ export default function JogoDetalhe({ params }: Props) {
             }
             setLoading(false);
         }
-
-
-        // POST http://localhost:8000/jogos/buscarPorId
-        // Content - Type: application / json
-
-        // {
-        //     "idJogo": "jogo1"
-        // }
-
-
 
         fetchJogo();
     }, [params.id]);
@@ -88,8 +80,8 @@ export default function JogoDetalhe({ params }: Props) {
 
     return (
         <div>
-            {/* Nome do JOgo */}
-            <h1 className="font-bold text-6xl p-3 w-screen flex items-center text-white"> {jogo.nome} </h1>
+            {/* Nome do Jogo */}
+            <h1 className="font-bold text-6xl p-3 w-screen flex items-center text-white"> {jogo.nomeJogo} </h1>
             <div className="px-10 w-screen flex items-center">
                 <ReactStars
                     count={5}
@@ -131,7 +123,7 @@ export default function JogoDetalhe({ params }: Props) {
                         </div>
                     </div>
                     <p className="py-4 text-white">{jogo.descricao}</p>
-                    {/* 
+                    
                     <div className="flex">
                         <div className="w-1/2 p-4">
                             <h1 className="text-stone-500">Gêneros</h1>
@@ -145,7 +137,7 @@ export default function JogoDetalhe({ params }: Props) {
                                 <a key={index} className="underline text-white mr-2" href="#">{recurso}</a>
                             ))}
                         </div>
-                    </div> */}
+                    </div>
 
                     <h1 className="text-3xl py-4 text-white">Classificações dos jogadores da Epic</h1>
                     <h2 className="text-stone-400">Fornecidas por jogadores no ecossistema da Epic Games.</h2>
