@@ -20,5 +20,8 @@
   "dependencies": {
     "@prisma/client": "^5.18.0",
     "express": "^4.19.2"
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma"
   }
 }

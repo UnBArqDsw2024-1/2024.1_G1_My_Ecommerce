@@ -1,49 +1,89 @@
 "use client"
 
-// import ReactStars from 'react-rating-star-with-type'; 
-import React, { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import ReactStars from 'react-stars';
-import { CiGlobe } from "react-icons/ci";
+
 
 interface Props {
     params: { id: string }
 };
 
-const jogo = {
-    nome: "Valorant",
-    id: "ide15adad88",
-    desenvolvedor: "Desenvolvedor XYZ",
-    editora: "Editora ABC",
-    avaliacoes: [],
-    descricao: "Este é um jogo muito ruim.",
-    dataLancamento: "2024-01-01",
-    dataLancamentoInicial: "2024-01-01",
-    preco: "20 USD",
-    desconto: 0.05,
-    nota: 4.5, // Esse vem do metodo getNota na verdade
-    recursos: ['Competitivo', 'Multijogador'],
-    generos: ['Ação', 'Tiro'],
-};
-
-const imagens = [
-    '../../../assets/valorant.jpeg',
-    '../../../assets/valorant.jpeg',
-    '../../../assets/valorant.jpeg',
-    '../../../assets/valorant.jpeg',
-];
+interface Jogo {
+    nome: string;
+    id: string;
+    desenvolvedor: string;
+    editora: string;
+    avaliacoes: any[];
+    descricao: string;
+    dataLancamento: string;
+    dataLancamentoInicial: string;
+    preco: string;
+    desconto: number;
+    nota: number;
+    recursos: string[];
+    generos: string[];
+}
+// const imagens = [
+//     '../../../assets/valorant.jpeg',
+//     '../../../assets/valorant.jpeg',
+//     '../../../assets/valorant.jpeg',
+//     '../../../assets/valorant.jpeg',
+// ];
 
 
 
 export default function JogoDetalhe({ params }: Props) {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    
-    const handlePrev = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === 0 ? imagens.length - 1 : prevIndex - 1));
-    };
-    
-    const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === imagens.length - 1 ? 0 : prevIndex + 1));
-    };
+
+    const [loading, setLoading] = useState(true);
+    const [jogo, setJogo] = useState<Jogo | null>(null);
+
+
+    // const [currentIndex, setCurrentIndex] = useState(0);
+
+    // const handlePrev = () => {
+    //     setCurrentIndex((prevIndex) => (prevIndex === 0 ? imagens.length - 1 : prevIndex - 1));
+    // };
+
+    // const handleNext = () => {
+    //     setCurrentIndex((prevIndex) => (prevIndex === imagens.length - 1 ? 0 : prevIndex + 1));
+    // };
+
+    useEffect(() => {
+        const fetchJogo = async () => {
+            setLoading(true);
+            try {
+                const response = await axios.post<Jogo>('http://localhost:8000/jogos/buscarPorId', { idJogo: params.id });
+                console.log(response.data);
+            }
+            catch (error) {
+                console.error(error);
+            }
+            setLoading(false);
+        }
+
+
+        // POST http://localhost:8000/jogos/buscarPorId
+        // Content - Type: application / json
+
+        // {
+        //     "idJogo": "jogo1"
+        // }
+
+
+
+        fetchJogo();
+    }, [params.id]);
+
+
+    if (loading) {
+        return <div>Carregando...</div>;
+    }
+
+    if (!jogo) {
+        return <div>Jogo não encontrado.</div>;
+    }
+
 
     return (
         <div>
@@ -59,7 +99,7 @@ export default function JogoDetalhe({ params }: Props) {
                 />
                 <span className="px-4">
                     <span className="font-bold p-2 rounded bg-neutral-900 text-gray-300">
-                    {jogo.nota}
+                        {jogo.nota}
 
                     </span>
                 </span>
@@ -72,12 +112,13 @@ export default function JogoDetalhe({ params }: Props) {
                     <img className="w-full h-[610px] rounded-[5px]" src="https://thecatapi.com/api/images/get?format=src&type=gif" />
                     <div className="carousel my-12 mx-auto">
                         <div className="relative overflow-hidden w-full">
+                            {/* 
                             <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                                 {imagens.map((src, index) => (
                                     <div key={index} className="min-w-full flex-shrink-0">
                                         <img src={src} alt={`Slide ${index}`} className="w-full h-auto object-cover" />
                                     </div>
-                                ))}   
+                                ))}
                             </div>
                             <button className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full" onClick={handlePrev}>
                                 &#10094;
@@ -85,6 +126,7 @@ export default function JogoDetalhe({ params }: Props) {
                             <button className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full" onClick={handleNext}>
                                 &#10095;
                             </button>
+                            */}
                         </div>
                     </div>
                     <p className="py-4 text-white">{jogo.descricao}</p>
@@ -109,7 +151,7 @@ export default function JogoDetalhe({ params }: Props) {
                     <div className="p-10 flex items-center justify-center">
                         <span className="text-6xl px-4">
                             <span className="font-bold p-2 rounded bg-neutral-900 text-gray-300">
-                            {jogo.nota}
+                                {jogo.nota}
                             </span>
                         </span>
                         <ReactStars
@@ -126,44 +168,44 @@ export default function JogoDetalhe({ params }: Props) {
                             <h1 className="text-stone-300">Recomendado</h1>
                             jogo.plataforma
                         </div>
-                        </div>
                     </div>
+                </div>
 
-                    {/* col-lateral */}
-                    <div className="w-1/4 p-4 place-content-start" >
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-                            OBTER
-                        </button>
-                        <div>
-                            <table className="table-auto w-full">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td className="py-[12px] text-left text-stone-500">Desenvolvedor</td>
-                                        <td className="text-right text-white">{jogo.desenvolvedor}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-[12px] text-left text-stone-500">Editora</td>
-                                        <td className="text-right text-white">{jogo.editora}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-[12px] text-left text-stone-500">Data de lançameto</td>
-                                        <td className="text-right text-white">{jogo.dataLancamento}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-[12px] text-left text-stone-500">Lançameto inicial</td>
-                                        <td className="text-right text-white">{jogo.dataLancamentoInicial}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                {/* col-lateral */}
+                <div className="w-1/4 p-4 place-content-start" >
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                        OBTER
+                    </button>
+                    <div>
+                        <table className="table-auto w-full">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="py-[12px] text-left text-stone-500">Desenvolvedor</td>
+                                    <td className="text-right text-white">{jogo.desenvolvedor}</td>
+                                </tr>
+                                <tr>
+                                    <td className="py-[12px] text-left text-stone-500">Editora</td>
+                                    <td className="text-right text-white">{jogo.editora}</td>
+                                </tr>
+                                <tr>
+                                    <td className="py-[12px] text-left text-stone-500">Data de lançameto</td>
+                                    <td className="text-right text-white">{jogo.dataLancamento}</td>
+                                </tr>
+                                <tr>
+                                    <td className="py-[12px] text-left text-stone-500">Lançameto inicial</td>
+                                    <td className="text-right text-white">{jogo.dataLancamentoInicial}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+        </div>
     );
 }
