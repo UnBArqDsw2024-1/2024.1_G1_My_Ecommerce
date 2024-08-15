@@ -1,77 +1,133 @@
 import { PrismaClient } from "@prisma/client";
-import { Pedido } from "../entidade/pedido";
+import { Pedido, StatusPedido } from "../entidade/pedido";
 
 
 // interface
 export interface PedidoRepositorio {
-    addBiblioteca(idPedido:number):Promise<void>
-    confirmarPedido(idPedido:number):Promise<void>
-    confirmarPagamento(idPedido:number):Promise<void>
-    listarPorStatus(status:string):Promise<Pedido[]>
-    gerarRecibo(idPedido:number):Promise<void>
+    addCarrinho(clienteId: string, jogoId: string): Promise<void>
+    alterarStatusPedido(idPedido: number, status:StatusPedido):Promise<void>
+    // listarPorStatus(status:string):Promise<Pedido[]>
+    gerarNota(idPedido:number):Promise<void>
     enviarRecibo(email:string):Promise<void>
 }
 
 export class PedidoRepositorioPrisma implements PedidoRepositorio {
     private constructor(readonly prisma: PrismaClient) {}
-    addBiblioteca(idPedido: number): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
+    // addBiblioteca(idPedido: number): Promise<void> {
+    //     throw new Error("Method not implemented.");
+    // }
 
-    public async addCarrinho(cliente: string, jogo: string): Promise<void> {
-        // Cria uma instância de Pedido usando o método gerarPedido
-        // const pedido = Pedido.gerarPedido(cliente, jogo);
-
-        // // Adiciona o pedido ao banco de dados, omitindo o idPedido se for autogerado
-        // await this.prisma.pedido.create({
-        //     data: {
-        //         cliente: pedido.cliente,
-        //         jogo: pedido.jogo,
-        //         status: pedido.status,
-        //         dataPedido: pedido.dataPedido,
-        //         pagamento: pedido.pagamento ?? null, // Defina como null se pagamento não estiver definido
-        //         notaFiscal: Nota.idNota ?? null, // Defina como null se notaFiscal não estiver definido
-        //     }
-        // });
-        throw new Error("Em implementação");
-    }
-    
     public static build(prisma: PrismaClient) {
         return new PedidoRepositorioPrisma(prisma);
     }
 
-    public async gerarRecibo(idPedido: number): Promise<void> {
-        // const geraRecibo = crypto.randomUUID().toString();
-        // await this.prisma.pedido.update({
-        //     where: { idPedido: idPedido},
-        //     data: { notaFiscal: geraRecibo },
-        // });
-        throw new Error("Em implementação");
+    public async addCarrinho(clienteId: string, jogoId: string): Promise<void> {
+        try {
+          const pedido = Pedido.gerarPedido(clienteId, jogoId);
+          await this.prisma.pedido.create({
+            data: {
+              clienteId: pedido.cliente,
+              jogoId: pedido.jogo,
+              status: pedido.status,
+              dataPedido: pedido.dataPedido,
+              formaPagamentoId: pedido.pagamento ?? null,
+              notaFiscal: pedido.notaFiscal ?? null,
+            },
+          });
+        } catch (error) {
+          console.error("Erro ao adicionar ao carrinho:", error);
+        }
+      }
+    
+    public async gerarNota(idPedido: number): Promise<void> {
+        const pedido = await this.prisma.pedido.findUnique({
+            where: { idPedido: idPedido },
+        });
+    
+        if (!pedido) {
+            console.error(`Pedido com ID ${idPedido} não encontrado.`);
+            return;
+        }
+    
+        const geraRecibo = crypto.randomUUID().toString();
+        const pedidoAtualizado = await this.prisma.pedido.update({
+            where: { idPedido: idPedido },
+            data: { notaFiscal: geraRecibo },
+        });
+    
+        console.log("Nota fiscal gerada:", pedidoAtualizado.notaFiscal);
+    }
+
+    public async alterarStatusPedido(idPedido: number, status:StatusPedido): Promise<void> {
+        await this.prisma.pedido.update({
+            where: { idPedido: idPedido },
+            data: { status: status },
+        });
+
+        if (status === StatusPedido.Pago) {
+            await this.gerarNota(idPedido);
+        }
+
+        const pedidoAtualizado = await this.prisma.pedido.findUnique({
+            where: { idPedido: idPedido },
+        });
+    
+        console.log("Pedido atualizado:", pedidoAtualizado);
+
+
     }
 
     public async enviarRecibo(email: string): Promise<void> {
+        // await this.prisma.cliente.findUnique({
+        //     where: {email},
+        // });
+
+        // return cli
+        
         throw new Error("Em implementação");
     }
-
-    public async confirmarPedido(idPedido: number): Promise<void> {
-        await this.prisma.pedido.update({
-            where: { idPedido: idPedido },
-            data: { status: "aguargando pagamento" },
-        });
-        console.log(await this.prisma.pedido.findUnique({
-            where: { idPedido: idPedido }})
-        );
-    }
     
-    public async confirmarPagamento(idPedido: number): Promise<void> {
-        await this.prisma.pedido.update({
-            where: { idPedido: idPedido },
-            data: { status: "pago" },
-        });
-        console.log(await this.prisma.pedido.findUnique({
-            where: { idPedido: idPedido }})
-        );
-    }
+    // public async confirmarPedido(idPedido: number): Promise<void> {
+    //     await this.prisma.pedido.update({
+    //         where: { idPedido: idPedido },
+    //         data: { status: StatusPedido.Confirmado },
+    //     });
+    //     console.log(await this.prisma.pedido.findUnique({
+    //         where: { idPedido: idPedido }})
+    //     );
+    // }
+    
+    // public async confirmarPagamento(idPedido: number): Promise<void> {
+        //     await this.prisma.pedido.update({
+    //         where: { idPedido: idPedido },
+    //         data: { status: StatusPedido.Pago},
+    //     });
+    //     console.log(await this.prisma.pedido.findUnique({
+    //         where: { idPedido: idPedido }})
+    //     );
+    // }
+
+    // public async negarPagamento(idPedido: number): Promise<void> {
+    //     await this.prisma.pedido.update({
+    //         where: { idPedido: idPedido },
+    //         data: { status: StatusPedido.Negado},
+    //     });
+    //     console.log(await this.prisma.pedido.findUnique({
+    //         where: { idPedido: idPedido }})
+    //     );
+    // }
+
+    // public async cancelarPagamento(idPedido: number): Promise<void> {
+    //     await this.prisma.pedido.update({
+    //         where: { idPedido: idPedido },
+    //         data: { status: StatusPedido.Cancelado},
+    //     });
+    //     console.log(await this.prisma.pedido.findUnique({
+    //         where: { idPedido: idPedido }})
+    //     );
+    // }
+
+
 
     // public async addBiblioteca(idPedido: number): Promise<void> {
     //     await this.prisma.pedido.update({
@@ -123,3 +179,5 @@ export class PedidoRepositorioPrisma implements PedidoRepositorio {
 
     
 }
+
+

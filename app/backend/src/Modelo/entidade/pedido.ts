@@ -1,13 +1,20 @@
 
+export enum StatusPedido {
+    Carrinho = "Adicionado ao carrinho",
+    Confirmado = "Pedido confirmado, aguardando pagamento",
+    Pago = "Pagamento aprovado",
+    Negado = "Pagamento negado",
+    Cancelado = "Pedido Cancelado"
+}
 
 export type PedidoProps = {
     idPedido: number,
-    status: string,
+    status: StatusPedido,
+    dataPedido: Date,
+    notaFiscal?: string,
     cliente: string,
     jogo: string,
-    dataPedido: Date,
     pagamento?: string,
-    notaFiscal?: string,
 }
 
 export class Pedido {
@@ -19,8 +26,8 @@ export class Pedido {
         jogo: string,
     ): Pedido {
         return new Pedido({
-            idPedido: Math.floor(Math.random() * 1000000),
-            status: "carrinho",
+            idPedido: Math.floor(Math.random() * 1000),
+            status: StatusPedido.Carrinho,
             cliente,
             jogo,
             dataPedido: new Date(),
@@ -39,7 +46,7 @@ export class Pedido {
     ): Pedido {
         return new Pedido({
             idPedido,
-            status: "carrinho",
+            status: StatusPedido.Carrinho,
             cliente,
             jogo,
             dataPedido,
@@ -70,6 +77,19 @@ export class Pedido {
 
     public get pagamento() {
         return this.props.pagamento;
-    }    
+    } 
+    
+    public get notaFiscal() {
+        return this.props.notaFiscal;
+    } 
 
+    public atualizarPagamento(pagamento: string) {
+        this.props.pagamento = pagamento;
+    }
+
+    public atualizarNotaFiscal(notaFiscal: string) {
+        this.props.notaFiscal = notaFiscal;
+    }
+
+    
 }
