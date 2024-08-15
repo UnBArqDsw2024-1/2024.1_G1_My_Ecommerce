@@ -1,10 +1,7 @@
-import HomePage from "@/pages/HomePage";
-
-
 export default function Home() {
   return (
-    <main>
-      <HomePage/>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <h1> Catalogo</h1>
     </main>
   );
 }
