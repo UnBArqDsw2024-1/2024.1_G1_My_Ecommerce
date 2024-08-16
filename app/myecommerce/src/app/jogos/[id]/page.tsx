@@ -1,5 +1,6 @@
 "use client"
 
+import Compra from '@/components/compra';
 import axios from 'axios';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -41,16 +42,9 @@ export default function JogoDetalhe({ params }: Props) {
     const [loading, setLoading] = useState(true);
     const [jogo, setJogo] = useState<Jogo | null>(null);
 
-
-    // const [currentIndex, setCurrentIndex] = useState(0);
-
-    // const handlePrev = () => {
-    //     setCurrentIndex((prevIndex) => (prevIndex === 0 ? imagens.length - 1 : prevIndex - 1));
-    // };
-
-    // const handleNext = () => {
-    //     setCurrentIndex((prevIndex) => (prevIndex === imagens.length - 1 ? 0 : prevIndex + 1));
-    // };
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
     useEffect(() => {
         const fetchJogo = async () => {
@@ -58,7 +52,6 @@ export default function JogoDetalhe({ params }: Props) {
             try {
                 const response = await axios.post<Jogo>('http://localhost:8000/jogos/buscarPorId', { idJogo: params.id });
                 setJogo(response.data.props);
-                console.log(response.data)
             }
             catch (error) {
                 console.error(error);
@@ -92,6 +85,9 @@ export default function JogoDetalhe({ params }: Props) {
 
     return (
         <div className='px-40'>
+            
+            <Compra isOpen={isModalOpen} onClose={closeModal} jogo={jogo} />
+
             {/* Nome do Jogo */}
             <h1 className="font-bold text-6xl p-3 w-screen flex items-center text-white"> {jogo.nomeJogo} </h1>
             <div className="px-10 w-screen flex items-center">
@@ -168,7 +164,7 @@ export default function JogoDetalhe({ params }: Props) {
                         />
                     </div>
                     <div>
-                        <h1 className="text-3xl py-4 text-white">Requisitos do sistema de {jogo.nome}</h1>
+                        <h1 className="text-3xl py-4 text-white">Requisitos do sistema de {jogo.nomeJogo}</h1>
                         <div id="requisitos" className="bg-[#202020] w-full p-[60px]">
                             <h1 className="text-stone-300">Recomendado</h1>
                             {jogo.plataforma}
@@ -178,7 +174,7 @@ export default function JogoDetalhe({ params }: Props) {
 
                 {/* col-lateral */}
                 <div className="w-1/4 p-4 place-content-start" >
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full" onClick={openModal}>
                         OBTER
                     </button>
                     <div>
@@ -192,7 +188,7 @@ export default function JogoDetalhe({ params }: Props) {
                             <tbody>
                                 <tr>
                                     <td className="py-[12px] text-left text-stone-500">Desenvolvedor</td>
-                                    <td className="text-right text-white">{jogo.desenvolvedor}</td>
+                                    <td className="text-right text-white">{jogo.desenvolvedora}</td>
                                 </tr>
                                 <tr>
                                     <td className="py-[12px] text-left text-stone-500">Editora</td>
@@ -212,5 +208,6 @@ export default function JogoDetalhe({ params }: Props) {
                 </div>
             </div>
         </div>
+
     );
 }
