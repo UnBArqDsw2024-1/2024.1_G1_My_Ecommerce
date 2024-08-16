@@ -35,7 +35,7 @@ export default function MenuConta() {
                 <div className="absolute right-0 mt-2 w-48 bg-[#18181C] rounded-md shadow-lg">
                     <div className="flex flex-col items-start p-4 text-white">
                         <div className="font-bold text-white">Nome Usuário</div>
-                        <div className="mt-2 text-sm text-gray-400 border-b border-gray-500 pt-1 pb-4">Minha Biblioteca  > </div>
+                        <div className="mt-2 text-sm text-gray-400 border-b border-gray-500 pt-1 pb-4">Minha Biblioteca </div>
                         <div className="mt-2 text-sm text-gray-400 pt-1">Sair</div>
                     </div>
                 </div>

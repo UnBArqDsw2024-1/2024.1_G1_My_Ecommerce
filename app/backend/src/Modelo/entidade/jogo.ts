@@ -14,11 +14,12 @@ export type JogoProps = {
     imagemCaminho: string,
     generos?: string[],
     recursos?: string[],
+    nota: number,
     tipos?: string[]
 }
 
 export class Jogo {
-    private constructor(private readonly props: JogoProps) {}
+    private constructor(private readonly props: JogoProps) { }
 
     public static criar(
         idJogo: string,
@@ -31,18 +32,19 @@ export class Jogo {
         quantidadeVendido: number,
         plataforma: string,
         imagemCaminho: string,
+        nota: number,
         editora?: string,
         desenvolvedora?: string,
         generos?: string[],
         recursos?: string[],
         tipos?: string[]
-    ){
+    ) {
         return new Jogo({
             idJogo,
             nomeJogo,
             precoJogo,
             descricao,
-            dataLancamento ,
+            dataLancamento,
             dataLancamentoInicial,
             desconto,
             quantidadeVendido,
@@ -52,10 +54,11 @@ export class Jogo {
             imagemCaminho,
             generos,
             recursos,
+            nota,
             tipos
         });
     };
-    
+
     public static with(
         idJogo: string,
         nomeJogo: string,
@@ -67,6 +70,7 @@ export class Jogo {
         quantidadeVendido: number,
         plataforma: string,
         imagemCaminho: string,
+        nota: number,
         editora?: string,
         desenvolvedora?: string,
         generos?: string[],
@@ -88,6 +92,7 @@ export class Jogo {
             desenvolvedora,
             generos,
             recursos,
+            nota,
             tipos
         });
     }
@@ -152,7 +157,7 @@ export class Jogo {
         return this.props.tipos ?? [];
     }
 
-    public calcularValor(){
+    public calcularValor() {
         return this.precoJogo - this.desconto;
     }
 }

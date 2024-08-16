@@ -2,7 +2,6 @@
 
 import Compra from '@/components/Compra';
 import axios from 'axios';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import ReactStars from 'react-stars';
 
@@ -21,16 +20,14 @@ interface Jogo {
     dataLancamentoInicial: string;
     precoJogo: number;
     desconto: number;
-    nota: number;
+    nota?: number; // Tornar opcional se pode faltar
     recursos: string[];
     generos: string[];
     imagemCaminho: string;
     plataforma: string;
     quantidadeVendido: number;
+    tipos: string[];
 }
-
-
-
 
 export default function JogoDetalhe({ params }: Props) {
 
@@ -62,6 +59,7 @@ export default function JogoDetalhe({ params }: Props) {
             try {
                 const response = await axios.post<Jogo>('http://localhost:8000/jogos/buscarPorId', { idJogo: params.id });
                 setJogo(response.data.props);
+                console.log(response.data);
             }
             catch (error) {
                 console.error(error);
@@ -104,7 +102,7 @@ export default function JogoDetalhe({ params }: Props) {
 
     return (
         <div className='px-40'>
-            
+
             <Compra isOpen={isModalOpen} onClose={closeModal} jogo={jogo} />
 
             {/* Nome do Jogo */}
@@ -120,7 +118,6 @@ export default function JogoDetalhe({ params }: Props) {
                 <span className="px-4">
                     <span className="font-bold p-2 rounded bg-neutral-900 text-gray-300">
                         {jogo.nota}
-
                     </span>
                 </span>
             </div>
@@ -131,7 +128,7 @@ export default function JogoDetalhe({ params }: Props) {
                     {/* <Image src={jogo.imagemCaminho} alt="capa jogo" width={1000} height={1000} />  */}
                     <div className="relative w-full h-[610px] rounded-[5px] overflow-hidden">
                         {/* <Image src={jogo.imagemCaminho} alt="capa jogo" width={35} height={35} /> */}
-                        <img className="w-full h-full object-cover" src={imagens[currentIndex]} />
+                        <img alt='Imagem jogo' className="w-full h-full object-cover" src={imagens[currentIndex]} />
                     </div>
 
                     <div className="flex items-center w-[804px] justify-between mt-4">
@@ -196,14 +193,14 @@ export default function JogoDetalhe({ params }: Props) {
 
                 {/* col-lateral */}
                 <div className="w-1/4 p-4 place-content-start" >
-                    <div className='text-3xl mt-2 py-4'> 
-                    {jogo.desconto > 0? (
+                    <div className='text-3xl mt-2 py-4'>
+                        {jogo.desconto > 0 ? (
                             <span>
-                                <span className='bg-blue-600 px-2 py-1 rounded text-2xl mr-4'>-{jogo.desconto}%</span> 
-                                <span className='mr-4 line-through text-neutral-500' >R$ { parseFloat((jogo.precoJogo * (1 - jogo.desconto/100)).toFixed(2)) }</span> 
+                                <span className='bg-blue-600 px-2 py-1 rounded text-2xl mr-4'>-{jogo.desconto}%</span>
+                                <span className='mr-4 line-through text-neutral-500' >R$ {parseFloat((jogo.precoJogo * (1 - jogo.desconto / 100)).toFixed(2))}</span>
                             </span>
-                        ) : null }
-                        <span>R$ {jogo.precoJogo}</span> 
+                        ) : null}
+                        <span>R$ {jogo.precoJogo}</span>
                     </div>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full" onClick={openModal}>
                         OBTER
@@ -227,11 +224,11 @@ export default function JogoDetalhe({ params }: Props) {
                                 </tr>
                                 <tr>
                                     <td className="py-[12px] text-left text-stone-500">Data de lançameto</td>
-                                    <td className="text-right text-white">{ dataLancamentoFormatada }</td>
+                                    <td className="text-right text-white">{dataLancamentoFormatada}</td>
                                 </tr>
                                 <tr>
                                     <td className="py-[12px] text-left text-stone-500">Lançameto inicial</td>
-                                    <td className="text-right text-white">{ dataLancamentoInicialFormatada }</td>
+                                    <td className="text-right text-white">{dataLancamentoInicialFormatada}</td>
                                 </tr>
                             </tbody>
                         </table>

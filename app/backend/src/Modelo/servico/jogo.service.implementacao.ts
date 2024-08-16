@@ -11,6 +11,7 @@ export type ListaJogoDto = {
         dataLancamentoInicial: Date;
         desconto: number;
         quantidadeVendido: number;
+        nota: number;
         editora?: string;
         desenvolvedora?: string;
         GeneroJogo?: string[];
@@ -28,6 +29,7 @@ export type JogoDto = {
     dataLancamentoInicial: Date;
     desconto: number;
     quantidadeVendido: number;
+    nota: number;
     editora?: string;
     desenvolvedora?: string;
     GeneroJogo?: string[];
@@ -40,15 +42,15 @@ export type JogoDto = {
 export interface JogoServico {
     lista(): Promise<ListaJogoDto>;
     pesquisarPorNome(nomeJogo: string): Promise<ListaJogoDto>;
-    buscarPorId(idJogo:string): Promise<JogoDto>;
+    buscarPorId(idJogo: string): Promise<JogoDto>;
     // pesquisa(nomeJogo: string): Promise<PesquisaSaidaDto>;
 };
 
 export class JogoServicoImplementacao implements JogoServico {
 
-    private constructor(readonly repositorio: JogoRepositorio){}
+    private constructor(readonly repositorio: JogoRepositorio) { }
 
-    public static build(repositorio: JogoRepositorio){
+    public static build(repositorio: JogoRepositorio) {
         return new JogoServicoImplementacao(repositorio);
     }
 
@@ -66,6 +68,7 @@ export class JogoServicoImplementacao implements JogoServico {
                 dataLancamentoInicial: j.dataLancamentoInicial,
                 desconto: j.desconto,
                 quantidadeVendido: j.quantidadeVendido,
+                nota: j.nota,
                 editora: j.editora ?? '',
                 desenvolvedora: j.desenvolvedora ?? '',
                 generos: j.generos,
@@ -75,7 +78,7 @@ export class JogoServicoImplementacao implements JogoServico {
         });
 
         const saida: ListaJogoDto = {
-            jogos, 
+            jogos,
         };
 
         return saida;
@@ -94,6 +97,7 @@ export class JogoServicoImplementacao implements JogoServico {
                 dataLancamentoInicial: j.dataLancamentoInicial,
                 desconto: j.desconto,
                 quantidadeVendido: j.quantidadeVendido,
+                nota: j.nota,
                 editora: j.editora ?? '',
                 desenvolvedora: j.desenvolvedora ?? '',
                 generos: j.generos,

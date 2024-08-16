@@ -6,21 +6,21 @@ import { Pedido } from "../entidade/pedido";
 export interface JogoRepositorio {
     lista(): Promise<Jogo[]>;
     pesquisarPorNome(nomeJogo: string): Promise<Jogo[]>;
-    buscarPorId(idJogo:string): Promise<Jogo>;
+    buscarPorId(idJogo: string): Promise<Jogo>;
     // comprarJogo(idJogo:string, idCLiente:string): Promise<Pedido>;
     // filtrar(genero: string,recurso:string, tipo:string, plataforma:string): Promise<Jogo[]>
 }
 
 export class JogoRepositorioPrisma implements JogoRepositorio {
-    private constructor(readonly prisma: PrismaClient) {}
+    private constructor(readonly prisma: PrismaClient) { }
     comprarJogo(idJogo: string, idCLiente: string): Promise<Pedido> {
         throw new Error("Method not implemented.");
     }
-    
+
     public static build(prisma: PrismaClient) {
         return new JogoRepositorioPrisma(prisma);
     }
-    
+
     public async lista(): Promise<Jogo[]> {
         // Buscar todos os jogos com suas relações
         const aJogos = await this.prisma.jogo.findMany({
@@ -44,7 +44,7 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
                 }
             }
         });
-    
+
         // Mapear os jogos para a estrutura esperada na classe Jogo
         const jogos: Jogo[] = aJogos.map((j) => {
             const {
@@ -58,13 +58,14 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
                 quantidadeVendido,
                 plataforma,
                 imagemCaminho,
+                nota,
                 editora,
                 desenvolvedora,
                 RecursoJogo,
                 GeneroJogo,
                 TipoJogo
             } = j;
-    
+
             return Jogo.with(
                 idJogo,
                 nomeJogo,
@@ -76,21 +77,22 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
                 quantidadeVendido,
                 plataforma,
                 imagemCaminho,
-                editora?.nomeEditora, 
+                nota,
+                editora?.nomeEditora,
                 desenvolvedora?.nomeDesenvolvedora,
                 GeneroJogo.map(gj => gj.genero.nomeGenero),
                 RecursoJogo.map(rj => rj.recurso.nomeRecurso),
                 TipoJogo.map(tj => tj.tipo.nomeTipo)
             );
         });
-    
+
         return jogos;
     }
 
     public async pesquisarPorNome(nomeJogo: string): Promise<Jogo[]> {
         // Buscar todos os jogos que correspondem ao nome fornecido, insensível a maiúsculas e minúsculas
         const aJogos = await this.prisma.jogo.findMany({
-            where: { nomeJogo: { contains: nomeJogo }},
+            where: { nomeJogo: { contains: nomeJogo } },
             include: {
                 editora: { select: { nomeEditora: true } },
                 desenvolvedora: { select: { nomeDesenvolvedora: true } },
@@ -111,10 +113,10 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
                 }
             }
         });
-    
+
         // Se não encontrar nenhum jogo, retorna uma lista vazia
         if (aJogos.length === 0) return [];
-    
+
         // Mapeia os resultados para o formato de Jogo
         const jogos = aJogos.map((j) => {
             const {
@@ -128,13 +130,14 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
                 quantidadeVendido,
                 plataforma,
                 imagemCaminho,
+                nota,
                 editora,
                 desenvolvedora,
                 RecursoJogo,
                 GeneroJogo,
                 TipoJogo
             } = j;
-    
+
             return Jogo.with(
                 idJogo,
                 nomeJogo,
@@ -146,6 +149,7 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
                 quantidadeVendido,
                 plataforma,
                 imagemCaminho,
+                nota,
                 editora?.nomeEditora ?? "",
                 desenvolvedora?.nomeDesenvolvedora ?? "",
                 GeneroJogo.map(gj => gj.genero.nomeGenero),
@@ -153,10 +157,10 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
                 TipoJogo.map(tj => tj.tipo.nomeTipo)
             );
         });
-    
+
         return jogos;
     }
-    
+
     public async buscarPorId(idJogo: string): Promise<Jogo> {
         const aJogo = await this.prisma.jogo.findUnique({
             where: { idJogo },
@@ -185,7 +189,7 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
             throw new Error("Não existe");
         }
 
-        const { 
+        const {
             nomeJogo,
             precoJogo,
             descricao,
@@ -195,6 +199,7 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
             quantidadeVendido,
             plataforma,
             imagemCaminho,
+            nota,
             editora,
             desenvolvedora,
             RecursoJogo,
@@ -213,6 +218,7 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
             quantidadeVendido,
             plataforma,
             imagemCaminho,
+            nota,
             editora?.nomeEditora ?? "",
             desenvolvedora?.nomeDesenvolvedora ?? "",
             GeneroJogo.map(gj => gj.genero.nomeGenero),
@@ -222,5 +228,5 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
 
         return jogo;
     }
-    
+
 }
