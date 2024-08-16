@@ -27,12 +27,13 @@ interface Jogo {
     plataforma: string;
     quantidadeVendido: number;
 }
-// const imagens = [
-//     '../../../assets/valorant.jpeg',
-//     '../../../assets/valorant.jpeg',
-//     '../../../assets/valorant.jpeg',
-//     '../../../assets/valorant.jpeg',
-// ];
+const imagens = [
+    'https://thecatapi.com/api/images/get?format=src&type=gif',
+    'https://picsum.photos/804/610?random=1',
+    'https://picsum.photos/804/610?random=2',
+    'https://picsum.photos/804/610?random=3',
+    'https://picsum.photos/804/610?random=4',
+];
 
 
 
@@ -41,16 +42,20 @@ export default function JogoDetalhe({ params }: Props) {
     const [loading, setLoading] = useState(true);
     const [jogo, setJogo] = useState<Jogo | null>(null);
 
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-    // const [currentIndex, setCurrentIndex] = useState(0);
+    const handlePrev = () => {
+        setCurrentIndex((prevIndex) => (prevIndex === 0 ? imagens.length - 1 : prevIndex - 1));
+    };
 
-    // const handlePrev = () => {
-    //     setCurrentIndex((prevIndex) => (prevIndex === 0 ? imagens.length - 1 : prevIndex - 1));
-    // };
+    const handleNext = () => {
+        setCurrentIndex((prevIndex) => (prevIndex === imagens.length - 1 ? 0 : prevIndex + 1));
+    };
 
-    // const handleNext = () => {
-    //     setCurrentIndex((prevIndex) => (prevIndex === imagens.length - 1 ? 0 : prevIndex + 1));
-    // };
+    const handleClick = (index: number) => {
+        setCurrentIndex(index);
+    }
+
 
     useEffect(() => {
         const fetchJogo = async () => {
@@ -114,28 +119,27 @@ export default function JogoDetalhe({ params }: Props) {
                 {/* col-principal */}
                 <div className="w-3/4 p-4">
                     <Image src={jogo.imagemCaminho} alt="capa jogo" width={1000} height={1000} /> 
-                    
-                    <div className="carousel my-12 mx-auto">
-                        <div className="relative overflow-hidden w-full">
-                            {/* 
-                            <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                                {imagens.map((src, index) => (
-                                    <div key={index} className="min-w-full flex-shrink-0">
-                                        <img src={src} alt={`Slide ${index}`} className="w-full h-auto object-cover" />
-                                    </div>
-                                ))}
-                            </div>
-                            <button className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full" onClick={handlePrev}>
-                                &#10094;
-                            </button>
-                            <button className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full" onClick={handleNext}>
-                                &#10095;
-                            </button>
-                            */}
+
+                    <div className="flex items-center w-[804px] justify-between mt-4">
+                        <button className="mt-4 mr-4 bg-gray-800 text-white w-8 h-8 rounded-full flex items-center justify-center" onClick={handlePrev}>
+                            &#10094;
+                        </button>
+
+                        <div className="flex mt-4 space-x-7">
+                            {imagens.map((src, index) => (
+                                <div key={index} className="cursor-pointer" onClick={() => handleClick(index)}>
+                                    <img src={src} alt={`Slide ${index}`} className={`w-[150px] h-[70px] object-cover rounded-md ${currentIndex === index ? 'border border-white-500' : ''}`} />
+                                </div>
+                            ))}
                         </div>
+
+                        <button className="mt-4 ml-4 bg-gray-800 text-white w-8 h-8 rounded-full flex items-center justify-center" onClick={handleNext}>
+                            &#10095;
+                        </button>
                     </div>
+
                     <p className="py-4 text-white">{jogo.descricao}</p>
-                    
+
                     <div className="flex">
                         <div className="w-1/2 p-4">
                             <h1 className="text-stone-500">Gêneros</h1>
@@ -168,7 +172,7 @@ export default function JogoDetalhe({ params }: Props) {
                         />
                     </div>
                     <div>
-                        <h1 className="text-3xl py-4 text-white">Requisitos do sistema de {jogo.nome}</h1>
+                        <h1 className="text-3xl py-4 text-white">Requisitos do sistema de {jogo.nomeJogo}</h1>
                         <div id="requisitos" className="bg-[#202020] w-full p-[60px]">
                             <h1 className="text-stone-300">Recomendado</h1>
                             {jogo.plataforma}
@@ -192,7 +196,7 @@ export default function JogoDetalhe({ params }: Props) {
                             <tbody>
                                 <tr>
                                     <td className="py-[12px] text-left text-stone-500">Desenvolvedor</td>
-                                    <td className="text-right text-white">{jogo.desenvolvedor}</td>
+                                    <td className="text-right text-white">{jogo.desenvolvedora}</td>
                                 </tr>
                                 <tr>
                                     <td className="py-[12px] text-left text-stone-500">Editora</td>
