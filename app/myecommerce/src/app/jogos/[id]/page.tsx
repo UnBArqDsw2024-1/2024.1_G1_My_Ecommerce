@@ -28,13 +28,7 @@ interface Jogo {
     plataforma: string;
     quantidadeVendido: number;
 }
-const imagens = [
-    'https://thecatapi.com/api/images/get?format=src&type=gif',
-    'https://picsum.photos/804/610?random=1',
-    'https://picsum.photos/804/610?random=2',
-    'https://picsum.photos/804/610?random=3',
-    'https://picsum.photos/804/610?random=4',
-];
+
 
 
 
@@ -87,6 +81,15 @@ export default function JogoDetalhe({ params }: Props) {
         return <div>Jogo não encontrado.</div>;
     }
 
+    const imagens = [
+        jogo.imagemCaminho,
+        'https://thecatapi.com/api/images/get?format=src&type=gif',
+        'https://picsum.photos/804/610?random=1',
+        'https://picsum.photos/804/610?random=2',
+        'https://picsum.photos/804/610?random=3',
+        'https://picsum.photos/804/610?random=4',
+    ];
+
     const dataLancamento = new Date(jogo.dataLancamento);
     var dia = String(dataLancamento.getUTCDate()).padStart(2, '0');
     var mes = String(dataLancamento.getUTCMonth() + 1).padStart(2, '0'); // Mês é 0-indexado, então +1
@@ -125,7 +128,7 @@ export default function JogoDetalhe({ params }: Props) {
             <div className="flex">
                 {/* col-principal */}
                 <div className="w-3/4 p-4">
-                    <Image src={jogo.imagemCaminho} alt="capa jogo" width={1000} height={1000} /> 
+                    <Image src={imagens[currentIndex]} alt="capa jogo" width={1000} height={1000} /> 
 
                     <div className="flex items-center w-[804px] justify-between mt-4">
                         <button className="mt-4 mr-4 bg-gray-800 text-white w-8 h-8 rounded-full flex items-center justify-center" onClick={handlePrev}>
@@ -189,6 +192,15 @@ export default function JogoDetalhe({ params }: Props) {
 
                 {/* col-lateral */}
                 <div className="w-1/4 p-4 place-content-start" >
+                    <div className='text-3xl mt-2 py-4'> 
+                    {jogo.desconto > 0? (
+                            <span>
+                                <span className='bg-blue-600 px-2 py-1 rounded text-2xl mr-4'>-{jogo.desconto}%</span> 
+                                <span className='mr-4 line-through text-neutral-500' >R$ { parseFloat((jogo.precoJogo * (1 - jogo.desconto/100)).toFixed(2)) }</span> 
+                            </span>
+                        ) : null }
+                        <span>R$ {jogo.precoJogo}</span> 
+                    </div>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full" onClick={openModal}>
                         OBTER
                     </button>
