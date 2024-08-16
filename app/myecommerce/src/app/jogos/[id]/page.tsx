@@ -27,13 +27,7 @@ interface Jogo {
     plataforma: string;
     quantidadeVendido: number;
 }
-const imagens = [
-    'https://thecatapi.com/api/images/get?format=src&type=gif',
-    'https://picsum.photos/804/610?random=1',
-    'https://picsum.photos/804/610?random=2',
-    'https://picsum.photos/804/610?random=3',
-    'https://picsum.photos/804/610?random=4',
-];
+
 
 
 
@@ -82,6 +76,15 @@ export default function JogoDetalhe({ params }: Props) {
     if (!jogo) {
         return <div>Jogo não encontrado.</div>;
     }
+    
+    const imagens = [
+        // '/_next/static/media/valorant.jpeg',
+        'https://picsum.photos/804/610?random=1',
+        'https://picsum.photos/804/610?random=2',
+        'https://thecatapi.com/api/images/get?format=src&type=gif',
+        'https://picsum.photos/804/610?random=3',
+        'https://picsum.photos/804/610?random=4',
+    ];
 
     const dataLancamento = new Date(jogo.dataLancamento);
     var dia = String(dataLancamento.getUTCDate()).padStart(2, '0');
@@ -118,7 +121,11 @@ export default function JogoDetalhe({ params }: Props) {
             <div className="flex">
                 {/* col-principal */}
                 <div className="w-3/4 p-4">
-                    <Image src={jogo.imagemCaminho} alt="capa jogo" width={1000} height={1000} /> 
+                    {/* <Image src={jogo.imagemCaminho} alt="capa jogo" width={1000} height={1000} />  */}
+                    <div className="relative w-full h-[610px] rounded-[5px] overflow-hidden">
+                        {/* <Image src={jogo.imagemCaminho} alt="capa jogo" width={35} height={35} /> */}
+                        <img className="w-full h-full object-cover" src={imagens[currentIndex]} />
+                    </div>
 
                     <div className="flex items-center w-[804px] justify-between mt-4">
                         <button className="mt-4 mr-4 bg-gray-800 text-white w-8 h-8 rounded-full flex items-center justify-center" onClick={handlePrev}>
