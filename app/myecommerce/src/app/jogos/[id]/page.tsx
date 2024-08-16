@@ -80,15 +80,6 @@ export default function JogoDetalhe({ params }: Props) {
     if (!jogo) {
         return <div>Jogo não encontrado.</div>;
     }
-    
-    const imagens = [
-        // '/_next/static/media/valorant.jpeg',
-        'https://picsum.photos/804/610?random=1',
-        'https://picsum.photos/804/610?random=2',
-        'https://thecatapi.com/api/images/get?format=src&type=gif',
-        'https://picsum.photos/804/610?random=3',
-        'https://picsum.photos/804/610?random=4',
-    ];
 
     const imagens = [
         jogo.imagemCaminho,
