@@ -1,5 +1,6 @@
 "use client"
 
+import Compra from '@/components/Compra';
 import axios from 'axios';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -36,6 +37,10 @@ export default function JogoDetalhe({ params }: Props) {
     const [loading, setLoading] = useState(true);
     const [jogo, setJogo] = useState<Jogo | null>(null);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const handlePrev = () => {
@@ -57,7 +62,6 @@ export default function JogoDetalhe({ params }: Props) {
             try {
                 const response = await axios.post<Jogo>('http://localhost:8000/jogos/buscarPorId', { idJogo: params.id });
                 setJogo(response.data.props);
-                console.log(response.data)
             }
             catch (error) {
                 console.error(error);
@@ -86,6 +90,15 @@ export default function JogoDetalhe({ params }: Props) {
         'https://picsum.photos/804/610?random=4',
     ];
 
+    const imagens = [
+        jogo.imagemCaminho,
+        'https://thecatapi.com/api/images/get?format=src&type=gif',
+        'https://picsum.photos/804/610?random=1',
+        'https://picsum.photos/804/610?random=2',
+        'https://picsum.photos/804/610?random=3',
+        'https://picsum.photos/804/610?random=4',
+    ];
+
     const dataLancamento = new Date(jogo.dataLancamento);
     var dia = String(dataLancamento.getUTCDate()).padStart(2, '0');
     var mes = String(dataLancamento.getUTCMonth() + 1).padStart(2, '0'); // Mês é 0-indexado, então +1
@@ -100,6 +113,9 @@ export default function JogoDetalhe({ params }: Props) {
 
     return (
         <div className='px-40'>
+            
+            <Compra isOpen={isModalOpen} onClose={closeModal} jogo={jogo} />
+
             {/* Nome do Jogo */}
             <h1 className="font-bold text-6xl p-3 w-screen flex items-center text-white"> {jogo.nomeJogo} </h1>
             <div className="px-10 w-screen flex items-center">
@@ -189,7 +205,16 @@ export default function JogoDetalhe({ params }: Props) {
 
                 {/* col-lateral */}
                 <div className="w-1/4 p-4 place-content-start" >
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                    <div className='text-3xl mt-2 py-4'> 
+                    {jogo.desconto > 0? (
+                            <span>
+                                <span className='bg-blue-600 px-2 py-1 rounded text-2xl mr-4'>-{jogo.desconto}%</span> 
+                                <span className='mr-4 line-through text-neutral-500' >R$ { parseFloat((jogo.precoJogo * (1 - jogo.desconto/100)).toFixed(2)) }</span> 
+                            </span>
+                        ) : null }
+                        <span>R$ {jogo.precoJogo}</span> 
+                    </div>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full" onClick={openModal}>
                         OBTER
                     </button>
                     <div>
@@ -223,5 +248,6 @@ export default function JogoDetalhe({ params }: Props) {
                 </div>
             </div>
         </div>
+
     );
 }
