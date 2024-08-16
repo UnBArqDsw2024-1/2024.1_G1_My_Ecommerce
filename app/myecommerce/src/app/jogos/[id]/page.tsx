@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import Compra from '@/components/Compra';
@@ -11,22 +12,24 @@ interface Props {
 };
 
 interface Jogo {
-    nomeJogo: string;
-    idJogo: string;
-    desenvolvedora: string;
-    editora: string;
-    descricao: string;
-    dataLancamento: string;
-    dataLancamentoInicial: string;
-    precoJogo: number;
-    desconto: number;
-    nota?: number; // Tornar opcional se pode faltar
-    recursos: string[];
-    generos: string[];
-    imagemCaminho: string;
-    plataforma: string;
-    quantidadeVendido: number;
-    tipos: string[];
+    props: {
+        nomeJogo: string;
+        idJogo: string;
+        desenvolvedora: string;
+        editora: string;
+        descricao: string;
+        dataLancamento: string;
+        dataLancamentoInicial: string;
+        precoJogo: number;
+        desconto: number;
+        nota?: number; // Tornar opcional se pode faltar
+        recursos: string[];
+        generos: string[];
+        imagemCaminho: string;
+        plataforma: string;
+        quantidadeVendido: number;
+        tipos: string[];
+    }
 }
 
 export default function JogoDetalhe({ params }: Props) {
@@ -58,7 +61,7 @@ export default function JogoDetalhe({ params }: Props) {
             setLoading(true);
             try {
                 const response = await axios.post<Jogo>('http://localhost:8000/jogos/buscarPorId', { idJogo: params.id });
-                setJogo(response.data.props);
+                setJogo(response.data);
                 console.log(response.data);
             }
             catch (error) {
@@ -80,7 +83,7 @@ export default function JogoDetalhe({ params }: Props) {
     }
 
     const imagens = [
-        jogo.imagemCaminho,
+        jogo.props.imagemCaminho,
         'https://thecatapi.com/api/images/get?format=src&type=gif',
         'https://picsum.photos/804/610?random=1',
         'https://picsum.photos/804/610?random=2',
@@ -88,13 +91,13 @@ export default function JogoDetalhe({ params }: Props) {
         'https://picsum.photos/804/610?random=4',
     ];
 
-    const dataLancamento = new Date(jogo.dataLancamento);
+    const dataLancamento = new Date(jogo.props.dataLancamento);
     var dia = String(dataLancamento.getUTCDate()).padStart(2, '0');
     var mes = String(dataLancamento.getUTCMonth() + 1).padStart(2, '0'); // Mês é 0-indexado, então +1
     var ano = dataLancamento.getUTCFullYear();
     const dataLancamentoFormatada = `${dia}/${mes}/${ano}`;
 
-    const dataLancamentoInicial = new Date(jogo.dataLancamentoInicial);
+    const dataLancamentoInicial = new Date(jogo.props.dataLancamentoInicial);
     dia = String(dataLancamentoInicial.getUTCDate()).padStart(2, '0');
     mes = String(dataLancamentoInicial.getUTCMonth() + 1).padStart(2, '0'); // Mês é 0-indexado, então +1
     ano = dataLancamentoInicial.getUTCFullYear();
@@ -106,28 +109,28 @@ export default function JogoDetalhe({ params }: Props) {
             <Compra isOpen={isModalOpen} onClose={closeModal} jogo={jogo} />
 
             {/* Nome do Jogo */}
-            <h1 className="font-bold text-6xl p-3 w-screen flex items-center text-white"> {jogo.nomeJogo} </h1>
-            <div className="px-10 w-screen flex items-center">
+            <h1 className="font-bold text-6xl p-3 w-screen flex items-center text-white"> {jogo.props.nomeJogo} </h1>
+            {/* <div className="px-10 w-screen flex items-center">
                 <ReactStars
                     count={5}
-                    value={jogo.nota}
+                    value={jogo.props.nota}
                     size={24}
                     color2={'#ffd700'} // Cor das estrelas preenchidas
                     edit={false} // Torna as estrelas não editáveis
                 />
                 <span className="px-4">
                     <span className="font-bold p-2 rounded bg-neutral-900 text-gray-300">
-                        {jogo.nota}
+                        {jogo.props.nota}
                     </span>
                 </span>
-            </div>
+            </div> */}
 
             <div className="flex">
                 {/* col-principal */}
                 <div className="w-3/4 p-4">
-                    {/* <Image src={jogo.imagemCaminho} alt="capa jogo" width={1000} height={1000} />  */}
+                    {/* <Image src={jogo.props.imagemCaminho} alt="capa jogo" width={1000} height={1000} />  */}
                     <div className="relative w-full h-[610px] rounded-[5px] overflow-hidden">
-                        {/* <Image src={jogo.imagemCaminho} alt="capa jogo" width={35} height={35} /> */}
+                        {/* <Image src={jogo.props.imagemCaminho} alt="capa jogo" width={35} height={35} /> */}
                         <img alt='Imagem jogo' className="w-full h-full object-cover" src={imagens[currentIndex]} />
                     </div>
 
@@ -149,18 +152,18 @@ export default function JogoDetalhe({ params }: Props) {
                         </button>
                     </div>
 
-                    <p className="py-4 text-white">{jogo.descricao}</p>
+                    <p className="py-4 text-white">{jogo.props.descricao}</p>
 
                     <div className="flex">
                         <div className="w-1/2 p-4">
                             <h1 className="text-stone-500">Gêneros</h1>
-                            {jogo.generos.map((genero, index) => (
+                            {jogo.props.generos.map((genero, index) => (
                                 <a key={index} className="underline text-white mr-2" href="#">{genero}</a>
                             ))}
                         </div>
                         <div className="w-1/2 p-4">
                             <h1 className="text-stone-500">Recursos</h1>
-                            {jogo.recursos.map((recurso, index) => (
+                            {jogo.props.recursos.map((recurso, index) => (
                                 <a key={index} className="underline text-white mr-2" href="#">{recurso}</a>
                             ))}
                         </div>
@@ -171,22 +174,22 @@ export default function JogoDetalhe({ params }: Props) {
                     <div className="p-10 flex items-center justify-center">
                         <span className="text-6xl px-4">
                             <span className="font-bold p-2 rounded bg-neutral-900 text-gray-300">
-                                {jogo.nota}
+                                {jogo.props.nota}
                             </span>
                         </span>
                         <ReactStars
                             count={5}
-                            value={jogo.nota}
+                            value={jogo.props.nota}
                             size={64}
                             color2={'#ffd700'} // Cor das estrelas preenchidas
                             edit={false} // Torna as estrelas não editáveis
                         />
                     </div>
                     <div>
-                        <h1 className="text-3xl py-4 text-white">Requisitos do sistema de {jogo.nomeJogo}</h1>
+                        <h1 className="text-3xl py-4 text-white">Requisitos do sistema de {jogo.props.nomeJogo}</h1>
                         <div id="requisitos" className="bg-[#202020] w-full p-[60px]">
                             <h1 className="text-stone-300">Recomendado</h1>
-                            {jogo.plataforma}
+                            {jogo.props.plataforma}
                         </div>
                     </div>
                 </div>
@@ -194,13 +197,13 @@ export default function JogoDetalhe({ params }: Props) {
                 {/* col-lateral */}
                 <div className="w-1/4 p-4 place-content-start" >
                     <div className='text-3xl mt-2 py-4'>
-                        {jogo.desconto > 0 ? (
+                        {jogo.props.desconto > 0 ? (
                             <span>
-                                <span className='bg-blue-600 px-2 py-1 rounded text-2xl mr-4'>-{jogo.desconto}%</span>
-                                <span className='mr-4 line-through text-neutral-500' >R$ {parseFloat((jogo.precoJogo * (1 - jogo.desconto / 100)).toFixed(2))}</span>
+                                <span className='bg-blue-600 px-2 py-1 rounded text-2xl mr-4'>-{jogo.props.desconto}%</span>
+                                <span className='mr-4 line-through text-neutral-500' >R$ {parseFloat((jogo.props.precoJogo * (1 - jogo.props.desconto / 100)).toFixed(2))}</span>
                             </span>
                         ) : null}
-                        <span>R$ {jogo.precoJogo}</span>
+                        <span>R$ {jogo.props.precoJogo}</span>
                     </div>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full" onClick={openModal}>
                         OBTER
@@ -216,11 +219,11 @@ export default function JogoDetalhe({ params }: Props) {
                             <tbody>
                                 <tr>
                                     <td className="py-[12px] text-left text-stone-500">Desenvolvedor</td>
-                                    <td className="text-right text-white">{jogo.desenvolvedora}</td>
+                                    <td className="text-right text-white">{jogo.props.desenvolvedora}</td>
                                 </tr>
                                 <tr>
                                     <td className="py-[12px] text-left text-stone-500">Editora</td>
-                                    <td className="text-right text-white">{jogo.editora}</td>
+                                    <td className="text-right text-white">{jogo.props.editora}</td>
                                 </tr>
                                 <tr>
                                     <td className="py-[12px] text-left text-stone-500">Data de lançameto</td>
