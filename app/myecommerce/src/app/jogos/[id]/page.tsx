@@ -174,12 +174,12 @@ export default function JogoDetalhe({ params }: Props) {
                     <div className="p-10 flex items-center justify-center">
                         <span className="text-6xl px-4">
                             <span className="font-bold p-2 rounded bg-neutral-900 text-gray-300">
-                                {jogo.props.nota}
+                                {jogo.props.nota ?? 5}
                             </span>
                         </span>
                         <ReactStars
                             count={5}
-                            value={jogo.props.nota}
+                            value={jogo.props.nota ?? 5}
                             size={64}
                             color2={'#ffd700'} // Cor das estrelas preenchidas
                             edit={false} // Torna as estrelas não editáveis
