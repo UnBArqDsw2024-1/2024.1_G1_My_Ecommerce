@@ -57,7 +57,8 @@ model Jogo {
   desenvolvedora Desenvolvedora? @relation(fields: [desenvolvedoraId], references: [idDesenvolvedora])
   desenvolvedoraId Int?
   plataforma String
-  imagemCaminho String 
+  imagemCaminho String
+  nota Float?
   Pedidos Pedido[]
   RecursoJogo RecursoJogo[]
   GeneroJogo GeneroJogo[]

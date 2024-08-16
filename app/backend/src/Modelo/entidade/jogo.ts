@@ -12,6 +12,7 @@ export type JogoProps = {
     desenvolvedora?: string,
     plataforma: string,
     imagemCaminho: string,
+    nota?: number | number,
     generos?: string[],
     recursos?: string[],
     tipos?: string[]
@@ -31,6 +32,7 @@ export class Jogo {
         quantidadeVendido: number,
         plataforma: string,
         imagemCaminho: string,
+        nota?: number,
         editora?: string,
         desenvolvedora?: string,
         generos?: string[],
@@ -50,6 +52,7 @@ export class Jogo {
             desenvolvedora,
             plataforma,
             imagemCaminho,
+            nota,
             generos,
             recursos,
             tipos
@@ -67,6 +70,7 @@ export class Jogo {
         quantidadeVendido: number,
         plataforma: string,
         imagemCaminho: string,
+        nota?: number,
         editora?: string,
         desenvolvedora?: string,
         generos?: string[],
@@ -84,6 +88,7 @@ export class Jogo {
             quantidadeVendido,
             plataforma,
             imagemCaminho,
+            nota,
             editora,
             desenvolvedora,
             generos,
@@ -130,6 +135,10 @@ export class Jogo {
 
     public get imagemCaminho() {
         return this.props.imagemCaminho;
+    }
+
+    public get nota() {
+        return this.props.nota;
     }
 
     public get editora() {

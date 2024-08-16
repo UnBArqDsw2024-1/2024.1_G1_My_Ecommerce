@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { Jogo } from "../entidade/jogo";
-import { Pedido } from "../entidade/pedido";
 
 // interface
 export interface JogoRepositorio {
@@ -13,9 +12,6 @@ export interface JogoRepositorio {
 
 export class JogoRepositorioPrisma implements JogoRepositorio {
     private constructor(readonly prisma: PrismaClient) { }
-    comprarJogo(idJogo: string, idCLiente: string): Promise<Pedido> {
-        throw new Error("Method not implemented.");
-    }
 
     public static build(prisma: PrismaClient) {
         return new JogoRepositorioPrisma(prisma);
@@ -58,6 +54,7 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
                 quantidadeVendido,
                 plataforma,
                 imagemCaminho,
+                nota,
                 editora,
                 desenvolvedora,
                 RecursoJogo,
@@ -76,6 +73,7 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
                 quantidadeVendido,
                 plataforma,
                 imagemCaminho,
+                nota ?? undefined,
                 editora?.nomeEditora,
                 desenvolvedora?.nomeDesenvolvedora,
                 GeneroJogo.map(gj => gj.genero.nomeGenero),
@@ -128,6 +126,7 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
                 quantidadeVendido,
                 plataforma,
                 imagemCaminho,
+                nota,
                 editora,
                 desenvolvedora,
                 RecursoJogo,
@@ -146,6 +145,7 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
                 quantidadeVendido,
                 plataforma,
                 imagemCaminho,
+                nota ?? undefined,
                 editora?.nomeEditora ?? "",
                 desenvolvedora?.nomeDesenvolvedora ?? "",
                 GeneroJogo.map(gj => gj.genero.nomeGenero),
@@ -195,6 +195,7 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
             quantidadeVendido,
             plataforma,
             imagemCaminho,
+            nota,
             editora,
             desenvolvedora,
             RecursoJogo,
@@ -213,6 +214,7 @@ export class JogoRepositorioPrisma implements JogoRepositorio {
             quantidadeVendido,
             plataforma,
             imagemCaminho,
+            nota?? undefined,
             editora?.nomeEditora ?? "",
             desenvolvedora?.nomeDesenvolvedora ?? "",
             GeneroJogo.map(gj => gj.genero.nomeGenero),
