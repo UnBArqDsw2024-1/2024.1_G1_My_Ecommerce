@@ -1,6 +1,7 @@
 "use client"
 
 import axios from 'axios';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import ReactStars from 'react-stars';
 
@@ -77,9 +78,20 @@ export default function JogoDetalhe({ params }: Props) {
         return <div>Jogo não encontrado.</div>;
     }
 
+    const dataLancamento = new Date(jogo.dataLancamento);
+    var dia = String(dataLancamento.getUTCDate()).padStart(2, '0');
+    var mes = String(dataLancamento.getUTCMonth() + 1).padStart(2, '0'); // Mês é 0-indexado, então +1
+    var ano = dataLancamento.getUTCFullYear();
+    const dataLancamentoFormatada = `${dia}/${mes}/${ano}`;
+
+    const dataLancamentoInicial = new Date(jogo.dataLancamentoInicial);
+    dia = String(dataLancamentoInicial.getUTCDate()).padStart(2, '0');
+    mes = String(dataLancamentoInicial.getUTCMonth() + 1).padStart(2, '0'); // Mês é 0-indexado, então +1
+    ano = dataLancamentoInicial.getUTCFullYear();
+    const dataLancamentoInicialFormatada = `${dia}/${mes}/${ano}`;
 
     return (
-        <div>
+        <div className='px-40'>
             {/* Nome do Jogo */}
             <h1 className="font-bold text-6xl p-3 w-screen flex items-center text-white"> {jogo.nomeJogo} </h1>
             <div className="px-10 w-screen flex items-center">
@@ -101,8 +113,8 @@ export default function JogoDetalhe({ params }: Props) {
             <div className="flex">
                 {/* col-principal */}
                 <div className="w-3/4 p-4">
-                    {/* <Image src={jogo.imagemCaminho} alt="capa jogo" width={35} height={35} /> */}
-                    <img className="w-full h-[610px] rounded-[5px]" src="https://thecatapi.com/api/images/get?format=src&type=gif" />
+                    <Image src={jogo.imagemCaminho} alt="capa jogo" width={1000} height={1000} /> 
+                    
                     <div className="carousel my-12 mx-auto">
                         <div className="relative overflow-hidden w-full">
                             {/* 
@@ -159,7 +171,7 @@ export default function JogoDetalhe({ params }: Props) {
                         <h1 className="text-3xl py-4 text-white">Requisitos do sistema de {jogo.nome}</h1>
                         <div id="requisitos" className="bg-[#202020] w-full p-[60px]">
                             <h1 className="text-stone-300">Recomendado</h1>
-                            jogo.plataforma
+                            {jogo.plataforma}
                         </div>
                     </div>
                 </div>
@@ -188,11 +200,11 @@ export default function JogoDetalhe({ params }: Props) {
                                 </tr>
                                 <tr>
                                     <td className="py-[12px] text-left text-stone-500">Data de lançameto</td>
-                                    <td className="text-right text-white">{jogo.dataLancamento}</td>
+                                    <td className="text-right text-white">{ dataLancamentoFormatada }</td>
                                 </tr>
                                 <tr>
                                     <td className="py-[12px] text-left text-stone-500">Lançameto inicial</td>
-                                    <td className="text-right text-white">{jogo.dataLancamentoInicial}</td>
+                                    <td className="text-right text-white">{ dataLancamentoInicialFormatada }</td>
                                 </tr>
                             </tbody>
                         </table>
