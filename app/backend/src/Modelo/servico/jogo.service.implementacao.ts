@@ -11,6 +11,7 @@ export type ListaJogoDto = {
         dataLancamentoInicial: Date;
         desconto: number;
         quantidadeVendido: number;
+        nota?: number,
         editora?: string;
         desenvolvedora?: string;
         GeneroJogo?: string[];
@@ -28,6 +29,7 @@ export type JogoDto = {
     dataLancamentoInicial: Date;
     desconto: number;
     quantidadeVendido: number;
+    nota?: number,
     editora?: string;
     desenvolvedora?: string;
     GeneroJogo?: string[];
@@ -66,6 +68,7 @@ export class JogoServicoImplementacao implements JogoServico {
                 dataLancamentoInicial: j.dataLancamentoInicial,
                 desconto: j.desconto,
                 quantidadeVendido: j.quantidadeVendido,
+                nota: j.nota,
                 editora: j.editora ?? '',
                 desenvolvedora: j.desenvolvedora ?? '',
                 generos: j.generos,
@@ -94,6 +97,7 @@ export class JogoServicoImplementacao implements JogoServico {
                 dataLancamentoInicial: j.dataLancamentoInicial,
                 desconto: j.desconto,
                 quantidadeVendido: j.quantidadeVendido,
+                nota: j.nota,
                 editora: j.editora ?? '',
                 desenvolvedora: j.desenvolvedora ?? '',
                 generos: j.generos,
