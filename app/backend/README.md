@@ -2,29 +2,50 @@
 
 ## Como rodar?
 
-1. Rode 'npm install'
+1. Abra a pasta do backend
 
-2. Rode 'npx prisma db push'
-
-3. Rode o projeto pelo terminal
-
-```sh
+   ```sh
    cd app/backend
-   npm run dev
    ```
 
-4. Instale a extensão REST Client
+2. Copie o conteúdo da pasta .env.example e crie .env
+
+   ```sh
+   cp .env.example .env
+   ```
+
+3. Configure o prisma
+
+      ```sh
+   npx prisma db push
+   npx prisma generate
+   ```
+
+4. Para verificar se o banco foi populado pode abrir a studo do prisma:
+
+      ```sh
+   npx prisma studio
+   ```
+
+   ![alt text](./img/prisma-studio.png)
+
+5. Rode o projeto pelo terminal
+
+   ```sh
+      npm run dev
+      ```
+
+### Teste das requisições
+
+1. Instalar a extensão REST Client no vscode
 
    ![alt text](./img/rest-client.png)
 
-5. Abra um novo terminal para acessar o arquivo `jogo.http`
+2. Abra algum dos arquivos .http ()
 
-```sh
+   ```sh
    cd api-test
    code jogo.http # code abre no vscode
    ```
 
-6. Clique em Send Request
-    - Será listado os jogos cadastrados
-
-![alt text](./img/prisma-studio.png)
+1. Clique em "Send Request" e será listado os jogos cadastrados

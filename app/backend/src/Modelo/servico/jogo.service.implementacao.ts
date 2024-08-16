@@ -62,6 +62,7 @@ export class JogoServicoImplementacao implements JogoServico {
                 precoJogo: j.precoJogo,
                 descricao: j.descricao,
                 dataLancamento: j.dataLancamento,
+                imagemCaminho: j.imagemCaminho,
                 dataLancamentoInicial: j.dataLancamentoInicial,
                 desconto: j.desconto,
                 quantidadeVendido: j.quantidadeVendido,
