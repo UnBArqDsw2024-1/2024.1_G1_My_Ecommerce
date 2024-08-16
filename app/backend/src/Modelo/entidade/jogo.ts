@@ -14,7 +14,6 @@ export type JogoProps = {
     imagemCaminho: string,
     generos?: string[],
     recursos?: string[],
-    nota: number,
     tipos?: string[]
 }
 
@@ -32,7 +31,6 @@ export class Jogo {
         quantidadeVendido: number,
         plataforma: string,
         imagemCaminho: string,
-        nota: number,
         editora?: string,
         desenvolvedora?: string,
         generos?: string[],
@@ -54,7 +52,6 @@ export class Jogo {
             imagemCaminho,
             generos,
             recursos,
-            nota,
             tipos
         });
     };
@@ -70,7 +67,6 @@ export class Jogo {
         quantidadeVendido: number,
         plataforma: string,
         imagemCaminho: string,
-        nota: number,
         editora?: string,
         desenvolvedora?: string,
         generos?: string[],
@@ -92,7 +88,6 @@ export class Jogo {
             desenvolvedora,
             generos,
             recursos,
-            nota,
             tipos
         });
     }
