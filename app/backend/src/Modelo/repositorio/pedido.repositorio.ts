@@ -9,10 +9,14 @@ export interface PedidoRepositorio {
     // listarPorStatus(status:string):Promise<Pedido[]>
     gerarNota(idPedido:number):Promise<void>
     enviarRecibo(email:string):Promise<void>
+    listarPorStatusCliente(status: StatusPedido, clienteId: string): Promise<string[]>;
 }
 
 export class PedidoRepositorioPrisma implements PedidoRepositorio {
     private constructor(readonly prisma: PrismaClient) {}
+    listarPorStatus(status: StatusPedido, clienteId: string): Promise<string[]> {
+        throw new Error("Method not implemented.");
+    }
     // addBiblioteca(idPedido: number): Promise<void> {
     //     throw new Error("Method not implemented.");
     // }
@@ -139,42 +143,33 @@ export class PedidoRepositorioPrisma implements PedidoRepositorio {
     //     );
     // }
     
-    public async listarPorStatus(status: string): Promise<Pedido[]> {
-        // const aPedidos = await this.prisma.pedido.findMany({
-        //     where: { status: { contains: status }},
-        //     include: {
-        //         Cliente: { select: { idCliente: true } },
-        //         Jogo: { select: { idJogo: true } },
-        //         Pagamento: { select: { nomePagamento: true } },
-        //     }
-        // });
+    public async listarPorStatusCliente(status: StatusPedido, clienteId: string): Promise<string[]> {
+        try {
+            // Busca os pedidos com o status fornecido
+            const pedidos = await this.prisma.pedido.findMany({
+                where: { status: status , clienteId: clienteId},
+                select: {
+                    Jogo: {
+                        select: {
+                            idJogo: true
+                        }
+                    }
+                }
+            });
     
-        // // Se não encontrar nenhum jogo, retorna uma lista vazia
-        // if (aPedidos.length === 0) return [];
-
-        // const pedidos = aPedidos.map((p) =>  {
-        //     const {
-        //         idPedido,
-        //         status,
-        //         Cliente,
-        //         dataPedido,
-        //         Jogo,
-        //         Pagamento,
-        //     } = p;
-        //     return Pedido.with(
-        //         idPedido,
-        //         status,
-        //         Cliente?.idCliente ?? "",
-        //         Jogo?.idJogo ?? "",
-        //         dataPedido,
-        //         Pagamento?.nomePagamento ?? "",
-        //         // Nota.idNota, // mudar o nome no banco
-        //     );
-        // });
-        // return pedidos;
-        throw new Error("Em implementação");
-
+            // Mapeia os pedidos para obter uma lista de IDs dos jogos
+            const jogoIds = pedidos.map(pedido => pedido.Jogo.idJogo);
+    
+            // Retorna a lista de IDs dos jogos
+            return jogoIds;
+        } catch (error) {
+            console.error("Erro ao listar IDs dos jogos por status:", error);
+            throw new Error("Erro ao listar IDs dos jogos por status");
+        }
     }
+    
+    
+    
     
 
     
