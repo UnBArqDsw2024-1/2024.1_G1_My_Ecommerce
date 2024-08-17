@@ -20,6 +20,7 @@ function main() {
     // api.addPostRoute("/pedido/biblioteca", controllerPedido.confirmarPagamento);
     api.addPostRoute("/pedido/status", controllerPedido.alterarStatusPedido);
     api.addPostRoute("/pedido/carrinho", controllerPedido.addCarrinho);
+    api.addPostRoute("/pedido/jogos", controllerPedido.listarPorStatusCliente);
 
 
     api.start(8000);

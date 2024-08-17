@@ -17,15 +17,15 @@ export type ListarPedidoDto = {
 export interface PedidoServico {
     addCarrinho(clienteId: string, jogoId: string): Promise<void>
     alterarStatusPedido(idPedido: number, status:StatusPedido):Promise<void>
-    // listarPorStatus(status:string):Promise<ListarPedidoDto>
     gerarNota(idPedido:number):Promise<void>
     enviarRecibo(email:string):Promise<void>
+    listarPorStatusCliente(status: StatusPedido, clienteId: string): Promise<string[]>;
 };
 
 export class PedidoServicoImplementacao implements PedidoServico {
     
     private constructor(private prisma: PedidoRepositorio) {}
-    
+   
     public static build(prisma: PedidoRepositorio){
         return new PedidoServicoImplementacao(prisma);
     }
@@ -47,6 +47,12 @@ export class PedidoServicoImplementacao implements PedidoServico {
     public async enviarRecibo(email: string): Promise<void> {
         await this.prisma.enviarRecibo(email);
     }
+
+
+    public async listarPorStatusCliente(status: StatusPedido, clienteId: string): Promise<string[]> {
+        return await this.prisma.listarPorStatusCliente(status,clienteId);
+    }
+    
     
     
 }

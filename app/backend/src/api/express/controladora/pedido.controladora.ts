@@ -90,6 +90,33 @@ export class PedidoControladora {
             response.status(500).json({ error: 'Erro ao adicionar jogo no carrinho' });
         }
     }
+
+    public async listarPorStatusCliente(request: Request, response: Response): Promise<void> {
+        const { status, clienteId } = request.body;
+
+        if (typeof status !== 'string' || typeof clienteId !== 'string') {
+            response.status(400).json({ error: 'status e clienteId devem ser strings' });
+            return;
+        }
+
+        if (!Object.values(StatusPedido).includes(status as StatusPedido)) {
+            response.status(400).json({ error: 'Status inválido' });
+            return;
+        }
+
+        try {
+            const pedidoRepositorio = PedidoRepositorioPrisma.build(prisma);
+            const pedidoServico = PedidoServicoImplementacao.build(pedidoRepositorio);
+
+            const idsJogos = await pedidoServico.listarPorStatusCliente(status as StatusPedido, clienteId);
+            response.status(200).json({ idsJogos });
+        } catch (error) {
+            console.error("Erro ao listar IDs dos jogos por status e cliente:", error);
+            response.status(500).json({ error: 'Erro ao listar IDs dos jogos por status e cliente' });
+        }
+    }
+
+    
     
 
     // public async listarPorStatus(request: Request, response: Response): Promise<void> {
