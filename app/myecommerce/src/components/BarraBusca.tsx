@@ -11,8 +11,8 @@ export default function Login() {
             </div>
 
             <div className="w-40 flex justify-between">
-                <span>Descubra</span>
-                <span className="text-neutral-500 cursor-pointer">Busque</span>
+                <a className="text-neutral-500 hover:text-neutral-100 cursor-pointer" href='/'>Descubra</a>
+                <span className="text-neutral-500 hover:text-neutral-100 cursor-pointer">Busque</span>
             </div>
         </div>
     );

@@ -1,7 +1,5 @@
 import Image from 'next/image';
 import Logo from '../assets/logo.svg';
-// import Perfil from '../assets/perfil.svg';
-import Planeta from '../assets/planeta.svg';
 import MenuConta from './MenuConta';
 
 export default function TopBar() {
@@ -12,7 +10,6 @@ export default function TopBar() {
                 <span className='text-white border-l border-gray-500 pl-5'>Loja</span>
             </span>
             <span className="flex items-center space-x-2 ">
-                {/* <Image src={Planeta} width={35} height={35} alt="Mudar linguagem" /> */}
                 <MenuConta />
             </span>
         </span>

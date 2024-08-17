@@ -1,104 +1,169 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
-// import ReactStars from 'react-rating-star-with-type'; 
-import React, { useState } from 'react';
+import Compra from '@/components/Compra';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import ReactStars from 'react-stars';
-import { CiGlobe } from "react-icons/ci";
+
 
 interface Props {
     params: { id: string }
 };
 
-const jogo = {
-    nome: "Valorant",
-    id: "ide15adad88",
-    desenvolvedor: "Desenvolvedor XYZ",
-    editora: "Editora ABC",
-    avaliacoes: [],
-    descricao: "Este é um jogo muito ruim.",
-    dataLancamento: "2024-01-01",
-    dataLancamentoInicial: "2024-01-01",
-    preco: "20 USD",
-    desconto: 0.05,
-    nota: 4.5, // Esse vem do metodo getNota na verdade
-    recursos: ['Competitivo', 'Multijogador'],
-    generos: ['Ação', 'Tiro'],
-};
-
-const imagens = [
-    '../../../assets/valorant.jpeg',
-    '../../../assets/valorant.jpeg',
-    '../../../assets/valorant.jpeg',
-    '../../../assets/valorant.jpeg',
-];
-
-
+interface Jogo {
+    props: {
+        nomeJogo: string;
+        idJogo: string;
+        desenvolvedora: string;
+        editora: string;
+        descricao: string;
+        dataLancamento: string;
+        dataLancamentoInicial: string;
+        precoJogo: number;
+        desconto: number;
+        nota?: number; // Tornar opcional se pode faltar
+        recursos: string[];
+        generos: string[];
+        imagemCaminho: string;
+        plataforma: string;
+        quantidadeVendido: number;
+        tipos: string[];
+    }
+}
 
 export default function JogoDetalhe({ params }: Props) {
+
+    const [loading, setLoading] = useState(true);
+    const [jogo, setJogo] = useState<Jogo | null>(null);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
     const [currentIndex, setCurrentIndex] = useState(0);
-    
+
     const handlePrev = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? imagens.length - 1 : prevIndex - 1));
     };
-    
+
     const handleNext = () => {
         setCurrentIndex((prevIndex) => (prevIndex === imagens.length - 1 ? 0 : prevIndex + 1));
     };
 
+    const handleClick = (index: number) => {
+        setCurrentIndex(index);
+    }
+
+
+    useEffect(() => {
+        const fetchJogo = async () => {
+            setLoading(true);
+            try {
+                const response = await axios.post<Jogo>('http://localhost:8000/jogos/buscarPorId', { idJogo: params.id });
+                setJogo(response.data);
+                console.log(response.data);
+            }
+            catch (error) {
+                console.error(error);
+            }
+            setLoading(false);
+        }
+
+        fetchJogo();
+    }, [params.id]);
+
+
+    if (loading) {
+        return <div>Carregando...</div>;
+    }
+
+    if (!jogo) {
+        return <div>Jogo não encontrado.</div>;
+    }
+
+    const imagens = [
+        jogo.props.imagemCaminho,
+        'https://thecatapi.com/api/images/get?format=src&type=gif',
+        'https://picsum.photos/804/610?random=1',
+        'https://picsum.photos/804/610?random=2',
+        'https://picsum.photos/804/610?random=3',
+        'https://picsum.photos/804/610?random=4',
+    ];
+
+    const dataLancamento = new Date(jogo.props.dataLancamento);
+    var dia = String(dataLancamento.getUTCDate()).padStart(2, '0');
+    var mes = String(dataLancamento.getUTCMonth() + 1).padStart(2, '0'); // Mês é 0-indexado, então +1
+    var ano = dataLancamento.getUTCFullYear();
+    const dataLancamentoFormatada = `${dia}/${mes}/${ano}`;
+
+    const dataLancamentoInicial = new Date(jogo.props.dataLancamentoInicial);
+    dia = String(dataLancamentoInicial.getUTCDate()).padStart(2, '0');
+    mes = String(dataLancamentoInicial.getUTCMonth() + 1).padStart(2, '0'); // Mês é 0-indexado, então +1
+    ano = dataLancamentoInicial.getUTCFullYear();
+    const dataLancamentoInicialFormatada = `${dia}/${mes}/${ano}`;
+
     return (
-        <div>
-            {/* Nome do JOgo */}
-            <h1 className="font-bold text-6xl p-3 w-screen flex items-center text-white"> {jogo.nome} </h1>
-            <div className="px-10 w-screen flex items-center">
+        <div className='px-40'>
+
+            <Compra isOpen={isModalOpen} onClose={closeModal} jogo={jogo} />
+
+            {/* Nome do Jogo */}
+            <h1 className="font-bold text-6xl p-3 w-screen flex items-center text-white"> {jogo.props.nomeJogo} </h1>
+            {/* <div className="px-10 w-screen flex items-center">
                 <ReactStars
                     count={5}
-                    value={jogo.nota}
+                    value={jogo.props.nota}
                     size={24}
                     color2={'#ffd700'} // Cor das estrelas preenchidas
                     edit={false} // Torna as estrelas não editáveis
                 />
                 <span className="px-4">
                     <span className="font-bold p-2 rounded bg-neutral-900 text-gray-300">
-                    {jogo.nota}
-
+                        {jogo.props.nota}
                     </span>
                 </span>
-            </div>
+            </div> */}
 
             <div className="flex">
                 {/* col-principal */}
                 <div className="w-3/4 p-4">
-                    {/* <Image src={jogo.imagemCaminho} alt="capa jogo" width={35} height={35} /> */}
-                    <img className="w-full h-[610px] rounded-[5px]" src="https://thecatapi.com/api/images/get?format=src&type=gif" />
-                    <div className="carousel my-12 mx-auto">
-                        <div className="relative overflow-hidden w-full">
-                            <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                                {imagens.map((src, index) => (
-                                    <div key={index} className="min-w-full flex-shrink-0">
-                                        <img src={src} alt={`Slide ${index}`} className="w-full h-auto object-cover" />
-                                    </div>
-                                ))}   
-                            </div>
-                            <button className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full" onClick={handlePrev}>
-                                &#10094;
-                            </button>
-                            <button className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full" onClick={handleNext}>
-                                &#10095;
-                            </button>
-                        </div>
+                    {/* <Image src={jogo.props.imagemCaminho} alt="capa jogo" width={1000} height={1000} />  */}
+                    <div className="relative w-full h-[610px] rounded-[5px] overflow-hidden">
+                        {/* <Image src={jogo.props.imagemCaminho} alt="capa jogo" width={35} height={35} /> */}
+                        <img alt='Imagem jogo' className="w-full h-full object-cover" src={imagens[currentIndex]} />
                     </div>
-                    <p className="py-4 text-white">{jogo.descricao}</p>
+
+                    <div className="flex items-center w-[804px] justify-between mt-4">
+                        <button className="mt-4 mr-4 bg-gray-800 text-white w-8 h-8 rounded-full flex items-center justify-center" onClick={handlePrev}>
+                            &#10094;
+                        </button>
+
+                        <div className="flex mt-4 space-x-7">
+                            {imagens.map((src, index) => (
+                                <div key={index} className="cursor-pointer" onClick={() => handleClick(index)}>
+                                    <img src={src} alt={`Slide ${index}`} className={`w-[150px] h-[70px] object-cover rounded-md ${currentIndex === index ? 'border border-white-500' : ''}`} />
+                                </div>
+                            ))}
+                        </div>
+
+                        <button className="mt-4 ml-4 bg-gray-800 text-white w-8 h-8 rounded-full flex items-center justify-center" onClick={handleNext}>
+                            &#10095;
+                        </button>
+                    </div>
+
+                    <p className="py-4 text-white">{jogo.props.descricao}</p>
 
                     <div className="flex">
                         <div className="w-1/2 p-4">
                             <h1 className="text-stone-500">Gêneros</h1>
-                            {jogo.generos.map((genero, index) => (
+                            {jogo.props.generos.map((genero, index) => (
                                 <a key={index} className="underline text-white mr-2" href="#">{genero}</a>
                             ))}
                         </div>
                         <div className="w-1/2 p-4">
                             <h1 className="text-stone-500">Recursos</h1>
-                            {jogo.recursos.map((recurso, index) => (
+                            {jogo.props.recursos.map((recurso, index) => (
                                 <a key={index} className="underline text-white mr-2" href="#">{recurso}</a>
                             ))}
                         </div>
@@ -109,61 +174,71 @@ export default function JogoDetalhe({ params }: Props) {
                     <div className="p-10 flex items-center justify-center">
                         <span className="text-6xl px-4">
                             <span className="font-bold p-2 rounded bg-neutral-900 text-gray-300">
-                            {jogo.nota}
+                                {jogo.props.nota ?? 5}
                             </span>
                         </span>
                         <ReactStars
                             count={5}
-                            value={jogo.nota}
+                            value={jogo.props.nota ?? 5}
                             size={64}
                             color2={'#ffd700'} // Cor das estrelas preenchidas
                             edit={false} // Torna as estrelas não editáveis
                         />
                     </div>
                     <div>
-                        <h1 className="text-3xl py-4 text-white">Requisitos do sistema de {jogo.nome}</h1>
+                        <h1 className="text-3xl py-4 text-white">Requisitos do sistema de {jogo.props.nomeJogo}</h1>
                         <div id="requisitos" className="bg-[#202020] w-full p-[60px]">
                             <h1 className="text-stone-300">Recomendado</h1>
-                            jogo.plataforma
-                        </div>
-                        </div>
-                    </div>
-
-                    {/* col-lateral */}
-                    <div className="w-1/4 p-4 place-content-start" >
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-                            OBTER
-                        </button>
-                        <div>
-                            <table className="table-auto w-full">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td className="py-[12px] text-left text-stone-500">Desenvolvedor</td>
-                                        <td className="text-right text-white">{jogo.desenvolvedor}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-[12px] text-left text-stone-500">Editora</td>
-                                        <td className="text-right text-white">{jogo.editora}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-[12px] text-left text-stone-500">Data de lançameto</td>
-                                        <td className="text-right text-white">{jogo.dataLancamento}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-[12px] text-left text-stone-500">Lançameto inicial</td>
-                                        <td className="text-right text-white">{jogo.dataLancamentoInicial}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            {jogo.props.plataforma}
                         </div>
                     </div>
                 </div>
+
+                {/* col-lateral */}
+                <div className="w-1/4 p-4 place-content-start" >
+                    <div className='text-3xl mt-2 py-4'>
+                        {jogo.props.desconto > 0 ? (
+                            <span>
+                                <span className='bg-blue-600 px-2 py-1 rounded text-2xl mr-4'>-{jogo.props.desconto}%</span>
+                                <span className='mr-4 line-through text-neutral-500' >R$ {parseFloat((jogo.props.precoJogo * (1 - jogo.props.desconto / 100)).toFixed(2))}</span>
+                            </span>
+                        ) : null}
+                        <span>R$ {jogo.props.precoJogo}</span>
+                    </div>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full" onClick={openModal}>
+                        OBTER
+                    </button>
+                    <div>
+                        <table className="table-auto w-full">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="py-[12px] text-left text-stone-500">Desenvolvedor</td>
+                                    <td className="text-right text-white">{jogo.props.desenvolvedora}</td>
+                                </tr>
+                                <tr>
+                                    <td className="py-[12px] text-left text-stone-500">Editora</td>
+                                    <td className="text-right text-white">{jogo.props.editora}</td>
+                                </tr>
+                                <tr>
+                                    <td className="py-[12px] text-left text-stone-500">Data de lançameto</td>
+                                    <td className="text-right text-white">{dataLancamentoFormatada}</td>
+                                </tr>
+                                <tr>
+                                    <td className="py-[12px] text-left text-stone-500">Lançameto inicial</td>
+                                    <td className="text-right text-white">{dataLancamentoInicialFormatada}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
+        </div>
+
     );
 }

@@ -1,8 +1,15 @@
-export default function LoginCard({ label, type, placeholder, name }) {
+interface Props {
+    label: string;
+    type: string;
+    placeholder: string;
+    name: string;
+}
+
+export default function LoginCard({ label, type, placeholder, name }: Props) {
     return (
         <div className="mb-4">
             <label className="block text-gray-300 text-sm font-bold mb-2">
-            {label}
+                {label}
             </label>
             <input
                 type={type}
